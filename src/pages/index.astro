@@ -1,17 +1,217 @@
 ---
+// 1. ASTRO FRONTMATTER (Runs at build time)
+// We store static content here so our HTML below stays clean and easy to maintain.
+// 1. Import Tailwind CSS
+import '../styles/global.css';
 
+const navLinks = [
+  { name: "Início", href: "#" },
+  { name: "Conteúdo", href: "#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+const modules = [
+  {
+    id: 1,
+    title: "O que é choque?",
+    description: "Conceito, fisiopatologia e importância do reconhecimento precoce.",
+  },
+  {
+    id: 2,
+    title: "Como reconhecer o choque?",
+    description: "Sinais, sintomas e parâmetros clínicos para identificação do choque.",
+  },
+  {
+    id: 3,
+    title: "Fisiologia cardiovascular aplicada",
+    description: "Fundamentos da fisiologia para entender a resposta hemodinâmica.",
+  },
+  {
+    id: 4,
+    title: "Os tipos de choque",
+    description: "Conheça os principais tipos de choque e suas características.",
+  },
+  {
+    id: 5,
+    title: "O que são drogas vasoativas?",
+    description: "Mecanismos de ação, indicações e cuidados no uso das drogas.",
+  },
+  {
+    id: 6,
+    title: "Noradrenalina",
+    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+  },
+  {
+    id: 7,
+    title: "Vasopressina",
+    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+  },
+  {
+    id: 8,
+    title: "Dobutamina",
+    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+  },
+  {
+    id: 9,
+    title: "Adrenalina",
+    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+  },
+  {
+    id: 10,
+    title: "Vasodilatadores",
+    description: "Principais drogas, indicações, cuidados e monitorização.",
+  },
+];
+
+const practicalModules = [
+  {
+    id: 11,
+    title: "Casos clínicos",
+    description: "Casos reais simulados para aplicar o conhecimento e tomar decisões.",
+  },
+  {
+    id: 12,
+    title: "Algoritmo de decisão",
+    description: "Fluxogramas práticos para escolha da droga certa na situação certa.",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>VASOATIVA - Educação em Saúde</title>
+    <!-- Google Fonts for clean medical/tech typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Logo Text -->
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </div>
+
+        <!-- Nav Links (Hidden on small mobile screens, horizontal on desktop) -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20">
+      <div class="max-w-3xl py-8">
+        <!-- Badge -->
+        <p class="text-xs font-bold tracking-widest text-teal-600 uppercase mb-3">
+          Conhecimento que salva. Decisão que transforma.
+        </p>
+
+        <!-- Main Heading -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+          Domine as drogas <span class="text-slate-900">vasoativas.</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-lg text-slate-600 leading-relaxed mb-8">
+          Aprenda a reconhecer, decidir e tratar com segurança os pacientes críticos. 
+          Plataforma educacional interativa para aprofundar seus conhecimentos e tomar 
+          decisões assertivas no manejo hemodinâmico.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#conteudo" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150">
+            Começar agora
+          </a>
+          <a href="#como-funciona" class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150">
+            Como funciona
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTION DIVIDER -->
+      <div id="conteudo" class="mt-16 mb-12 text-center relative">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-slate-200"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-slate-50 px-4 text-sm font-bold tracking-widest text-teal-700 uppercase">
+            O que você vai aprender
+          </span>
+        </div>
+      </div>
+
+      <!-- MODULES GRID (Items 1-10) -->
+      <!-- Stacks to 1 col on mobile, 2 on tablet, 3 on laptop, and 5 on large desktops matching your layout -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-5">
+        {modules.map((mod) => (
+          <a 
+            href={`/modulo/${mod.id}`} 
+            class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex flex-col justify-between"
+          >
+            <div>
+              <!-- Top Row: Placeholder for Icon + Number -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 font-bold flex items-center justify-center text-sm group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                  {mod.id}
+                </span>
+              </div>
+
+              <!-- Title -->
+              <h3 class="font-bold text-slate-900 group-hover:text-teal-700 transition-colors mb-2 text-base leading-snug">
+                {mod.title}
+              </h3>
+
+              <!-- Description -->
+              <p class="text-xs text-slate-500 leading-relaxed">
+                {mod.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- BOTTOM WIDE MODULES (Items 11 & 12) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {practicalModules.map((mod) => (
+          <a 
+            href={`/modulo/${mod.id}`} 
+            class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex items-start gap-5"
+          >
+            <span class="w-12 h-12 shrink-0 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-base group-hover:bg-teal-600 transition-colors">
+              {mod.id}
+            </span>
+            <div>
+              <h3 class="font-bold text-slate-900 group-hover:text-teal-700 transition-colors mb-1 text-lg">
+                {mod.title}
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed">
+                {mod.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+
+  </body>
 </html>
