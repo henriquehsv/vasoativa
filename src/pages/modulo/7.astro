@@ -1,0 +1,316 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-6 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const h3 = "text-xl font-bold text-slate-900 tracking-tight mt-9 mb-3";
+const h4 = "text-lg font-semibold text-teal-800 mt-7 mb-2";
+const ul = "mb-6 space-y-2 text-lg text-slate-700 leading-relaxed list-disc pl-6 marker:text-teal-600";
+const tabWrap = "overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-sm my-8";
+const th = "px-5 py-3 font-semibold";
+const td = "px-5 py-4";
+const titulo = "Vasodilatadores";
+const subtitulo = "Mecanismos de ação e efeitos hemodinâmicos";
+
+const classes = [
+  { classe: "Doadores de óxido nítrico", exemplos: "Nitroglicerina e nitroprussiato de sódio" },
+  { classe: "Bloqueadores dos canais de cálcio di-hidropiridínicos", exemplos: "Nicardipina e clevidipina intravenosas" },
+  { classe: "Vasodilatadores de ação direta", exemplos: "Hidralazina" },
+];
+
+const legendaPam = [
+  { sigla: "PAM", texto: "pressão arterial média;" },
+  { sigla: "PVC", texto: "pressão venosa central;" },
+  { sigla: "DC", texto: "débito cardíaco;" },
+  { sigla: "RVS", texto: "resistência vascular sistêmica." },
+];
+
+const referencias = [
+  { a: "CHIONCEL, Ovidiu et al. Pathophysiology and clinical use of agents with vasodilator properties in acute heart failure: a scientific statement of the Heart Failure Association (HFA) of the European Society of Cardiology (ESC).", r: "European Journal of Heart Failure", d: ", v. 27, n. 6, p. 1067–1088, 2025.", doi: "10.1002/ejhf.3673" },
+  { a: "HEIDENREICH, Paul A. et al. 2022 AHA/ACC/HFSA guideline for the management of heart failure: a report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines.", r: "Circulation", d: ", v. 145, n. 18, p. e895–e1032, 2022.", doi: "10.1161/CIR.0000000000001063" },
+  { a: "MCEVOY, John W. et al. 2024 ESC Guidelines for the management of elevated blood pressure and hypertension.", r: "European Heart Journal", d: ", v. 45, n. 38, p. 3912–4018, 2024.", doi: "10.1093/eurheartj/ehae178" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Mecanismos de ação, efeitos hemodinâmicos, principais fármacos, indicações e cuidados no uso de vasodilatadores." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+          {titulo}
+        </h1>
+        <p class="text-xl text-slate-500 mb-8">{subtitulo}</p>
+
+        <h2 class={h2}>Introdução</h2>
+
+        <p class={p}>Os vasodilatadores constituem um grupo heterogêneo de fármacos capazes de reduzir o tônus da musculatura lisa vascular, promovendo aumento do diâmetro dos vasos e modificando a distribuição do volume sanguíneo na circulação. Embora compartilhem a capacidade de promover vasodilatação, diferem quanto ao mecanismo molecular, à predominância de ação sobre os territórios arterial e venoso, à velocidade de início do efeito e às indicações clínicas.</p>
+
+        <p class={p}>No contexto da terapia intensiva, os vasodilatadores intravenosos apresentam particular importância no manejo de pacientes selecionados com insuficiência cardíaca aguda, edema agudo de pulmão associado à elevação da pressão arterial e determinadas emergências hipertensivas. A escolha do fármaco depende da condição clínica, do perfil hemodinâmico e da necessidade de redução controlada da pressão arterial ou das pressões de enchimento cardíaco (Chioncel et al., 2025; McEvoy et al., 2024).</p>
+
+        <p class={p}>Na insuficiência cardíaca aguda, a vasodilatação pode reduzir a sobrecarga imposta ao coração, aliviar a congestão pulmonar e melhorar os sintomas, especialmente quando há elevação da pressão arterial e aumento das pressões de enchimento ventricular. Entretanto, esses benefícios não devem ser confundidos com redução comprovada da mortalidade ou das hospitalizações. As evidências disponíveis sustentam o emprego seletivo desses medicamentos, e não sua utilização indiscriminada em todos os pacientes com insuficiência cardíaca descompensada (Heidenreich et al., 2022; Chioncel et al., 2025).</p>
+
+        <p class={p}>A compreensão dos vasodilatadores exige, portanto, relacionar seus mecanismos farmacológicos aos determinantes do débito cardíaco, da pressão arterial e da perfusão tecidual. Essa abordagem permite compreender por que um medicamento predominantemente venodilatador, como a nitroglicerina, apresenta efeitos diferentes daqueles observados com um vasodilatador arterial e venoso, como o nitroprussiato de sódio.</p>
+
+        <h2 class={h2}>Mecanismos de ação</h2>
+
+        <p class={p}>A contração da musculatura lisa vascular depende, entre outros mecanismos, do aumento da concentração intracelular de cálcio e da ativação das proteínas responsáveis pela interação entre actina e miosina. Os vasodilatadores interferem nesse processo por diferentes vias, incluindo o aumento da sinalização mediada pelo óxido nítrico e pelo monofosfato cíclico de guanosina (GMPc), a redução da entrada de cálcio nas células musculares lisas e a modulação de sistemas hormonais envolvidos na regulação do tônus vascular.</p>
+
+        <p class={p}>Apesar da diversidade de mecanismos, a consequência hemodinâmica depende principalmente do território vascular afetado. A redução do tônus venoso aumenta a capacitância venosa e modifica o retorno de sangue ao coração, enquanto a dilatação arteriolar diminui a resistência vascular sistêmica e a impedância à ejeção ventricular. Alguns medicamentos, por sua vez, promovem efeitos relevantes sobre ambos os territórios (Chioncel et al., 2025).</p>
+
+        <h3 class={h3}>Vasodilatação venosa e redução da pré-carga</h3>
+
+        <p class={p}>As veias sistêmicas apresentam elevada capacitância e armazenam grande parcela do volume sanguíneo circulante. A venodilatação aumenta a capacidade desse compartimento vascular, favorecendo o deslocamento relativo do sangue para a circulação periférica e reduzindo a pressão de enchimento do coração.</p>
+
+        <p class={p}>A redução do retorno venoso pode diminuir o volume diastólico final ventricular e, consequentemente, a pré-carga. Em pacientes com insuficiência cardíaca e pressões de enchimento elevadas, esse efeito pode reduzir a pressão venosa pulmonar e a pressão capilar pulmonar, contribuindo para o alívio da congestão e da dispneia.</p>
+
+        <p class={p}>A nitroglicerina é um exemplo importante desse mecanismo, pois, nas doses habitualmente utilizadas, apresenta ação predominantemente venodilatadora. Com o aumento da dose, seu efeito sobre o território arterial também se torna mais significativo. Assim, o efeito final depende da dose administrada e das condições hemodinâmicas do paciente (Chioncel et al., 2025).</p>
+
+        <p class={p}>É importante ressaltar que a redução da pré-carga não é necessariamente benéfica em todas as circunstâncias. Em pacientes hipovolêmicos ou dependentes de pressões de enchimento mais elevadas para manter o volume sistólico, a venodilatação excessiva pode reduzir o débito cardíaco e comprometer a perfusão orgânica.</p>
+
+        <h3 class={h3}>Vasodilatação arterial e redução da pós-carga</h3>
+
+        <p class={p}>As arteríolas constituem o principal território de resistência da circulação sistêmica. Sua dilatação reduz a resistência vascular sistêmica e modifica a carga contra a qual o ventrículo esquerdo precisa ejetar o sangue.</p>
+
+        <p class={p}>A pós-carga ventricular não é determinada exclusivamente pela resistência vascular sistêmica, pois também depende de fatores como pressão arterial, impedância arterial e propriedades mecânicas da parede ventricular. Entretanto, na prática clínica, a redução da resistência arteriolar representa um mecanismo importante pelo qual os vasodilatadores podem diminuir a carga de ejeção do ventrículo esquerdo.</p>
+
+        <p class={p}>Em pacientes com disfunção sistólica e pós-carga elevada, essa redução pode facilitar o esvaziamento ventricular e favorecer o aumento do volume sistólico. A magnitude da resposta, contudo, depende da contratilidade miocárdica, da pré-carga e das condições circulatórias presentes. Por esse motivo, a vasodilatação arterial não garante aumento do débito cardíaco em todos os pacientes.</p>
+
+        <p class={p}>O nitroprussiato de sódio é um exemplo de fármaco com ação vasodilatadora arterial e venosa, capaz de reduzir a resistência vascular sistêmica e as pressões de enchimento cardíaco. A hidralazina, por sua vez, atua predominantemente sobre o território arterial (Chioncel et al., 2025).</p>
+
+        <h3 class={h3}>Relação entre pressão arterial, débito cardíaco e resistência vascular sistêmica</h3>
+
+        <p class={p}>A pressão arterial média pode ser compreendida por meio da relação entre o débito cardíaco e a resistência vascular sistêmica:</p>
+
+        <p class={formula}>PAM − PVC ≈ DC × RVS</p>
+
+        <p class={p}>Em que:</p>
+
+        <ul class={ul}>
+          {legendaPam.map((l) => (
+            <li><strong class="font-semibold text-slate-900">{l.sigla}:</strong> {l.texto}</li>
+          ))}
+        </ul>
+
+        <p class={p}>Quando a pressão venosa central é pequena em relação à pressão arterial média, a relação pode ser simplificada para:</p>
+
+        <p class={formula}>PAM ≈ DC × RVS</p>
+
+        <p class={p}>Essa aproximação evidencia que a pressão arterial resulta da interação entre o fluxo sanguíneo produzido pelo coração e a resistência oferecida pela circulação sistêmica. Ao reduzir a resistência vascular sistêmica, os vasodilatadores tendem a diminuir a pressão arterial. Entretanto, a resposta final depende das alterações concomitantes do débito cardíaco. Quando a redução da pós-carga melhora a ejeção ventricular, o débito cardíaco pode aumentar e atenuar a queda da pressão arterial. Por outro lado, se houver diminuição excessiva do retorno venoso ou comprometimento da função cardíaca, o débito cardíaco poderá cair, intensificando a hipotensão.</p>
+
+        <p class={p}>Consequentemente, a redução da resistência vascular sistêmica não determina isoladamente a resposta do débito cardíaco nem assegura melhora da perfusão tecidual. A avaliação clínica deve considerar a pressão arterial, a função ventricular, o estado volêmico e os indicadores de perfusão dos órgãos (Chioncel et al., 2025; Heidenreich et al., 2022).</p>
+
+        <h2 class={h2}>Principais classes farmacológicas</h2>
+
+        <p class={p}>Os vasodilatadores podem ser organizados de acordo com o mecanismo de ação e com o território vascular sobre o qual exercem seu efeito predominante. Essa classificação facilita a compreensão das diferenças entre os medicamentos utilizados na terapia intensiva e aqueles empregados principalmente no tratamento prolongado da hipertensão arterial e de outras doenças cardiovasculares.</p>
+
+        <div class={tabWrap}>
+          <table class="w-full min-w-[26rem] text-left text-sm">
+            <caption class="sr-only">Classes de vasodilatadores e exemplos</caption>
+            <thead class="bg-teal-50 text-teal-800">
+              <tr>
+                <th scope="col" class={th}>Classe farmacológica</th>
+                <th scope="col" class={th}>Exemplos</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              {classes.map((c) => (
+                <tr class="align-top">
+                  <th scope="row" class={`${td} font-semibold text-slate-900`}>{c.classe}</th>
+                  <td class={`${td} text-slate-600`}>{c.exemplos}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class={h2}>Principais vasodilatadores e seus mecanismos de ação</h2>
+
+        <h3 class={h3}>Nitroglicerina</h3>
+
+        <p class={p}>A nitroglicerina pertence ao grupo dos nitratos orgânicos e atua por meio de mecanismos relacionados à sinalização do óxido nítrico e ao aumento do GMP cíclico na musculatura lisa vascular. Essa sinalização reduz a atividade contrátil das células musculares lisas e promove relaxamento vascular.</p>
+
+        <p class={p}>Seu efeito hemodinâmico depende da dose. Em doses baixas a moderadas, predomina a venodilatação, que aumenta a capacitância venosa e reduz o retorno venoso e as pressões de enchimento cardíaco. Com o aumento da dose, a dilatação arterial torna-se mais expressiva, contribuindo também para a redução da resistência vascular sistêmica e da pós-carga.</p>
+
+        <p class={p}>Os principais efeitos adversos incluem cefaleia, hipotensão e, ocasionalmente, taquicardia reflexa. Pode ocorrer tolerância durante a administração contínua. A associação com inibidores da fosfodiesterase tipo 5, como sildenafil e tadalafil, é contraindicada devido ao risco de hipotensão potencialmente grave (Heidenreich et al., 2022; Chioncel et al., 2025).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo7-fig1-nitroglicerina.webp"
+              width="1000"
+              height="677"
+              alt="Esquema do mecanismo de ação da nitroglicerina em três etapas: liberação de óxido nítrico (biotransformação intracelular), ativação da guanilato ciclase solúvel com aumento do GMPc, e redução do cálcio intracelular com relaxamento do músculo liso vascular. Abaixo, os efeitos hemodinâmicos: em baixas doses predomina a venodilatação, com redução da pré-carga, da pressão de enchimento do ventrículo esquerdo e da pressão capilar pulmonar; em doses mais altas há vasodilatação arterial, com redução da pós-carga, da resistência vascular sistêmica, da pressão arterial, do trabalho do ventrículo esquerdo e da demanda de oxigênio miocárdico."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 1</strong> – Mecanismo de ação da nitroglicerina e seus efeitos hemodinâmicos. Fonte: Elaboração própria (2026), com auxílio de inteligência artificial.</figcaption>
+        </figure>
+
+        <h3 class={h3}>Nitroprussiato de sódio</h3>
+
+        <p class={p}>O nitroprussiato de sódio é um potente vasodilatador intravenoso que atua por meio da liberação de espécies relacionadas ao óxido nítrico, ativando a guanilato ciclase solúvel e aumentando a concentração intracelular de GMP cíclico. O resultado é o relaxamento da musculatura lisa vascular.</p>
+
+        <p class={p}>Diferentemente da nitroglicerina, apresenta ação importante tanto sobre o território arterial quanto sobre o venoso. A dilatação arterial reduz a resistência vascular sistêmica e a pós-carga, enquanto a venodilatação diminui o retorno venoso e as pressões de enchimento cardíaco. Essa combinação pode ser útil em pacientes selecionados com insuficiência cardíaca aguda, congestão importante e pressão arterial suficientemente elevada para tolerar a redução da resistência vascular.</p>
+
+        <p class={p}>O início rápido de ação e a possibilidade de ajuste da infusão permitem modificações relativamente rápidas da resposta hemodinâmica. Entretanto, essa característica também exige vigilância rigorosa, pois a redução excessiva da pressão arterial pode comprometer a perfusão coronariana, cerebral e renal.</p>
+
+        <p class={p}>A administração prolongada ou em determinadas condições clínicas aumenta a preocupação com toxicidade por cianeto e acúmulo de tiocianato. O risco merece atenção especial em pacientes com disfunção hepática ou renal, respectivamente. Por isso, o nitroprussiato deve ser empregado em ambiente com monitorização adequada, frequentemente com acompanhamento invasivo da pressão arterial, conforme a gravidade do quadro e o protocolo institucional (Heidenreich et al., 2022; Chioncel et al., 2025).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo7-fig2-nitroprussiato.webp"
+              width="1444"
+              height="963"
+              alt="Esquema do mecanismo de ação do nitroprussiato de sódio em cinco etapas: liberação de óxido nítrico, ativação da guanilato ciclase solúvel, aumento do GMPc, redução do cálcio intracelular pela proteína quinase G e relaxamento do músculo liso com desfosforilação da cadeia leve da miosina. Os efeitos hemodinâmicos incluem vasodilatação arterial (redução da resistência vascular sistêmica, da pós-carga e da pressão arterial) e venosa (redução do retorno venoso, da pré-carga e das pressões de enchimento). Quadros de apoio resumem as características (início em segundos, efeito facilmente titulável), os cuidados (risco de toxicidade por cianeto e tiocianato, monitorização) e o resumo do mecanismo."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 2</strong> – Mecanismo de ação do nitroprussiato de sódio e seus efeitos hemodinâmicos. A figura ilustra a liberação de óxido nítrico (NO), a ativação da guanilato ciclase solúvel e o aumento da concentração intracelular de GMPc, promovendo a redução do cálcio intracelular e a desfosforilação da cadeia leve da miosina, com consequente relaxamento da musculatura lisa vascular. A vasodilatação arterial e venosa resulta em redução da resistência vascular sistêmica, da pós-carga e da pré-carga, contribuindo para a diminuição da pressão arterial. Destacam-se, ainda, o início rápido de ação, a possibilidade de titulação e o risco de toxicidade por cianeto e tiocianato. Fonte: Elaboração própria (2026), com auxílio de inteligência artificial.</figcaption>
+        </figure>
+
+        <h3 class={h3}>Hidralazina</h3>
+
+        <p class={p}>A hidralazina é um vasodilatador de ação direta que atua predominantemente sobre as arteríolas. A redução da resistência vascular sistêmica diminui a pós-carga e pode facilitar a ejeção ventricular em condições selecionadas.</p>
+
+        <p class={p}>A vasodilatação arterial, entretanto, pode desencadear respostas compensatórias, como ativação simpática, aumento da frequência cardíaca e retenção hidrossalina. Esses efeitos podem limitar sua utilização em determinadas situações, especialmente quando o aumento da frequência cardíaca ou a retenção de volume representam problemas clínicos relevantes.</p>
+
+        <p class={p}>A hidralazina possui indicações específicas no tratamento da hipertensão e, em associação com nitratos, pode ter papel no tratamento de determinados pacientes com insuficiência cardíaca. Contudo, suas características farmacológicas não são equivalentes às de fármacos intravenosos de ação rápida e facilmente titulável, como o nitroprussiato (Heidenreich et al., 2022).</p>
+
+        <h2 class={h2}>Indicações clínicas e seleção do vasodilatador</h2>
+
+        <h3 class={h3}>Insuficiência cardíaca aguda e edema agudo de pulmão</h3>
+
+        <p class={p}>Em pacientes com insuficiência cardíaca aguda, a nitroglicerina e o nitroprussiato podem ser considerados como adjuvantes ao tratamento diurético quando não há hipotensão sistêmica. O benefício esperado é principalmente a redução das pressões de enchimento, o alívio da congestão e a melhora da dispneia em pacientes selecionados.</p>
+
+        <p class={p}>Essa estratégia é particularmente relevante quando ocorre edema agudo de pulmão associado à elevação importante da pressão arterial, situação em que o aumento da pós-carga e a redistribuição do volume sanguíneo para a circulação pulmonar podem contribuir para a elevação rápida das pressões de enchimento. Nesses casos, a vasodilatação pode produzir melhora hemodinâmica antes mesmo de uma redução expressiva do volume total de líquido corporal.</p>
+
+        <p class={p}>Entretanto, nem todos os pacientes com insuficiência cardíaca aguda apresentam o mesmo perfil. Quando predominam hipotensão e hipoperfusão, a vasodilatação pode agravar a instabilidade circulatória. Além disso, não há evidência suficiente para afirmar que o uso rotineiro desses fármacos reduza a mortalidade ou as reinternações por insuficiência cardíaca (Heidenreich et al., 2022; Chioncel et al., 2025).</p>
+
+        <h3 class={h3}>Emergências hipertensivas</h3>
+
+        <p class={p}>As emergências hipertensivas são caracterizadas por elevação importante da pressão arterial associada a lesão aguda de órgão-alvo. O tratamento exige redução controlada da pressão arterial, com seleção do fármaco e da velocidade de redução conforme a condição clínica.</p>
+
+        <p class={p}>O objetivo não é normalizar imediatamente a pressão arterial em todos os casos. Uma redução excessiva pode comprometer a perfusão cerebral, coronariana e renal, sobretudo em pacientes com hipertensão crônica e autorregulação vascular adaptada a níveis pressóricos elevados.</p>
+
+        <h2 class={h2}>Cuidados, contraindicações e monitorização</h2>
+
+        <p class={p}>A utilização de vasodilatadores exige avaliação contínua da resposta hemodinâmica, pois a redução da resistência vascular ou das pressões de enchimento pode ser benéfica em determinadas condições e prejudicial em outras.</p>
+
+        <p class={p}>Antes de iniciar a terapia, devem ser considerados a pressão arterial, o estado volêmico, a função ventricular, os sinais de congestão e a presença de hipoperfusão. Durante a administração, é necessário acompanhar a resposta clínica e a ocorrência de efeitos adversos, ajustando o tratamento conforme a evolução do paciente.</p>
+
+        <p class={p}>Entre os principais cuidados, destacam-se:</p>
+
+        <ul class={ul}>
+          <li><strong class="font-semibold text-slate-900">Hipotensão:</strong> pode resultar de vasodilatação excessiva e comprometer a perfusão dos órgãos.</li>
+          <li><strong class="font-semibold text-slate-900">Hipovolemia e dependência de pré-carga:</strong> a redução do retorno venoso pode diminuir o volume sistólico e o débito cardíaco.</li>
+          <li><strong class="font-semibold text-slate-900">Hipoperfusão sistêmica:</strong> pacientes com choque circulatório ou sinais de perfusão inadequada podem apresentar piora com a redução adicional da pressão arterial.</li>
+          <li><strong class="font-semibold text-slate-900">Toxicidade específica:</strong> o nitroprussiato exige atenção ao risco de toxicidade por cianeto e tiocianato.</li>
+          <li><strong class="font-semibold text-slate-900">Interações medicamentosas:</strong> a associação entre nitratos e inibidores da fosfodiesterase tipo 5 pode provocar hipotensão grave.</li>
+          <li><strong class="font-semibold text-slate-900">Monitorização:</strong> os vasodilatadores intravenosos de ação rápida exigem acompanhamento frequente ou contínuo da pressão arterial, conforme o fármaco e a gravidade clínica.</li>
+        </ul>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+              {ref.disp && (
+                <>
+                  {" "}Disponível em:{" "}
+                  <a href={ref.disp} class="text-teal-700 hover:text-teal-800 underline break-all">{ref.disp}</a>. Acesso em: {ref.acesso}.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/6"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/8"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
