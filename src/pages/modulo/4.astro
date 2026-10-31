@@ -1,0 +1,187 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-6 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const titulo = "Os tipos de choque";
+const subtitulo = "Categorias e perfis hemodinâmicos";
+
+const referencias = [
+  { a: "KHORSAND, Sarah; HELOU, Mada F.; SATYAPRIYA, Veena; KOPANCZYK, Rafal; KHANNA, Ashish K. Not all shock states are created equal: a review of the diagnosis and management of septic, hypovolemic, cardiogenic, obstructive, and distributive shock.", r: "Anesthesiology Clinics", d: ", v. 41, n. 1, p. 1–25, 2023.", doi: "10.1016/j.anclin.2022.11.002" },
+  { a: "LAGHLAM, Driss; BENGHANEM, Sarah; ORTUNO, Sofia et al. Management of cardiogenic shock: a narrative review.", r: "Annals of Intensive Care", d: ", v. 14, art. 45, 2024.", doi: "10.1186/s13613-024-01260-y" },
+  { a: "MONNET, Xavier; LAI, Christopher; OSPINA-TASCÓN, Gustavo A.; DE BACKER, Daniel. Evidence for a personalized early start of norepinephrine in septic shock.", r: "Critical Care", d: ", London, v. 27, p. 322, 2023.", doi: "10.1186/s13054-023-04593-5" },
+  { a: "OLIVEIRA, Mauro Dirlando Conte de; SANTOS, Oscar Fernando Pavão dos; COLOMBO, Giancarlo et al. Uncomplicated circulatory shock: a narrative review.", r: "einstein (São Paulo)", d: ", v. 22, esp. 1, eRW0775, 2024.", doi: "10.31744/einstein_journal/2024RW0775" },
+  { a: "OSPINA-TASCÓN, Gustavo A. et al. Effects of very early start of norepinephrine in patients with septic shock: a propensity score-based analysis.", r: "Critical Care", d: ", London, v. 24, n. 1, p. 52, 2020.", doi: "10.1186/s13054-020-2756-3" },
+  { a: "STANDL, T.; ANNECKE, T.; CASCORBI, I.; HELLER, A. R.; SABASHNIKOV, A.; TESKE, W. The nomenclature, definition and distinction of types of shock.", r: "Deutsches Ärzteblatt International", d: ", v. 115, n. 45, p. 757–768, 2018.", doi: "10.3238/arztebl.2018.0757" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Categorias e perfis hemodinâmicos: choque hipovolêmico, cardiogênico, distributivo e obstrutivo." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+          {titulo}
+        </h1>
+        <p class="text-xl text-slate-500 mb-8">{subtitulo}</p>
+
+        <p class={p}>Embora o quadro clínico do choque seja frequentemente semelhante entre os pacientes, os mecanismos fisiopatológicos responsáveis pela falência circulatória são distintos, tornando a identificação do tipo de choque um dos principais determinantes da estratégia terapêutica. Atualmente, o choque é classificado em quatro grandes categorias fisiopatológicas: hipovolêmico, cardiogênico, distributivo e obstrutivo.</p>
+
+        <p class={p}>Entretanto, essa classificação deve ser interpretada em conjunto com o perfil hemodinâmico do paciente, uma vez que diferentes tipos de choque podem compartilhar alterações circulatórias semelhantes e, frequentemente, coexistir em um mesmo indivíduo, configurando os chamados choques mistos (Khorsand et al., 2023; Oliveira et al., 2024).</p>
+
+        <p class={p}>A avaliação hemodinâmica fornece informações fundamentais para o raciocínio clínico. O perfil hiperdinâmico caracteriza-se por débito cardíaco elevado associado à redução da resistência vascular sistêmica, sendo observado principalmente nas fases iniciais do choque séptico e, ocasionalmente, na anafilaxia. Em contraste, o perfil hipodinâmico apresenta baixo débito cardíaco associado à vasoconstrição compensatória, sendo característico dos choques cardiogênico, hipovolêmico e obstrutivo, além das fases tardias do choque séptico. É importante destacar que esses perfis não constituem tipos distintos de choque, mas representam diferentes estados hemodinâmicos que podem evoluir ao longo da doença. Assim, um paciente com choque distributivo pode inicialmente apresentar um perfil hiperdinâmico e, posteriormente, evoluir para um perfil hipodinâmico em decorrência da depressão miocárdica e da persistência da hipoperfusão (Khorsand et al., 2023; Oliveira et al., 2024).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo4-fig1-tipos-de-choque.webp"
+              width="1300"
+              height="866"
+              alt="Esquema com os quatro tipos de choque ao redor de um círculo central, 'Choque: inadequação entre a oferta e a demanda de oxigênio'. Choque hipovolêmico: redução da pré-carga (volume circulante efetivo), com causas como hemorragia, perdas gastrointestinais, renais e cutâneas e terceiro espaço. Choque cardiogênico: redução da função de bomba, com causas como infarto agudo do miocárdio, miocardiopatias, arritmias graves, valvopatias agudas e complicações mecânicas. Choque distributivo: redução da resistência vascular sistêmica e má distribuição do fluxo, com causas como sepse, anafilaxia, choque neurogênico, choque endócrino e drogas e intoxicações. Choque obstrutivo: obstrução ao enchimento ou à ejeção cardíaca, com causas como tamponamento cardíaco, pneumotórax hipertensivo, embolia pulmonar maciça, obstrução da via de saída do ventrículo esquerdo e massas intratorácicas. Na base, a oferta de O₂ diminui e a demanda de O₂ aumenta."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}>
+            <strong class="font-semibold text-slate-700">Figura 1</strong> – Representação
+            esquemática dos principais tipos de choque circulatório e seus mecanismos
+            fisiopatológicos. A figura apresenta a classificação do choque circulatório em quatro
+            categorias principais: hipovolêmico, cardiogênico, distributivo e obstrutivo. Para cada
+            categoria, são destacados os mecanismos hemodinâmicos predominantes, as alterações na
+            perfusão e as principais condições clínicas associadas. O choque hipovolêmico
+            caracteriza-se pela redução do volume intravascular e da pré-carga; o cardiogênico,
+            pela disfunção da bomba cardíaca; o distributivo, pela redução da resistência vascular
+            sistêmica e pela distribuição inadequada do fluxo sanguíneo; e o obstrutivo, pela
+            presença de impedimentos mecânicos ao enchimento ou à ejeção cardíaca. A figura também
+            enfatiza que o choque resulta de um desequilíbrio entre a oferta e a demanda de
+            oxigênio pelos tecidos e que diferentes mecanismos podem coexistir no mesmo paciente.
+            Fonte: elaboração própria (2026), com auxílio de inteligência artificial.
+          </figcaption>
+        </figure>
+
+        <h2 class={h2}>Choque cardiogênico</h2>
+
+        <p class={p}>O choque cardiogênico resulta da incapacidade do coração em manter um débito cardíaco suficiente para atender às necessidades metabólicas dos tecidos, apesar da presença de volume intravascular adequado. A redução da contratilidade ventricular leva à diminuição do volume sistólico e do débito cardíaco, desencadeando intensa ativação do sistema nervoso simpático e do sistema renina-angiotensina-aldosterona. Como mecanismo compensatório, ocorre aumento da resistência vascular sistêmica, na tentativa de preservar a pressão arterial e a perfusão dos órgãos nobres. Entretanto, esse aumento da pós-carga frequentemente agrava a disfunção ventricular e perpetua o estado de hipoperfusão.</p>
+
+        <p class={p}>As principais causas incluem a síndrome coronariana aguda, especialmente o infarto agudo do miocárdio, miocardites, cardiomiopatias, arritmias graves e complicações mecânicas do infarto. O perfil hemodinâmico caracteriza-se por baixo débito cardíaco, aumento da resistência vascular sistêmica e elevação das pressões de enchimento ventricular, frequentemente identificadas por meio da ecocardiografia à beira do leito ou da monitorização hemodinâmica avançada (Laghlam et al., 2024).</p>
+
+        <h2 class={h2}>Choque distributivo</h2>
+
+        <p class={p}>O choque distributivo caracteriza-se pela perda do tônus vascular, resultando em redução acentuada da resistência vascular sistêmica e redistribuição inadequada do fluxo sanguíneo. Embora o volume sanguíneo total possa permanecer normal, ocorre aumento da capacitância venosa e importante desproporção entre o conteúdo vascular e o continente vascular, reduzindo o retorno venoso e comprometendo a perfusão tecidual.</p>
+
+        <p class={p}>A sepse constitui sua principal causa, seguida pelo choque anafilático e pelo choque neurogênico. Nas fases iniciais do choque séptico, o débito cardíaco costuma estar aumentado em consequência da intensa vasodilatação periférica e da redução da pós-carga, originando o chamado perfil hiperdinâmico, caracterizado por extremidades aquecidas, pressão de pulso alargada e resistência vascular sistêmica reduzida. Entretanto, à medida que a doença progride, pode ocorrer depressão miocárdica induzida pela sepse, reduzindo progressivamente o débito cardíaco e transformando o perfil hemodinâmico em hipodinâmico, fenômeno associado a pior prognóstico. Dessa forma, o choque distributivo não representa um estado hemodinâmico estático, mas uma condição dinâmica cuja evolução depende da resposta inflamatória, da função cardíaca e da eficácia do tratamento instituído (Khorsand et al., 2023; Oliveira et al., 2024).</p>
+
+        <p class={p}>No choque distributivo, a redução da resistência vascular sistêmica promove queda acentuada da pressão arterial diastólica (PAD), frequentemente desproporcional à redução da pressão sistólica. Como a PAD depende principalmente do tônus arterial e do tempo diastólico, sua diminuição, especialmente quando associada à taquicardia, constitui um importante marcador clínico de vasoplegia. Ospina-Tascón et al. (2020) demonstraram que a associação entre pressão arterial diastólica reduzida e frequência cardíaca elevada, expressa pelo Índice Diastólico de Choque (<em>Diastolic Shock Index</em> – DSI), está relacionada à maior gravidade do choque séptico e pode auxiliar na identificação precoce de pacientes que se beneficiam da introdução da noradrenalina. Posteriormente, Monnet et al. (2023) reforçaram que a avaliação da PAD deve integrar o raciocínio clínico para o início individualizado da terapia vasopressora, sobretudo em pacientes com evidências de vasoplegia.</p>
+
+        <p class={p}>Além da avaliação isolada da pressão arterial diastólica (PAD), estudos recentes têm destacado a utilidade do Índice Diastólico de Choque (<em>Diastolic Shock Index</em> – DSI) como um marcador simples e prontamente disponível para identificação precoce da vasoplegia. O DSI é calculado pela razão entre a frequência cardíaca (FC) e a pressão arterial diastólica (PAD), expressa pela fórmula DSI = FC/PAD. Esse índice parte do princípio fisiológico de que, no choque distributivo, a vasodilatação arterial promove redução da PAD, enquanto a resposta compensatória do sistema nervoso simpático desencadeia taquicardia.</p>
+
+        <p class={formula}>DSI = FC ÷ PAD</p>
+
+        <p class={p}>Dessa forma, valores elevados do DSI refletem simultaneamente perda do tônus vascular e ativação simpática, podendo identificar pacientes com maior gravidade hemodinâmica. Em um estudo observacional envolvendo pacientes com choque séptico, Ospina-Tascón et al. (2020) demonstraram que valores mais elevados do DSI estavam associados à maior necessidade de vasopressores, maior disfunção circulatória e aumento da mortalidade hospitalar. Embora ainda não existam valores de referência universalmente aceitos ou pontos de corte validados para orientar intervenções terapêuticas, evidências sugerem que índices superiores a 2,0 estão relacionados à vasoplegia mais intensa e podem auxiliar, em conjunto com a avaliação clínica, na decisão de iniciar precocemente a noradrenalina. Posteriormente, Monnet et al. (2023) reforçaram que a interpretação integrada da PAD e da frequência cardíaca pode contribuir para uma abordagem mais individualizada do suporte vasopressor, especialmente em pacientes com suspeita de choque séptico.</p>
+
+        <h2 class={h2}>Choque hipovolêmico</h2>
+
+        <p class={p}>O choque hipovolêmico decorre da redução crítica do volume circulante efetivo, levando à diminuição do retorno venoso, da pré-carga e, consequentemente, do débito cardíaco. Pode resultar de hemorragias, perdas gastrointestinais, queimaduras extensas ou desidratação grave. Como mecanismo compensatório, ocorre intensa vasoconstrição periférica mediada pelo sistema nervoso simpático, produzindo um perfil tipicamente hipodinâmico, caracterizado por baixo débito cardíaco, elevada resistência vascular sistêmica e extremidades frias. O reconhecimento precoce é fundamental, uma vez que a reposição rápida do volume intravascular representa o principal tratamento e pode interromper a progressão para falência orgânica múltipla (Oliveira et al., 2024).</p>
+
+        <h2 class={h2}>Choque obstrutivo</h2>
+
+        <p class={p}>O choque obstrutivo ocorre quando um impedimento mecânico limita o enchimento ou a ejeção cardíaca, reduzindo o débito cardíaco apesar da função miocárdica frequentemente preservada. As principais causas incluem tromboembolismo pulmonar maciço, tamponamento cardíaco e pneumotórax hipertensivo.</p>
+
+        <p class={p}>O perfil hemodinâmico é semelhante ao do choque cardiogênico, com baixo débito cardíaco e aumento compensatório da resistência vascular sistêmica. Entretanto, o tratamento depende da remoção imediata da obstrução, sendo a correção da causa o fator determinante para a recuperação da perfusão tecidual (Khorsand et al., 2023).</p>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/3"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/5"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>

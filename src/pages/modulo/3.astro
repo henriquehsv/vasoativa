@@ -1,0 +1,271 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-6 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const titulo = "Fisiologia cardiovascular aplicada";
+
+const legenda = [
+  { sigla: "DO₂", texto: "oferta de oxigênio, expressa em mL O₂/min;" },
+  { sigla: "DC", texto: "débito cardíaco, expresso em L/min;" },
+  { sigla: "CaO₂", texto: "conteúdo arterial de oxigênio, expresso em mL O₂/dL;" },
+  { sigla: "10", texto: "fator de conversão de litros para decilitros." },
+];
+
+const referencias = [
+  { a: "BAIGORRI, F.; RUSSELL, J. A. Oxygen delivery in critical illness.", r: "Critical Care Clinics", d: ", v. 12, n. 4, p. 971-994, 1996.", doi: "10.1016/S0749-0704(05)70287-6" },
+  { a: "GARG, A.; LAVINE, K. J.; GREENBERG, M. J. Assessing cardiac contractility from single molecules to whole hearts.", r: "JACC: Basic to Translational Science", d: ", 2023." },
+  { a: "JOZWIAK, M.; TEBOUL, J.-L. Heart–lungs interactions: the basics and clinical implications.", r: "Annals of Intensive Care", d: ", 2024." },
+  { a: "KING, J.; LOWERY, D. R. Physiology, cardiac output.", r: "StatPearls", d: ", 2023." },
+  { a: "LEACH, R. M.; TREACHER, D. F. The pulmonary physician in critical care 2: oxygen delivery and consumption in the critically ill.", r: "Thorax", d: ", v. 57, n. 2, p. 170-177, 2002.", doi: "10.1136/thorax.57.2.170" },
+  { a: "MAGDER, S. The use of Guyton's approach to the control of cardiac output for clinical fluid management.", r: "Annals of Intensive Care", d: ", v. 14, art. 105, 2024.", doi: "10.1186/s13613-024-01316-z" },
+  { a: "MESSINA, A. et al. Pathophysiology of fluid administration in critically ill patients.", r: "Intensive Care Medicine Experimental", d: ", v. 10, art. 46, 2022.", doi: "10.1186/s40635-022-00473-4" },
+  { a: "MONNET, X.; SHI, R.; TEBOUL, J.-L. Prediction of fluid responsiveness: what's new?", r: "Annals of Intensive Care", d: ", v. 12, art. 46, 2022.", doi: "10.1186/s13613-022-01022-8" },
+  { a: "PERSICHINI, R. et al. Venous return and mean systemic filling pressure: physiology and clinical applications.", r: "Critical Care", d: ", 2022." },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Pré-carga, pós-carga, contratilidade, oferta e consumo de oxigênio e DO₂ crítico aplicados ao paciente em choque." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
+          {titulo}
+        </h1>
+
+        <p class={p}>A manutenção da perfusão tecidual adequada depende da interação dinâmica entre o sistema cardiovascular e as demandas metabólicas do organismo. Em situações de choque circulatório, alterações em um ou mais componentes da função cardiovascular podem comprometer a oferta de oxigênio aos tecidos, resultando em hipoperfusão e disfunção orgânica. Nesse contexto, a compreensão dos determinantes do débito cardíaco — pré-carga, pós-carga e contratilidade — constitui a base fisiológica para a utilização racional das drogas vasoativas (Magder, 2024; Persichini et al., 2022).</p>
+
+        <p class={p}>O débito cardíaco (DC) corresponde ao volume de sangue bombeado pelo coração por minuto e pode ser calculado pelo produto da frequência cardíaca pelo volume sistólico. Sua principal função é garantir o transporte de oxigênio e nutrientes aos tecidos, ajustando-se continuamente às necessidades metabólicas do organismo. A regulação do débito cardíaco resulta da interação entre mecanismos neurais, hormonais e cardiovasculares que atuam sobre a frequência cardíaca, a contratilidade miocárdica e as condições de carga ventricular (King; Lowery, 2023).</p>
+
+        <h2 class={h2}>Débito cardíaco</h2>
+
+        <p class={p}>O débito cardíaco representa um dos principais determinantes da oferta sistêmica de oxigênio (DO₂). Em condições fisiológicas, existe equilíbrio entre a demanda metabólica dos tecidos e a capacidade do sistema cardiovascular de fornecer fluxo sanguíneo adequado. Durante estados de choque, esse equilíbrio pode ser rompido, levando à redução da oferta de oxigênio e ao desenvolvimento de hipoperfusão tecidual.</p>
+
+        <p class={p}>Tradicionalmente, o débito cardíaco é expresso pela seguinte relação:</p>
+
+        <p class={formula}>DC = Frequência cardíaca × Volume sistólico</p>
+
+        <p class={p}>O volume sistólico, por sua vez, é determinado principalmente por três fatores: pré-carga, pós-carga e contratilidade. Alterações em qualquer um desses componentes podem resultar em modificações significativas do desempenho cardiovascular e influenciar diretamente a necessidade de intervenções terapêuticas, incluindo o uso de fluidos, vasopressores e agentes inotrópicos (King; Lowery, 2023; Magder, 2024).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo1-fig1-fisiopatologia-do-choque.webp"
+              width="1300"
+              height="866"
+              alt="Esquema em cinco etapas, da entrega à utilização de oxigênio. Débito cardíaco, hemoglobina e saturação determinam a DO₂, calculada como DC × CaO₂. O oxigênio chega aos tecidos pela microcirculação, onde a VO₂ sustenta o metabolismo aeróbico e a função dos órgãos. Quando a DO₂ cai, aumentam a extração de O₂ e o lactato, surgem disfunção orgânica e, por fim, o choque."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}>
+            <strong class="font-semibold text-slate-700">Figura 1</strong> – Da entrega à
+            utilização de oxigênio: fisiopatologia do choque. A figura ilustra os determinantes da
+            oferta de oxigênio aos tecidos, sua utilização celular e as consequências da redução da
+            oferta, destacando a progressão para hiperlactatemia, disfunção orgânica e choque.
+            Fonte: Elaborada pela autora (2026), com auxílio de inteligência artificial (IA).
+          </figcaption>
+        </figure>
+
+        <h2 class={h2}>Pré-carga</h2>
+
+        <p class={p}>A pré-carga pode ser definida como o grau de estiramento das fibras miocárdicas ao final da diástole, imediatamente antes da contração ventricular. Na prática clínica, corresponde à quantidade de sangue que retorna ao coração e preenche os ventrículos durante o enchimento diastólico.</p>
+
+        <p class={p}>O conceito de pré-carga está intimamente relacionado ao mecanismo de Frank-Starling, segundo o qual, dentro de determinados limites fisiológicos, o aumento do enchimento ventricular promove maior estiramento das fibras miocárdicas, resultando em contrações mais vigorosas e aumento do volume sistólico. Entretanto, quando esse limite é ultrapassado, aumentos adicionais da pré-carga deixam de produzir benefícios hemodinâmicos e podem contribuir para congestão venosa e edema pulmonar (Persichini et al., 2022).</p>
+
+        <p class={p}>Para compreender melhor a lei de Frank-Starling, é necessário entender o ciclo cardíaco, que corresponde à sequência de eventos de contração e relaxamento do coração que permite o enchimento dos ventrículos e a ejeção do sangue para a circulação. O ciclo cardíaco pode ser dividido, de maneira simplificada, em diástole e sístole (Mao; C. A., 2023).</p>
+
+        <p class={p}>A diástole corresponde ao período de relaxamento ventricular e enchimento do coração. Durante essa fase, os ventrículos relaxam e recebem o sangue proveniente dos átrios. A maior parte do enchimento ventricular ocorre de forma passiva, devido ao gradiente de pressão entre os átrios e os ventrículos. Ao final da diástole, ocorre a sístole atrial, que promove um complemento do enchimento ventricular, contribuindo para atingir o volume diastólico final (Mao; C. A., 2023).</p>
+
+        <p class={p}>Em seguida, inicia-se a sístole ventricular. A contração dos ventrículos aumenta rapidamente a pressão intraventricular, provocando o fechamento das válvulas atrioventriculares — mitral e tricúspide. Inicialmente, todas as válvulas permanecem fechadas, caracterizando a contração isovolumétrica. Nesse momento, a pressão ventricular aumenta, mas o volume de sangue dentro do ventrículo permanece praticamente constante (Mao; C. A., 2023).</p>
+
+        <p class={p}>Os conceitos modernos de fisiologia cardiovascular destacam que a pré-carga depende não apenas do volume intravascular, mas também do retorno venoso. Segundo a abordagem de Guyton, o retorno venoso é determinado pela interação entre a pressão média de enchimento sistêmico, a pressão atrial direita e a resistência ao retorno venoso. Dessa forma, a administração de fluidos somente aumentará o débito cardíaco quando o paciente apresentar capacidade de responder ao incremento da pré-carga, conceito conhecido como responsividade a fluidos (Magder, 2024; Persichini et al., 2022).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo3-fig2-curva-de-frank-starling.webp"
+              width="1536"
+              height="1024"
+              alt="Curva de Frank-Starling: volume sistólico (eixo vertical) em função da pré-carga, ou volume diastólico final (eixo horizontal). A curva sobe em três porções: inicial, com pequeno aumento do volume sistólico; ascendente, com aumento significativo; e platô, em que mais pré-carga produz pouco ou nenhum aumento. Painéis laterais indicam o que desloca a curva para cima (maior contratilidade, menor pós-carga) ou para baixo (disfunção miocárdica, isquemia, acidose, maior pós-carga), e mostram três curvas: maior contratilidade, função normal e disfunção ventricular."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}>
+            <strong class="font-semibold text-slate-700">Figura 2</strong> – Curva de Frank-Starling
+            e sua aplicação na avaliação da responsividade a fluidos. Fonte: Elaboração própria, com
+            base em Magder (2024) e Monnet, Shi e Teboul (2022).
+          </figcaption>
+        </figure>
+
+        <h2 class={h2}>Oferta sistêmica de oxigênio (DO₂)</h2>
+
+        <p class={p}>A oferta sistêmica de oxigênio corresponde à quantidade de oxigênio transportada pelo sistema cardiovascular aos tecidos por unidade de tempo. Sua determinação depende de dois componentes fundamentais: o débito cardíaco e o conteúdo arterial de oxigênio. Consequentemente, alterações no fluxo sanguíneo, na concentração de hemoglobina ou na oxigenação arterial podem comprometer a disponibilidade de oxigênio para o metabolismo celular (Leach; Treacher, 2002).</p>
+
+        <p class={p}>A oferta sistêmica de oxigênio pode ser calculada pela seguinte equação:</p>
+
+        <p class={formula}>DO₂ = DC × CaO₂ × 10</p>
+
+        <ul class="mb-6 space-y-2 text-lg text-slate-700 leading-relaxed list-disc pl-6 marker:text-teal-600">
+          {legenda.map((l) => (
+            <li><strong class="font-semibold text-slate-900">{l.sigla}:</strong> {l.texto}</li>
+          ))}
+        </ul>
+
+        <p class={p}>O conteúdo arterial de oxigênio é calculado por:</p>
+
+        <p class={formula}>CaO₂ = (1,34 × Hb × SaO₂) + (0,0031 × PaO₂)</p>
+
+        <p class={p}>Nessa equação, a hemoglobina (Hb) é expressa em g/dL, a saturação arterial de oxigênio (SaO₂) é utilizada como fração decimal e a pressão parcial arterial de oxigênio (PaO₂) é expressa em mmHg. O primeiro termo representa o oxigênio ligado à hemoglobina, enquanto o segundo corresponde à pequena quantidade dissolvida no plasma.</p>
+
+        <p class={p}>Essa relação evidencia que uma saturação arterial aparentemente adequada não garante, isoladamente, uma oferta de oxigênio suficiente. Em um paciente com anemia importante, por exemplo, a redução da concentração de hemoglobina pode comprometer o conteúdo arterial de oxigênio mesmo na presença de uma SaO₂ normal. Da mesma forma, um paciente com baixo débito cardíaco pode apresentar redução significativa do DO₂ apesar de uma concentração de hemoglobina e uma oxigenação arterial preservadas.</p>
+
+        <p class={p}>Na avaliação do paciente em choque, portanto, a oferta de oxigênio deve ser interpretada como resultado integrado do fluxo sanguíneo e do conteúdo arterial de oxigênio, e não como uma variável determinada exclusivamente pela pressão arterial ou pela saturação periférica.</p>
+
+        <h2 class={h2}>Consumo e extração de oxigênio</h2>
+
+        <p class={p}>O consumo de oxigênio (VO₂) corresponde à quantidade de oxigênio efetivamente utilizada pelos tecidos por unidade de tempo. Em condições fisiológicas, o organismo mantém o consumo relativamente constante dentro de determinada faixa de oferta, ajustando a proporção de oxigênio extraída do sangue circulante.</p>
+
+        <p class={p}>Quando a oferta diminui, os tecidos podem compensar inicialmente por meio do aumento da extração. Entretanto, essa capacidade é limitada. Se a redução do DO₂ ultrapassar a reserva compensatória, o consumo de oxigênio passa a diminuir em resposta à menor disponibilidade, comprometendo a manutenção do metabolismo aeróbico. Esse fenômeno constitui a base fisiológica do conceito de oferta crítica de oxigênio (Baigorri; Russell, 1996; Leach; Treacher, 2002).</p>
+
+        <p class={p}>É importante ressaltar que as relações entre DO₂ e VO₂ variam conforme o estado metabólico e a condição clínica. A sepse, por exemplo, pode envolver alterações microcirculatórias e disfunções na utilização celular do oxigênio, de modo que os parâmetros globais de transporte não refletem necessariamente a oxigenação de todos os tecidos.</p>
+
+        <h2 class={h2}>DO₂ crítico: o limite da compensação fisiológica</h2>
+
+        <p class={p}>O DO₂ crítico corresponde ao nível de oferta de oxigênio abaixo do qual os mecanismos compensatórios deixam de ser suficientes para manter o consumo de oxigênio necessário aos tecidos. Acima desse ponto, o VO₂ tende a permanecer relativamente independente das variações da oferta. Abaixo dele, o consumo torna-se dependente da disponibilidade de oxigênio, caracterizando a chamada dependência do consumo em relação à oferta (Baigorri; Russell, 1996).</p>
+
+        <p class={p}>Esse conceito pode ser representado por uma curva que relaciona DO₂ e VO₂. Na faixa de oferta adequada, o consumo permanece relativamente estável, mesmo com variações do transporte de oxigênio. À medida que a oferta diminui, a extração aumenta como mecanismo compensatório. Ao atingir o DO₂ crítico, a capacidade de extração torna-se insuficiente para preservar o consumo, que passa a cair com a redução adicional da oferta.</p>
+
+        <p class={p}>A transição para essa região de dependência pode favorecer o desequilíbrio entre oferta e demanda de oxigênio, a disfunção metabólica e a lesão celular. Contudo, o DO₂ crítico não representa um valor universal aplicável a todos os pacientes. Ele depende de fatores como demanda metabólica, distribuição regional do fluxo sanguíneo, capacidade de extração e condições de utilização celular do oxigênio (Baigorri; Russell, 1996).</p>
+
+        <p class={p}>Na prática clínica, não se deve aguardar a demonstração de um valor específico de DO₂ para reconhecer o risco de hipoperfusão. A avaliação deve integrar o contexto clínico, a evolução dos sinais de perfusão, o débito cardíaco quando disponível, a concentração de hemoglobina, a oxigenação e marcadores como lactato e tempo de enchimento capilar. Nenhum desses parâmetros, isoladamente, identifica de forma infalível a presença ou a ausência de hipóxia tecidual.</p>
+
+        <p class={p}>A elevação do lactato pode acompanhar a oferta insuficiente de oxigênio, mas também pode decorrer de mecanismos não hipóxicos, como estimulação adrenérgica e alterações metabólicas associadas à sepse. Por isso, sua interpretação exige análise contextual e acompanhamento da tendência ao longo do tempo.</p>
+
+        <h2 class={h2}>Integração entre a curva de Frank-Starling e o DO₂ crítico</h2>
+
+        <p class={p}>A compreensão conjunta da curva de Frank-Starling e do DO₂ crítico permite integrar a mecânica cardíaca ao transporte de oxigênio e à perfusão tecidual. Enquanto a curva de Frank-Starling ajuda a compreender como as alterações da pré-carga podem modificar o volume sistólico e o débito cardíaco, o conceito de DO₂ crítico demonstra que o aumento do fluxo sanguíneo só será efetivo para sustentar o metabolismo celular quando contribuir para uma oferta de oxigênio adequada às necessidades dos tecidos (Magder, 2024; Messina et al., 2022).</p>
+
+        <p class={p}>Essa relação pode ser compreendida a partir de diferentes situações clínicas. Em um paciente com choque hipovolêmico, a redução do volume circulante pode comprometer o retorno venoso, a pré-carga e o volume sistólico, reduzindo o débito cardíaco e, consequentemente, a oferta de oxigênio. Quando existe responsividade a fluidos e não há contraindicações relevantes, a expansão volêmica pode aumentar o enchimento ventricular, elevar o volume sistólico e contribuir para a recuperação do DO₂.</p>
+
+        <p class={p}>Por outro lado, no choque cardiogênico, a limitação predominante pode decorrer da redução da contratilidade miocárdica. Nessa situação, a administração indiscriminada de fluidos pode elevar as pressões de enchimento sem produzir aumento significativo do débito cardíaco, favorecendo congestão pulmonar e venosa. A identificação do mecanismo predominante é, portanto, essencial para orientar a escolha da intervenção hemodinâmica (Magder, 2024).</p>
+
+        <p class={p}>No choque distributivo, como ocorre na sepse, a redução do tônus vascular e as alterações do retorno venoso podem coexistir com disfunção miocárdica e alterações da microcirculação. Assim, a pressão arterial, o débito cardíaco e a oferta global de oxigênio não devem ser interpretados isoladamente como medidas suficientes da perfusão de todos os tecidos. A avaliação deve integrar variáveis macro-hemodinâmicas, sinais clínicos de perfusão e a evolução da disfunção orgânica (Leach; Treacher, 2002; Messina et al., 2022).</p>
+
+        <p class={p}>Dessa forma, a abordagem fisiológica do choque deve responder a duas questões complementares: o sistema cardiovascular consegue aumentar o fluxo sanguíneo em resposta à intervenção proposta? E esse aumento é capaz de melhorar a oferta de oxigênio e a perfusão tecidual sem produzir efeitos adversos relevantes?</p>
+
+        <p class={p}>Essas perguntas fundamentam o uso racional de fluidos e drogas vasoativas e reforçam que o objetivo da ressuscitação hemodinâmica não é simplesmente elevar a pressão arterial ou o débito cardíaco, mas restabelecer condições circulatórias compatíveis com as necessidades metabólicas dos tecidos.</p>
+
+        <h2 class={h2}>Pós-carga</h2>
+
+        <p class={p}>A pós-carga corresponde à resistência que o ventrículo deve vencer para ejetar o sangue durante a sístole. Embora frequentemente associada à resistência vascular sistêmica, a pós-carga representa um conceito mais complexo, envolvendo também pressão arterial, complacência vascular e impedância arterial.</p>
+
+        <p class={p}>O aumento da pós-carga impõe maior trabalho ao ventrículo, dificultando a ejeção sanguínea e reduzindo o volume sistólico. Em pacientes com disfunção miocárdica, mesmo elevações moderadas da pós-carga podem resultar em queda significativa do débito cardíaco. Em contrapartida, reduções excessivas da resistência vascular podem comprometer a pressão de perfusão dos órgãos vitais, como ocorre no choque distributivo (Jozwiak; Teboul, 2024).</p>
+
+        <p class={p}>A compreensão desse conceito possui relevância direta para o uso das drogas vasoativas. Vasopressores como a noradrenalina promovem aumento da resistência vascular sistêmica e da pressão arterial, enquanto agentes vasodilatadores reduzem a pós-carga e podem melhorar o desempenho ventricular em determinadas situações clínicas.</p>
+
+        <h2 class={h2}>Contratilidade</h2>
+
+        <p class={p}>A contratilidade corresponde à capacidade intrínseca do miocárdio de gerar força de contração independentemente das condições de carga. Trata-se de uma propriedade relacionada à interação entre os filamentos de actina e miosina e ao manejo intracelular do cálcio pelas células miocárdicas.</p>
+
+        <p class={p}>Quando a contratilidade aumenta, ocorre maior ejeção ventricular para uma mesma pré-carga e pós-carga, resultando em aumento do volume sistólico e do débito cardíaco. Por outro lado, sua redução pode levar à insuficiência de bomba, diminuição da perfusão sistêmica e desenvolvimento de choque cardiogênico (Garg; Lavine; Greenberg, 2023).</p>
+
+        <p class={p}>Na prática clínica, a contratilidade pode ser influenciada por diversos fatores, incluindo hipóxia, acidose, isquemia miocárdica, inflamação sistêmica e ação de fármacos. Os agentes inotrópicos, como a dobutamina e a adrenalina, exercem seus efeitos terapêuticos principalmente por meio do aumento da contratilidade miocárdica, elevando o débito cardíaco e melhorando a oferta de oxigênio aos tecidos.</p>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/2"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/4"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
