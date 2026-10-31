@@ -1,0 +1,322 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-6 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const h3 = "text-xl font-bold text-slate-900 tracking-tight mt-9 mb-3";
+const h4 = "text-lg font-semibold text-teal-800 mt-7 mb-2";
+const ul = "mb-6 space-y-2 text-lg text-slate-700 leading-relaxed list-disc pl-6 marker:text-teal-600";
+const tabWrap = "overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-sm my-8";
+const th = "px-5 py-3 font-semibold";
+const td = "px-5 py-4";
+const titulo = "Vasopressores";
+const subtitulo = "Receptores, mecanismos de ação e efeitos hemodinâmicos";
+
+const referencias = [
+  { a: "ADDA, I. et al. Norepinephrine potentiates the efficacy of volume expansion on mean systemic pressure in septic shock.", r: "Critical Care", d: ", v. 25, art. 302, 2021.", doi: "10.1186/s13054-021-03711-5" },
+  { a: "ATTALLAH, N. et al. Management of vasopressor-induced acute limb ischemia (VIALI) in septic shock.", r: "Cureus", d: ", v. 14, n. 12, e33118, 2022.", doi: "10.7759/cureus.33118" },
+  { a: "BAUER, S. R. et al. Adjunctive vasopressors and short-term mortality in adults with septic shock: a systematic review and meta-analysis.", r: "Shock", d: ", v. 63, n. 5, p. 668–676, 2025.", doi: "10.1097/SHK.0000000000002558" },
+  { a: "BHATTACHARJEE, A. et al. Timing of vasopressin initiation in patients with septic shock: an updated systematic review and meta-analysis with trial sequential analysis.", r: "Indian Journal of Critical Care Medicine", d: ", v. 29, n. 10, p. 839–850, 2025.", doi: "10.5005/jp-journals-10071-25054" },
+  { a: "EVANS, L. et al. Surviving sepsis campaign: international guidelines for management of sepsis and septic shock 2021.", r: "Intensive Care Medicine", d: ", v. 47, n. 11, p. 1181–1247, 2021.", doi: "10.1007/s00134-021-06506-y" },
+  { a: "GARCÍA-ÁLVAREZ, R.; ARBOLEDA-SALAZAR, R. Vasopressin in sepsis and other shock states: state of the art.", r: "Journal of Personalized Medicine", d: ", v. 13, n. 11, art. 1548, 2023.", doi: "10.3390/jpm13111548" },
+  { a: "HIROTO, G.; NISHIKIMI, M.; SHIME, N. Optimizing timing and dose of starting norepinephrine and vasopressin in septic shock.", r: "Life", d: ", v. 16, n. 6, art. 913, 2026.", doi: "10.3390/life16060913" },
+  { a: "JHA, A.; ZILAHI, G.; RHODES, A. Vasoactive therapy in shock.", r: "BJA Education", d: ", v. 21, n. 7, p. 270–277, 2021.", doi: "10.1016/j.bjae.2021.03.002", disp: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8212163/", acesso: "29 out. 2026" },
+  { a: "JOZWIAK, M. et al. Vasopressin use across shock states: international insights from an international ESICM-endorsed survey: the PRESS Survey.", r: "Critical Care", d: ", v. 29, art. 273, 2025.", doi: "10.1186/s13054-025-05505-5" },
+  { a: "KATTAN, E.; IBARRA-ESTRADA, M.; JUNG, C. Knowing the ropes of vasopressor dosing: a focus on norepinephrine.", r: "Intensive Care Medicine", d: ", v. 50, n. 4, p. 587–589, 2024.", doi: "10.1007/s00134-024-07374-y" },
+  { a: "MONNET, X.; LAI, C.; OSPINA-TASCÓN, G. A.; DE BACKER, D. Evidence for a personalized early start of norepinephrine in septic shock.", r: "Critical Care", d: ", v. 27, art. 322, 2023.", doi: "10.1186/s13054-023-04593-5" },
+  { a: "PRESCOTT, H. C. et al. Surviving Sepsis Campaign: international guidelines for management of sepsis and septic shock 2026.", r: "Intensive Care Medicine", d: ", v. 52, p. 863–936, 2026.", doi: "10.1007/s00134-026-08361-1" },
+  { a: "SACHA, G. L.; BAUER, S. R. Optimizing vasopressin use and initiation timing in septic shock: a narrative review.", r: "Chest", d: ", v. 164, n. 5, p. 1216–1227, 2023.", doi: "10.1016/j.chest.2023.07.009" },
+  { a: "SONG, F.; XIAO, C.; SONG, S. Evidence maps of vasopressor use in adult patients with septic shock: an umbrella review.", r: "British Journal of Hospital Medicine", d: ", v. 87, n. 1, art. 50162, 2026.", doi: "10.31083/BJHM50162" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Noradrenalina e vasopressina: receptores, mecanismos de ação, doses, uso clínico e efeitos adversos." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+          {titulo}
+        </h1>
+        <p class="text-xl text-slate-500 mb-8">{subtitulo}</p>
+
+        <h2 class={h2}>Noradrenalina</h2>
+
+        <p class={p}>A noradrenalina, também denominada norepinefrina, é uma catecolamina endógena produzida nas terminações nervosas simpáticas pós-ganglionares e na medula adrenal. Atualmente, constitui o vasopressor de primeira escolha no manejo do choque séptico e de outros estados de choque distributivo, devido à sua capacidade de restaurar a pressão arterial e a perfusão tecidual com menor incidência de arritmias quando comparada a outros agentes vasoativos (Evans et al., 2021).</p>
+
+        <h3 class={h3}>Mecanismo de ação</h3>
+
+        <p class={p}>A ação farmacológica da noradrenalina ocorre predominantemente por meio da ativação dos receptores adrenérgicos α₁ e α₂, com atividade moderada sobre receptores β₁. A estimulação dos receptores α₁ presentes na musculatura lisa vascular promove vasoconstrição arterial e venosa intensa, resultando em aumento da resistência vascular sistêmica e da pressão arterial média. Simultaneamente, a ativação dos receptores β₁ cardíacos produz discreto efeito inotrópico positivo, contribuindo para a manutenção do débito cardíaco sem provocar taquicardia significativa (Evans et al., 2021).</p>
+
+        <p class={p}>Outro efeito importante da estimulação dos receptores α₁ pela noradrenalina ocorre no compartimento venoso. A vasoconstrição venosa reduz a capacitância do sistema venoso e promove a redistribuição de uma parcela do volume sanguíneo inicialmente não estressado (<em>unstressed volume</em>) para o volume estressado (<em>stressed volume</em>). O volume não estressado corresponde ao sangue contido nos vasos sem exercer pressão suficiente para promover o retorno venoso, enquanto o volume estressado é aquele que exerce pressão sobre a parede vascular e contribui para a pressão sistêmica média de enchimento, um dos principais determinantes do gradiente de pressão responsável pelo retorno venoso ao coração. Dessa forma, ao aumentar o volume estressado, a noradrenalina eleva a pressão sistêmica média de enchimento e favorece o retorno venoso, contribuindo para o aumento da pré-carga e, em pacientes responsivos à pré-carga, para a elevação do débito cardíaco (Adda et al., 2021; Monnet et al., 2023).</p>
+
+        <p class={p}>A noradrenalina não adiciona volume ao sistema circulatório; ela redistribui o volume que já está dentro dos vasos, tornando uma parcela dele mais efetiva para gerar pressão e retorno venoso. Em pacientes com choque séptico, esse efeito pode ser especialmente relevante. A vasodilatação venosa aumenta a capacitância vascular e favorece a permanência de sangue no compartimento não estressado. A noradrenalina, ao promover venoconstrição, reduz essa capacitância e desloca parte desse sangue para o compartimento estressado, aumentando a pressão sistêmica média de enchimento. Estudos fisiológicos em pacientes com choque séptico demonstraram, inclusive, que a noradrenalina pode potencializar o aumento dessa pressão produzido pela expansão volêmica (Adda et al., 2021).</p>
+
+        <p class={p}>A elevação da pressão arterial média também melhora a pressão de perfusão coronariana, cerebral e renal, contribuindo para a preservação da função orgânica. Em contrapartida, doses elevadas podem reduzir a perfusão periférica e esplâncnica devido à vasoconstrição excessiva, justificando a necessidade de monitorização contínua durante sua administração (Kattan; Ibarra-Estrada; Jung, 2024).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo6-fig1-receptores-alfa1-beta1.webp"
+              width="1229"
+              height="819"
+              alt="Esquema com três blocos principais ligados por setas. À esquerda, o receptor β₁ no coração: aumento da frequência cardíaca (cronotropismo) e da contratilidade (inotropismo), com possível aumento do débito cardíaco. À direita, o receptor α₁ nos vasos: vasoconstrição arterial, que aumenta a resistência vascular sistêmica e a pós-carga, e venoconstrição, que aumenta o volume estressado e o retorno venoso. No centro, o débito cardíaco e a pressão arterial média, que dependem desses efeitos, e na base a microcirculação. Uma legenda indica efeitos que tendem a aumentar, que podem reduzir e que dependem do contexto."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 1</strong> – Representação esquemática dos efeitos cardiovasculares da ativação dos receptores adrenérgicos α₁ e β₁ sobre a hemodinâmica sistêmica e a microcirculação. A figura ilustra os principais efeitos da estimulação dos receptores β₁ cardíacos e α₁ vasculares sobre a frequência cardíaca, a contratilidade miocárdica, o tônus vascular, o retorno venoso, o débito cardíaco (DC) e a pressão arterial média (PAM). Destaca-se que a vasoconstrição arterial pode elevar a resistência vascular sistêmica e a pós-carga, enquanto a venoconstrição pode aumentar o volume estressado e o retorno venoso. Os efeitos hemodinâmicos resultantes dependem da interação entre função ventricular, estado volêmico, tônus vascular e condições da microcirculação. Fonte: elaboração própria (2026), com auxílio de inteligência artificial.</figcaption>
+        </figure>
+
+        <h3 class={h3}>Efeitos hemodinâmicos e dose terapêutica</h3>
+
+        <p class={p}>A noradrenalina é administrada por infusão intravenosa contínua, com a dose titulada individualmente conforme a resposta hemodinâmica do paciente. Diferentemente de outros fármacos, não existe uma dose terapêutica fixa ou um limite máximo universalmente aceito. O ajuste da infusão deve ser guiado pelo restabelecimento da pressão de perfusão e por indicadores clínicos de adequada perfusão tecidual, como pressão arterial média, débito urinário, tempo de enchimento capilar e depuração do lactato (Kattan; Ibarra-Estrada; Jung, 2024; Evans et al., 2021).</p>
+
+        <p class={p}>Na prática clínica, a infusão é frequentemente iniciada entre 0,01 e 0,05 µg/kg/min, com incrementos sucessivos conforme a resposta clínica. Em pacientes com choque séptico responsivo, as doses habitualmente permanecem abaixo de 0,5 µg/kg/min; entretanto, indivíduos com vasoplegia grave podem necessitar de doses progressivamente maiores, frequentemente entre 0,5 e 1,0 µg/kg/min e, em situações de choque refratário, superiores a 1,0–2,0 µg/kg/min. Há séries observacionais descrevendo pacientes que receberam doses superiores a 3 µg/kg/min, demonstrando que a necessidade de doses elevadas é determinada pela intensidade da vasoplegia e não por uma limitação farmacológica previamente estabelecida (Brown et al., 2013; Kattan; Ibarra-Estrada; Jung, 2024).</p>
+
+        <p class={p}>A necessidade de aumento progressivo da dose deve sempre motivar uma reavaliação da estratégia terapêutica. Antes da simples escalada da infusão, recomenda-se confirmar a adequação da ressuscitação volêmica, investigar acidose, hipocalcemia, hipoxemia, disfunção cardíaca e considerar a introdução precoce de vasopressores não catecolaminérgicos, especialmente a vasopressina, como estratégia para reduzir a exposição às catecolaminas e minimizar seus efeitos adversos (Monnet et al., 2023).</p>
+
+        <p class={p}>Os efeitos hemodinâmicos da noradrenalina podem ser resumidos em:</p>
+
+        <ul class={ul}>
+          <li>Aumento da resistência vascular sistêmica;</li>
+          <li>Elevação da pressão arterial média;</li>
+          <li>Aumento da pré-carga por venoconstrição;</li>
+          <li>Melhora da pressão de perfusão tecidual;</li>
+          <li>Discreto aumento da contratilidade miocárdica;</li>
+          <li>Pequeno impacto sobre a frequência cardíaca.</li>
+        </ul>
+
+        <h3 class={h3}>Uso clínico</h3>
+
+        <p class={p}>As diretrizes internacionais da Surviving Sepsis Campaign recomendam a noradrenalina como agente vasopressor de primeira linha para pacientes com choque séptico, devendo ser iniciada quando a reposição volêmica isoladamente não for suficiente para manter pressão arterial média igual ou superior a 65 mmHg (Evans et al., 2021).</p>
+
+        <p class={p}>Nos últimos anos, evidências têm demonstrado benefícios relacionados ao início precoce da noradrenalina. A administração antecipada pode reduzir o tempo de hipotensão, limitar a sobrecarga hídrica decorrente da ressuscitação volêmica excessiva e melhorar a perfusão dos órgãos-alvo, fatores associados à redução da morbidade em pacientes críticos (Monnet et al., 2023).</p>
+
+        <p class={p}>Quando doses crescentes de noradrenalina são necessárias para atingir a meta pressórica, as diretrizes recomendam a associação de vasopressina como estratégia poupadora de catecolaminas, reduzindo potenciais efeitos adversos associados às altas doses do vasopressor (Evans et al., 2021).</p>
+
+        <p class={p}>A justificativa fisiológica para essa estratégia está relacionada ao fato de que a vasopressina atua por mecanismos completamente diferentes daqueles das catecolaminas. Enquanto a noradrenalina exerce seus efeitos principalmente por meio da estimulação dos receptores α₁-adrenérgicos da musculatura lisa vascular, a vasopressina promove vasoconstrição através da ativação dos receptores V1a localizados nos vasos sanguíneos. Dessa forma, ambas produzem aumento da pressão arterial por vias independentes e potencialmente complementares (García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <p class={p}>Em termos didáticos, pode-se imaginar a noradrenalina como o acelerador de um automóvel. Em baixas e moderadas intensidades ela é extremamente eficaz. Entretanto, manter o acelerador pressionado ao máximo durante períodos prolongados aumenta o desgaste do sistema. A vasopressina funciona como um mecanismo auxiliar capaz de manter a velocidade desejada sem exigir aceleração contínua do motor principal.</p>
+
+        <h3 class={h3}>Administração e monitorização</h3>
+
+        <p class={p}>A infusão da noradrenalina deve ser realizada preferencialmente por acesso venoso central e administrada por bomba de infusão contínua. Entretanto, evidências recentes indicam que sua administração periférica pode ser iniciada temporariamente em situações emergenciais, desde que realizada por acesso calibroso e monitorização rigorosa até a obtenção de acesso central definitivo (Evans et al., 2021).</p>
+
+        <h3 class={h3}>Efeitos adversos</h3>
+
+        <ul class={ul}>
+          <li>Isquemia digital;</li>
+          <li>Hipoperfusão mesentérica;</li>
+          <li>Necrose tecidual por extravasamento;</li>
+          <li>Hipertensão arterial excessiva;</li>
+          <li>Arritmias cardíacas.</li>
+        </ul>
+
+        <figure class="my-10">
+          <div class={`${figWrap} max-w-lg mx-auto`}>
+            <img
+              src="/img/modulo6-fig2-isquemia-por-vasopressores.webp"
+              width="592"
+              height="585"
+              alt="Mosaico de nove fotografias de mãos e pés de uma paciente com choque séptico, com escurecimento e necrose das pontas dos dedos, indicados por setas brancas."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 2</strong> – Alterações isquêmicas nas extremidades superiores e inferiores em paciente com choque séptico submetida ao uso de múltiplos vasopressores. Fonte: Attallah et al. (2022, Figura 2), sob licença CC BY 4.0.</figcaption>
+        </figure>
+
+        <h2 class={h2}>Vasopressina</h2>
+
+        <p class={p}>A vasopressina, também denominada arginina-vasopressina (AVP) ou hormônio antidiurético (ADH), é um hormônio peptídico sintetizado principalmente nos neurônios dos núcleos supraóptico e paraventricular do hipotálamo. Após sua síntese, é transportada pelos axônios até a neuro-hipófise, onde permanece armazenada e posteriormente é liberada para a circulação. Sua secreção é regulada principalmente por alterações da osmolaridade plasmática, do volume sanguíneo e da pressão arterial (García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <p class={p}>Apesar de sua função clássica na regulação do equilíbrio hídrico, a vasopressina exerce importante atividade cardiovascular, especialmente por meio de seu efeito vasoconstritor. Em situações de hipotensão grave e choque distributivo, esse mecanismo contribui para a manutenção da pressão arterial. Diferentemente das catecolaminas, a vasopressina atua predominantemente por receptores específicos da família dos receptores de vasopressina e, por esse motivo, é considerada um vasopressor não catecolaminérgico (García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <p class={p}>No choque séptico, a vasopressina é utilizada principalmente como agente adjuvante à noradrenalina. A Surviving Sepsis Campaign 2026 mantém a recomendação de utilização da noradrenalina como vasopressor de primeira linha e sugere a adição de vasopressina quando são necessárias doses progressivamente maiores de noradrenalina para manutenção da pressão arterial (Prescott et al., 2026).</p>
+
+        <h3 class={h3}>Fisiologia e liberação da vasopressina</h3>
+
+        <p class={p}>Em condições fisiológicas, o principal estímulo para a liberação de vasopressina é o aumento da osmolaridade plasmática. Alterações hemodinâmicas importantes, especialmente a redução do volume circulante e da pressão arterial, também estimulam sua secreção. Dessa forma, a vasopressina participa tanto da manutenção da homeostase hídrica quanto da resposta neuro-hormonal à hipotensão (García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <p class={p}>Durante o choque séptico, a dinâmica da vasopressina pode sofrer alterações. Estudos demonstram que suas concentrações podem estar elevadas nas fases iniciais do choque e posteriormente diminuir durante a evolução do quadro. A presença de níveis inadequados de vasopressina diante de uma hipotensão persistente é descrita como deficiência relativa de vasopressina. Entretanto, a importância clínica desse fenômeno ainda não está completamente estabelecida e não se deve interpretar a deficiência relativa como uma deficiência hormonal absoluta em todos os pacientes com choque séptico (Sacha; Bauer, 2023).</p>
+
+        <p class={p}>Esse conceito possui relevância farmacológica porque fornece uma das bases fisiopatológicas para a utilização da vasopressina exógena durante o choque. Nesse contexto, a administração do hormônio busca aumentar o tônus vascular por uma via independente da estimulação adrenérgica (Sacha; Bauer, 2023).</p>
+
+        <h3 class={h3}>Farmacocinética e farmacodinâmica</h3>
+
+        <p class={p}>Os efeitos da vasopressina são mediados principalmente por três subtipos de receptores: V1a, V1b e V2. Esses receptores apresentam diferentes distribuições nos tecidos e estão associados a funções fisiológicas distintas (García-Álvarez; Arboleda-Salazar, 2023). Para o tratamento do choque, o receptor V1a apresenta maior importância. Sua ativação na musculatura lisa vascular provoca contração dos vasos sanguíneos, aumentando a resistência vascular sistêmica e contribuindo para a elevação da pressão arterial (Prescott et al., 2026; García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <p class={p}>Esses receptores são acoplados à proteína Gq e sua estimulação ativa a fosfolipase C, levando à formação de inositol trifosfato (IP₃) e diacilglicerol (DAG). O aumento subsequente do cálcio intracelular favorece a contração da musculatura lisa e provoca vasoconstrição, contribuindo para a elevação da pressão arterial (García-Álvarez; Arboleda-Salazar, 2023). Como consequência, ocorre aumento da resistência vascular sistêmica e elevação da pressão arterial média. Esse efeito é particularmente relevante no choque séptico, no qual a vasodilatação sistêmica é um dos principais componentes da instabilidade circulatória (Sacha; Bauer, 2023).</p>
+
+        <p class={p}>Um aspecto fundamental da vasopressina é que sua ação vasoconstritora ocorre por uma via não adrenérgica. Enquanto a noradrenalina atua predominantemente por meio dos receptores α-adrenérgicos, a vasopressina utiliza principalmente os receptores V1a. Essa diferença farmacológica permite que os dois fármacos sejam empregados de maneira complementar, ampliando o suporte vasopressor sem depender exclusivamente do aumento progressivo da dose de catecolamina (Prescott et al., 2026; Jozwiak et al., 2025).</p>
+
+        <p class={p}>Além da ativação dos receptores V1a, a diretriz Surviving Sepsis Campaign 2026 destaca outros efeitos farmacológicos descritos para a vasopressina, incluindo a ativação dos receptores V1b e efeitos moduladores sobre vias relacionadas à vasodilatação endotelial. Entretanto, no contexto do suporte hemodinâmico do choque, o efeito clinicamente mais relevante permanece sendo a vasoconstrição mediada pelo receptor V1a (Prescott et al., 2026).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo6-fig3-receptores-vasopressina.webp"
+              width="1300"
+              height="866"
+              alt="Esquema dos três receptores da vasopressina. V1a (acoplado à proteína Gq): músculo liso vascular, miocárdio e plaquetas; ativa a fosfolipase C, aumenta IP₃, DAG e cálcio intracelular, causando vasoconstrição arterial, possível aumento discreto da contratilidade e agregação plaquetária. V1b (Gq): hipófise anterior e sistema nervoso central; aumenta a liberação de ACTH e de cortisol. V2 (acoplado à proteína Gs): túbulo coletor renal e endotélio vascular; ativa a adenilato ciclase e o AMPc, com inserção de aquaporina-2 e reabsorção de água livre, além da liberação de óxido nítrico e fator de von Willebrand."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 3</strong> – Representação esquemática dos receptores da vasopressina (V1a, V1b e V2), suas principais localizações, vias de sinalização intracelular e efeitos fisiológicos. A figura apresenta a distribuição dos receptores da vasopressina e seus mecanismos de ação. A ativação dos receptores V1a, acoplados à proteína Gq, promove principalmente vasoconstrição por meio da via da fosfolipase C, com formação de IP₃ e DAG e aumento do cálcio intracelular. Os receptores V1b, também acoplados à proteína Gq, participam da regulação da secreção de hormônio adrenocorticotrófico (ACTH) pela hipófise anterior. Já os receptores V2, acoplados à proteína Gs, estimulam a via da adenilato ciclase/AMPc, promovendo a inserção de aquaporina-2 nas células principais dos túbulos coletores renais e aumentando a reabsorção de água. A figura também destaca os efeitos endoteliais associados à vasopressina. Fonte: elaboração própria (2026), com auxílio de inteligência artificial.</figcaption>
+        </figure>
+
+        <h3 class={h3}>Efeitos hemodinâmicos</h3>
+
+        <p class={p}>O principal efeito hemodinâmico da vasopressina é o aumento da resistência vascular sistêmica. Esse efeito contribui para o aumento da pressão arterial média e pode permitir a redução da necessidade de outros vasopressores, particularmente da noradrenalina (Sacha; Bauer, 2023).</p>
+
+        <p class={p}>A vasopressina não apresenta efeito cronotrópico ou inotrópico direto clinicamente significativo semelhante ao observado com as catecolaminas β-adrenérgicas. Assim, sua utilização pode aumentar a pressão arterial sem promover diretamente aumento expressivo da frequência cardíaca. Essa característica é uma das razões pelas quais sua associação à noradrenalina pode ser útil em pacientes nos quais a intensificação da estimulação catecolaminérgica é limitada por taquicardia ou arritmias (Sacha; Bauer, 2023).</p>
+
+        <p class={p}>Entretanto, o aumento da resistência vascular não representa necessariamente melhora uniforme do fluxo sanguíneo em todos os territórios. A vasoconstrição excessiva pode comprometer a perfusão periférica e favorecer fenômenos isquêmicos. Por esse motivo, a resposta ao tratamento deve ser avaliada por meio de parâmetros de pressão arterial e, simultaneamente, por indicadores de perfusão tecidual (Prescott et al., 2026; Song; Xiao; Song, 2026).</p>
+
+        <h3 class={h3}>Vasopressina no choque séptico</h3>
+
+        <p class={p}>No choque séptico, a vasopressina é empregada principalmente como vasopressor adjuvante. A noradrenalina continua sendo o agente de primeira linha, e a vasopressina é acrescentada quando o paciente necessita de doses crescentes de noradrenalina para alcançar a pressão arterial desejada (Prescott et al., 2026).</p>
+
+        <p class={p}>A recomendação atual da Surviving Sepsis Campaign 2026 é baseada em nove ensaios clínicos randomizados, envolvendo 1.439 pacientes, nos quais a adição de vasopressina foi comparada à estratégia de aumento isolado da noradrenalina. A análise da diretriz demonstrou provável redução da mortalidade com a associação, embora o efeito tenha sido relativamente pequeno e o intervalo de confiança tenha incluído a possibilidade de ausência de benefício. A combinação também esteve associada a provável redução de fibrilação atrial, mas a ocorrência de isquemia digital pode ser maior (Prescott et al., 2026).</p>
+
+        <p class={p}>Uma revisão sistemática e meta-análise publicada em 2025 avaliou ensaios clínicos de vasopressores adjuvantes em adultos com choque séptico e encontrou possível redução da mortalidade em curto prazo, mas com baixa certeza da evidência. Também foi observada provável redução da necessidade de terapia renal substitutiva, enquanto o risco de isquemia digital ou periférica pode ser aumentado (Bauer et al., 2025).</p>
+
+        <h3 class={h3}>Associação com noradrenalina e estratégia de redução da carga catecolaminérgica</h3>
+
+        <p class={p}>A associação entre noradrenalina e vasopressina representa uma estratégia baseada na utilização simultânea de mecanismos farmacológicos diferentes, já que a vasopressina promove vasoconstrição sem mecanismos adrenérgicos. Esse conceito é frequentemente descrito como estratégia poupadora de catecolaminas (<em>catecholamine-sparing strategy</em>) ou como redução da carga catecolaminérgica.</p>
+
+        <p class={p}>A preocupação com a exposição excessiva às catecolaminas está relacionada à estimulação adrenérgica intensa, que pode favorecer taquicardia, arritmias, aumento do consumo miocárdico de oxigênio e vasoconstrição excessiva. Assim, a utilização de um vasopressor não catecolaminérgico pode permitir que a pressão arterial seja mantida com menor necessidade de escalada da noradrenalina (Sacha; Bauer, 2023).</p>
+
+        <p class={p}>De forma didática, pode-se compreender a estratégia da seguinte maneira: a noradrenalina e a vasopressina utilizam “caminhos diferentes” para produzir vasoconstrição. Quando a noradrenalina deixa de ser suficiente, simplesmente aumentar continuamente sua dose significa intensificar o mesmo mecanismo adrenérgico. A adição da vasopressina permite acrescentar uma segunda via vasoconstritora, possibilitando reduzir a necessidade de escalada da catecolamina (Jozwiak et al., 2025).</p>
+
+        <p class={p}>É importante, entretanto, diferenciar o conceito farmacológico de “poupar catecolaminas” de um benefício clínico comprovado. Embora a associação reduza a dose necessária de noradrenalina em muitos pacientes, isso não significa automaticamente redução da mortalidade. As evidências contemporâneas apontam para possíveis benefícios em determinados desfechos, mas permanecem incertezas sobre quais pacientes são os maiores beneficiários da estratégia (Bauer et al., 2025; Song; Xiao; Song, 2026).</p>
+
+        <p class={p}>Portanto, o uso da vasopressina deve ser compreendido como uma estratégia de suporte vasopressor complementar, e não como substituição da noradrenalina.</p>
+
+        <h3 class={h3}>Quando associar a vasopressina?</h3>
+
+        <p class={p}>O momento ideal para introdução da vasopressina ainda não está completamente definido. A Surviving Sepsis Campaign 2026 recomenda sua adição em pacientes com choque séptico que necessitam de doses crescentes de noradrenalina, mas não estabelece um único valor de dose que deva ser utilizado como gatilho universal (Prescott et al., 2026).</p>
+
+        <p class={p}>Na prática clínica, há considerável heterogeneidade entre os profissionais. O PRESS Survey, estudo internacional realizado com 1.919 intensivistas de 124 países, mostrou que 93% dos participantes que utilizavam vasopressina ou terlipressina empregavam esses fármacos como segunda linha. A faixa de dose de noradrenalina mais frequentemente relatada como gatilho para sua introdução foi de 0,25 a 0,50 µg/kg/min. Esse dado representa prática clínica observada internacionalmente e não constitui uma recomendação normativa de dose (Jozwiak et al., 2025).</p>
+
+        <p class={p}>Estudos observacionais sugerem que a introdução da vasopressina em doses menores de noradrenalina pode estar associada a melhores desfechos. Entretanto, esses estudos são suscetíveis a confundimento e não permitem estabelecer causalidade. Uma revisão sistemática e meta-análise publicada em 2025 encontrou associação entre início da vasopressina antes de seis horas e menor mortalidade, mas destacou o alto risco de viés dos estudos disponíveis (Bhattacharjee et al., 2025).</p>
+
+        <p class={p}>Assim, o momento de iniciar a vasopressina deve considerar não apenas a dose de noradrenalina, mas também a evolução da hipotensão, a resposta ao tratamento inicial, a perfusão orgânica e as características clínicas do paciente.</p>
+
+        <h3 class={h3}>Dose e administração</h3>
+
+        <p class={p}>A vasopressina é administrada por infusão intravenosa contínua. No tratamento do choque séptico, a literatura descreve doses entre 0,01 e 0,04 U/min, sendo 0,03 U/min uma das doses fixas mais frequentemente utilizadas nos ensaios clínicos e na prática clínica. Diferentemente da noradrenalina, sua administração geralmente não exige titulação contínua de acordo com a pressão arterial (García-Álvarez; Arboleda-Salazar, 2023; Hiroto; Nishikimi; Shime, 2026).</p>
+
+        <p class={p}>Embora doses de até 0,04 U/min sejam descritas, a utilização de doses superiores a esse valor pode aumentar o risco de vasoconstrição excessiva e de complicações isquêmicas, especialmente nos territórios periférico e esplâncnico. Por isso, a dose deve seguir o protocolo institucional e considerar a resposta hemodinâmica e os sinais de perfusão tecidual do paciente (Hiroto; Nishikimi; Shime, 2026).</p>
+
+        <p class={p}>A escolha da dose deve considerar o risco de vasoconstrição excessiva. Doses maiores não devem ser utilizadas indiscriminadamente para obtenção de níveis pressóricos cada vez mais elevados, pois podem aumentar o risco de eventos isquêmicos (Prescott et al., 2026; García-Álvarez; Arboleda-Salazar, 2023).</p>
+
+        <h3 class={h3}>Efeitos adversos da vasopressina</h3>
+
+        <p class={p}>Os eventos adversos da vasopressina estão principalmente relacionados à vasoconstrição excessiva. Entre eles destacam-se isquemia digital, isquemia periférica e fenômenos isquêmicos em outros territórios vasculares.</p>
+
+        <p class={p}>A análise realizada na Surviving Sepsis Campaign 2026 identificou provável redução de fibrilação atrial com o uso adjuvante da vasopressina, mas possível aumento do risco de isquemia digital em comparação com a estratégia de aumento da noradrenalina isoladamente (Prescott et al., 2026).</p>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+              {ref.disp && (
+                <>
+                  {" "}Disponível em:{" "}
+                  <a href={ref.disp} class="text-teal-700 hover:text-teal-800 underline break-all">{ref.disp}</a>. Acesso em: {ref.acesso}.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/5"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/7"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>

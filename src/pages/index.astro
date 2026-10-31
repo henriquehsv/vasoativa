@@ -1,6 +1,7 @@
 ---
 // 1. ASTRO FRONTMATTER (Runs at build time)
 // We store static content here so our HTML below stays clean and easy to maintain.
+
 // 1. Import Tailwind CSS
 import '../styles/global.css';
 
@@ -40,39 +41,29 @@ const modules = [
   },
   {
     id: 6,
-    title: "Noradrenalina",
-    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+    title: "Vasopressores",
+    description: "Noradrenalina e vasopressina: receptores, doses, uso clínico e efeitos adversos.",
   },
   {
     id: 7,
-    title: "Vasopressina",
-    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
+    title: "Vasodilatadores",
+    description: "Principais drogas, indicações, cuidados e monitorização.",
   },
   {
     id: 8,
-    title: "Dobutamina",
-    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
-  },
-  {
-    id: 9,
-    title: "Adrenalina",
-    description: "Indicações, dose, diluição, monitorização e efeitos adversos.",
-  },
-  {
-    id: 10,
-    title: "Vasodilatadores",
-    description: "Principais drogas, indicações, cuidados e monitorização.",
+    title: "Inotrópicos",
+    description: "Dobutamina e milrinona: mecanismos de ação, indicações, dose e resposta clínica.",
   },
 ];
 
 const practicalModules = [
   {
-    id: 11,
+    id: 9,
     title: "Casos clínicos",
     description: "Casos reais simulados para aplicar o conhecimento e tomar decisões.",
   },
   {
-    id: 12,
+    id: 10,
     title: "Algoritmo de decisão",
     description: "Fluxogramas práticos para escolha da droga certa na situação certa.",
   },
@@ -85,6 +76,7 @@ const practicalModules = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>VASOATIVA - Educação em Saúde</title>
+
     <!-- Google Fonts for clean medical/tech typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,10 +84,11 @@ const practicalModules = [
   </head>
 
   <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
-    
+
     <!-- NAVIGATION -->
     <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
         <!-- Logo Text -->
         <div class="flex items-center gap-2">
           <span class="text-2xl font-bold tracking-tight text-slate-900">
@@ -119,6 +112,7 @@ const practicalModules = [
 
     <!-- HERO SECTION -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20">
+
       <div class="max-w-3xl py-8">
         <!-- Badge -->
         <p class="text-xs font-bold tracking-widest text-teal-600 uppercase mb-3">
@@ -132,8 +126,8 @@ const practicalModules = [
 
         <!-- Subheading -->
         <p class="text-lg text-slate-600 leading-relaxed mb-8">
-          Aprenda a reconhecer, decidir e tratar com segurança os pacientes críticos. 
-          Plataforma educacional interativa para aprofundar seus conhecimentos e tomar 
+          Aprenda a reconhecer, decidir e tratar com segurança os pacientes críticos.
+          Plataforma educacional interativa para aprofundar seus conhecimentos e tomar
           decisões assertivas no manejo hemodinâmico.
         </p>
 
@@ -160,12 +154,12 @@ const practicalModules = [
         </div>
       </div>
 
-      <!-- MODULES GRID (Items 1-10) -->
-      <!-- Stacks to 1 col on mobile, 2 on tablet, 3 on laptop, and 5 on large desktops matching your layout -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-5">
+      <!-- MODULES GRID (Items 1-8) -->
+      <!-- Stacks to 1 col on mobile, 2 on tablet, 3 on laptop, and 4 on large desktops (2 rows of 4) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-5">
         {modules.map((mod) => (
-          <a 
-            href={`/modulo/${mod.id}`} 
+          <a
+            href={`/modulo/${mod.id}`}
             class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex flex-col justify-between"
           >
             <div>
@@ -190,11 +184,11 @@ const practicalModules = [
         ))}
       </div>
 
-      <!-- BOTTOM WIDE MODULES (Items 11 & 12) -->
+      <!-- BOTTOM WIDE MODULES (Items 9 & 10) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         {practicalModules.map((mod) => (
-          <a 
-            href={`/modulo/${mod.id}`} 
+          <a
+            href={`/modulo/${mod.id}`}
             class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex items-start gap-5"
           >
             <span class="w-12 h-12 shrink-0 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-base group-hover:bg-teal-600 transition-colors">
@@ -211,7 +205,7 @@ const practicalModules = [
           </a>
         ))}
       </div>
-    </main>
 
+    </main>
   </body>
 </html>

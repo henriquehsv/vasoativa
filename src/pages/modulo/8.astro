@@ -1,0 +1,344 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "#" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-6 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const h3 = "text-xl font-bold text-slate-900 tracking-tight mt-9 mb-3";
+const h4 = "text-lg font-semibold text-teal-800 mt-7 mb-2";
+const ul = "mb-6 space-y-2 text-lg text-slate-700 leading-relaxed list-disc pl-6 marker:text-teal-600";
+const tabWrap = "overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-sm my-8";
+const th = "px-5 py-3 font-semibold";
+const td = "px-5 py-4";
+const titulo = "Inotrópicos";
+
+const legendaDO2 = [
+  { sigla: "DO₂", texto: "oferta de oxigênio;" },
+  { sigla: "DC", texto: "débito cardíaco;" },
+  { sigla: "CaO₂", texto: "conteúdo arterial de oxigênio." },
+];
+
+const comparacao = [
+  { c: "Mecanismo de ação", d: "Agonista β₁-adrenérgico (ativa a via AMPc)", m: "Inibidor da fosfodiesterase tipo 3 (reduz a degradação do AMPc)" },
+  { c: "Efeito sobre o AMPc", d: "↑ Produção de AMPc", m: "↓ Degradação de AMPc" },
+  { c: "Contratilidade", d: "↑ Aumenta", m: "↑ Aumenta" },
+  { c: "Relaxamento diastólico (lusitropia)", d: "Efeito discreto", m: "↑ Aumenta" },
+  { c: "Frequência cardíaca", d: "↑ Pode aumentar significativamente", m: "↑ Pode aumentar (geralmente menos proeminente)" },
+  { c: "Resistência vascular sistêmica (RVS)", d: "Efeito mínimo (pode reduzir discretamente)", m: "↓ Reduz (vasodilatação)" },
+  { c: "Resistência vascular pulmonar (RVP)", d: "Pode reduzir discretamente", m: "↓ Reduz" },
+  { c: "Pressão arterial", d: "Pode aumentar ou reduzir (dependente da volemia e da RVS)", m: "Tende a reduzir (por vasodilatação)" },
+  { c: "Dependência de receptores β-adrenérgicos", d: "Sim (resposta pode ser reduzida em uso de betabloqueadores)", m: "Não (útil quando há dessensibilização dos receptores)" },
+  { c: "Considerações clínicas", d: "Útil em estados de baixo débito com RVS normal ou aumentada", m: "Útil em disfunção ventricular com hipertensão pulmonar ou resistência vascular aumentada; atenção à função renal" },
+];
+
+const referencias = [
+  { a: "CALABRÓ, Lorenzo; ANNONI, Filippo; TACCONE, Fabio Silvio. Dobutamine administration: a proposal for a standardized approach.", r: "Intensive Care Medicine Experimental", d: ", v. 13, n. 1, art. 89, 2025.", doi: "10.1186/s40635-025-00804-1", disp: "https://pubmed.ncbi.nlm.nih.gov/40887491/", acesso: "27 set. 2026" },
+  { a: "DI SANTO, Pietro et al. Milrinone vs dobutamine for the management of cardiogenic shock: implications of renal function and injury.", r: "JACC: Advances", d: ", v. 2, n. 5, art. 100393, 2023.", doi: "10.1016/j.jacadv.2023.100393" },
+  { a: "DUBIN, Arnaldo; MUGNO, Matías. The effects of dobutamine in septic shock: an updated narrative review of clinical and experimental studies.", r: "Medicina", d: ", v. 60, n. 5, art. 751, 2024.", doi: "10.3390/medicina60050751", disp: "https://pubmed.ncbi.nlm.nih.gov/38792934/", acesso: "27 set. 2026" },
+  { a: "JUNG, Richard G. et al. Arrhythmic events and mortality in patients with cardiogenic shock on inotropic support: results of the DOREMI randomized trial.", r: "Canadian Journal of Cardiology", d: ", v. 39, n. 4, p. 394–402, 2023.", doi: "10.1016/j.cjca.2022.09.013" },
+  { a: "KATO, T. et al. Clinical importance of phosphodiesterase 3 inhibitors on outcomes in patients with cardiogenic shock: a systematic review.", r: "Circulation Reports", d: ", 2025.", doi: "10.1253/circrep.CR-25-0152" },
+  { a: "LÜSEBRINK, Enzo et al. Cardiogenic shock.", r: "The Lancet", d: ", v. 404, n. 10466, p. 2006–2020, 2024.", doi: "10.1016/S0140-6736(24)01818-X" },
+  { a: "MATHEW, Rebecca et al. Milrinone as compared with dobutamine in the treatment of cardiogenic shock.", r: "New England Journal of Medicine", d: ", v. 385, n. 6, p. 516–525, 2021.", doi: "10.1056/NEJMoa2026845" },
+  { a: "MEHTA, S. et al. Milrinone vs dobutamine for the management of cardiogenic shock: implications of renal function and injury.", r: "Journal of the American College of Cardiology", d: ", 2024." },
+  { a: "MILRINONE LACTATE. Milrinone lactate injection: prescribing information. [S. l.]: DailyMed, 2026.", r: "", d: "" },
+  { a: "RUFFOLO JUNIOR, Robert R. The pharmacology of dobutamine.", r: "The American Journal of the Medical Sciences", d: ", v. 294, n. 4, p. 244–248, 1987.", doi: "10.1097/00000441-198710000-00005" },
+  { a: "WALDECK, Bertil. The β1-selective adrenoceptor agonist dobutamine: a fallacy being perpetuated.", r: "Chirality", d: ", v. 23, n. 1, p. 63–64, 2011.", doi: "10.1002/chir.20874" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Dobutamina e milrinona: mecanismos de ação, indicações, dose, titulação e resposta clínica." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
+          {titulo}
+        </h1>
+
+        <h2 class={h2}>Dobutamina</h2>
+
+        <p class={p}>A dobutamina é um agente inotrópico adrenérgico utilizado principalmente no tratamento de estados de baixo débito cardíaco associados à redução da contratilidade miocárdica. Diferentemente dos vasopressores, cujo principal objetivo é aumentar o tônus vascular e restaurar a pressão arterial, a dobutamina atua predominantemente sobre o coração, aumentando a força de contração e, consequentemente, o volume sistólico e o débito cardíaco (Mayer et al., 1988; Morelli et al., 2018).</p>
+
+        <p class={p}>Seu uso é particularmente relevante quando existe disfunção cardíaca associada à hipoperfusão tecidual, como pode ocorrer no choque cardiogênico e em determinados pacientes com choque séptico e disfunção miocárdica. Entretanto, a indicação do fármaco não deve ser baseada exclusivamente em um valor reduzido de débito cardíaco, mas na avaliação integrada da função cardíaca, do estado hemodinâmico e dos sinais de hipoperfusão (Evans et al., 2026; Lüsebrink et al., 2024).</p>
+
+        <h3 class={h3}>Farmacodinâmica</h3>
+
+        <p class={p}>A dobutamina é uma catecolamina sintética que atua sobre os receptores β₁, β₂ e α₁-adrenérgicos. Embora seja tradicionalmente descrita como um agonista predominantemente β₁, seus efeitos cardiovasculares resultam da interação entre diferentes receptores e de seus isômeros, produzindo aumento da contratilidade associado a graus variáveis de vasodilatação (Mayer et al., 1988).</p>
+
+        <h4 class={h4}>Receptores β₁</h4>
+
+        <p class={p}>A estimulação dos receptores β₁-adrenérgicos, presentes principalmente no coração, é responsável por grande parte dos efeitos cardiovasculares da dobutamina. A ativação desses receptores estimula a adenilato ciclase, aumentando a concentração intracelular de AMP cíclico (AMPc) e, consequentemente, a atividade da proteína quinase A. Esse mecanismo modifica o manejo intracelular do cálcio, aumentando sua disponibilidade para a contração dos cardiomiócitos e produzindo aumento da contratilidade cardíaca (efeito inotrópico positivo) (Ruffolo, 1987; Waldeck, 2011).</p>
+
+        <p class={p}>Além de aumentar a força de contração, a estimulação β₁ também promove aumento da frequência cardíaca (efeito cronotrópico positivo) e da velocidade de condução do impulso elétrico pelo coração (efeito dromotrópico positivo). Dessa forma, a dobutamina pode aumentar o débito cardíaco tanto pelo aumento do volume sistólico, decorrente do maior inotropismo, quanto pelo aumento da frequência cardíaca (Ruffolo, 1987; Waldeck, 2011).</p>
+
+        <p class={p}>O efeito pode ser simplificado da seguinte maneira:</p>
+
+        <div class={formula}>
+          <p class="leading-relaxed">β₁ → ↑ AMPc → ↑ disponibilidade de Ca²⁺ → ↑ contratilidade → ↑ volume sistólico</p>
+          <p class="leading-relaxed">β₁ → ↑ frequência cardíaca</p>
+          <p class="leading-relaxed">↑ volume sistólico + ↑ frequência cardíaca → ↑ débito cardíaco</p>
+        </div>
+
+        <p class={p}>Entretanto, o aumento da frequência cardíaca deve ser interpretado com cautela. Uma elevação excessiva da frequência pode reduzir o tempo de enchimento ventricular, aumentar o consumo miocárdico de oxigênio e favorecer o aparecimento de arritmias.</p>
+
+        <h4 class={h4}>Receptores β₂</h4>
+
+        <p class={p}>A estimulação dos receptores β₂ promove vasodilatação periférica, contribuindo para a redução da resistência vascular sistêmica. Essa característica faz com que a dobutamina seja frequentemente classificada como um inodilatador, pois combina aumento da contratilidade cardíaca com redução da resistência vascular (Morelli et al., 2018).</p>
+
+        <h4 class={h4}>Receptores α₁</h4>
+
+        <p class={p}>Os receptores α₁-adrenérgicos estão presentes principalmente no músculo liso dos vasos sanguíneos. Sua ativação estimula a via da fosfolipase C, com formação de inositol trifosfato (IP₃) e aumento da concentração de cálcio intracelular no músculo liso vascular. Como consequência, ocorre contração da musculatura vascular e vasoconstrição, levando ao aumento da resistência vascular sistêmica (RVS) e, potencialmente, da pressão arterial (Ruffolo, 1987; Waldeck, 2011).</p>
+
+        <div class={formula}>
+          <p class="leading-relaxed">α₁ → ↑ Ca²⁺ intracelular no músculo liso → vasoconstrição → ↑ RVS → ↑ pressão arterial</p>
+        </div>
+
+        <p class={p}>Na dobutamina, entretanto, esse efeito α₁ ocorre simultaneamente à ativação dos receptores β₂, que promovem vasodilatação. Por isso, o efeito vascular final da dobutamina resulta do equilíbrio entre esses mecanismos. Na prática, o efeito vasodilatador β₂ pode predominar, fazendo com que a resistência vascular sistêmica permaneça inalterada ou até diminua (Ruffolo, 1987; Waldeck, 2011).</p>
+
+        <p class={p}>Esse aspecto é importante para compreender por que a dobutamina não deve ser considerada um vasopressor. Embora apresente alguma atividade α₁, seu efeito cardiovascular predominante é o aumento da contratilidade cardíaca, enquanto seu efeito vascular pode resultar em vasodilatação.</p>
+
+        <div class={formula}>
+          <p class="leading-relaxed">Ativação α₁ → vasoconstrição → ↑ RVS → tendência à ↑ PAM</p>
+          <p class="leading-relaxed">Ativação β₂ → vasodilatação → ↓ RVS → tendência à ↓ PAM</p>
+        </div>
+
+        <p class={p}>Assim, na utilização da dobutamina, o efeito final sobre a pressão arterial dependerá do balanço entre esses mecanismos e das condições hemodinâmicas individuais do paciente.</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo8-fig1-dobutamina.webp"
+              width="690"
+              height="555"
+              alt="Esquema do mecanismo de ação da dobutamina, agonista β₁-adrenérgico, no cardiomiócito: a dobutamina liga-se ao receptor β₁ acoplado à proteína Gs, que ativa a adenilato ciclase; a conversão de ATP em AMPc aumenta e ativa a proteína quinase A (PKA), que aumenta a entrada de cálcio pelos canais tipo L e a liberação de cálcio do retículo sarcoplasmático, elevando a contratilidade. Os principais efeitos são aumento da contratilidade (inotrópico positivo), aumento da frequência cardíaca (cronotrópico positivo) e efeito mínimo na resistência vascular sistêmica, que pode reduzir discretamente."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 1</strong> – Mecanismos de ação da dobutamina. A figura ilustra as vias farmacodinâmicas, destacando a estimulação β₁-adrenérgica pela dobutamina, com seus efeitos sobre o AMPc, a contratilidade miocárdica e o tônus vascular. Fonte: Elaborada pela autora (2026), com auxílio de inteligência artificial (IA).</figcaption>
+        </figure>
+
+        <h3 class={h3}>Dobutamina e oferta de oxigênio</h3>
+
+        <p class={p}>A relação entre dobutamina e oferta de oxigênio é fundamental para compreender seu papel no paciente crítico.</p>
+
+        <p class={p}>A oferta de oxigênio aos tecidos é determinada pela relação:</p>
+
+        <p class={formula}>DO₂ = DC × CaO₂</p>
+
+        <ul class={ul}>
+          {legendaDO2.map((l) => (
+            <li><strong class="font-semibold text-slate-900">{l.sigla}:</strong> {l.texto}</li>
+          ))}
+        </ul>
+
+        <p class={p}>O conteúdo arterial de oxigênio pode ser estimado pela seguinte equação:</p>
+
+        <p class={formula}>CaO₂ = (Hb × 1,34 × SaO₂) + (0,0031 × PaO₂)</p>
+
+        <p class={p}>Dessa forma, quando a principal alteração responsável pela redução da oferta de oxigênio é a diminuição do débito cardíaco, a dobutamina pode aumentar o DO₂ por meio do aumento do débito cardíaco. Entretanto, esse raciocínio não significa que todo paciente com lactato elevado ou baixo débito deva receber dobutamina. A utilização de um inotrópico deve estar relacionada à presença de disfunção cardíaca e à persistência de sinais de hipoperfusão após a correção dos principais determinantes do choque (Evans et al., 2026).</p>
+
+        <h3 class={h3}>Indicação</h3>
+
+        <p class={p}>A principal indicação da dobutamina é a presença de baixo débito cardíaco associado à disfunção da contratilidade e sinais de hipoperfusão.</p>
+
+        <p class={p}>Entre as situações em que pode ser considerada estão:</p>
+
+        <ul class={ul}>
+          <li>choque cardiogênico;</li>
+          <li>insuficiência cardíaca aguda com baixo débito;</li>
+          <li>choque séptico associado à disfunção cardíaca e hipoperfusão persistente;</li>
+          <li>síndrome de baixo débito após cirurgia cardíaca.</li>
+        </ul>
+
+        <h3 class={h3}>Dobutamina no choque séptico</h3>
+
+        <p class={p}>Na maioria dos pacientes com choque séptico, a alteração predominante é a vasoplegia, caracterizada pela redução da resistência vascular sistêmica. Por esse motivo, os vasopressores, especialmente a noradrenalina, apresentam papel central no tratamento da hipotensão associada ao choque séptico (Evans et al., 2026).</p>
+
+        <p class={p}>Entretanto, alguns pacientes desenvolvem disfunção miocárdica associada à sepse, com redução da capacidade de gerar fluxo sanguíneo adequado. Quando existe persistência de hipoperfusão apesar de ressuscitação adequada e restauração da pressão arterial, um inotrópico pode ser considerado.</p>
+
+        <h3 class={h3}>Dose e titulação</h3>
+
+        <p class={p}>A relação entre a dose administrada de dobutamina e seus efeitos cardiovasculares não deve ser interpretada como uma sequência rígida de ativação de diferentes receptores adrenérgicos. Embora a dobutamina exerça predominantemente efeitos β₁ cardíacos, com atividade adicional sobre receptores β₂ e α₁, a resposta hemodinâmica observada resulta da interação entre essas ações e pode variar de acordo com o estado cardiovascular e metabólico do paciente. Dessa forma, não é possível estabelecer uma correspondência universal entre determinada dose e um único efeito farmacológico (Morelli et al., 2018; Oliveira et al., 2024).</p>
+
+        <p class={p}>Do ponto de vista clínico, a resposta à dobutamina pode ser particularmente heterogênea em pacientes com choque séptico. Embora tradicionalmente seja utilizada com o objetivo de aumentar a contratilidade e o débito cardíaco, estudos demonstram que sua resposta pode variar substancialmente entre os indivíduos. Em uma revisão narrativa publicada em 2024, Oliveira et al. destacaram que, no choque séptico, a dobutamina pode produzir frequentemente aumento da frequência cardíaca e vasodilatação, sem evidência consistente de aumento da contratilidade. Esses achados sugerem que o efeito farmacológico observado na prática clínica nem sempre corresponde ao efeito inotrópico esperado a partir de sua classificação farmacológica (Oliveira et al., 2024).</p>
+
+        <p class={p}>Essa heterogeneidade também é demonstrada em estudos clínicos que avaliaram a resposta à dobutamina em pacientes com choque séptico. Em alguns indivíduos, o aumento do débito cardíaco esteve predominantemente relacionado ao aumento do volume sistólico, enquanto em outros a resposta foi predominantemente cronotrópica. Dessa forma, o aumento do débito cardíaco durante a infusão de dobutamina não deve ser interpretado automaticamente como evidência de aumento da contratilidade miocárdica (Jardin et al., 2006).</p>
+
+        <p class={p}>Nesse contexto, doses muito baixas de dobutamina devem ser interpretadas com cautela. Não há evidências suficientes para estabelecer que doses inferiores a 0,5 µg/kg/min sejam invariavelmente desprovidas de efeito inotrópico ou que produzam exclusivamente efeito cronotrópico. Estudos farmacodinâmicos demonstram que mesmo doses baixas podem produzir respostas hemodinâmicas mensuráveis em determinados pacientes, enquanto a resposta cronotrópica pode predominar em outros. Portanto, a relação entre dose e efeito não deve ser apresentada como uma divisão absoluta entre doses “inotrópicas” e “cronotrópicas”.</p>
+
+        <p class={p}>Em adultos, as doses utilizadas clinicamente geralmente se encontram em uma faixa de aproximadamente 2 a 20 µg/kg/min, com titulação individualizada de acordo com a resposta hemodinâmica. Uma proposta contemporânea de administração padronizada recomenda iniciar a dobutamina em 2,5 µg/kg/min, seguida de ajustes graduais conforme a evolução do índice cardíaco e dos marcadores de perfusão, com reavaliações seriadas da resposta ao tratamento. Os autores ressaltam que a simples presença de baixo débito cardíaco não deve, isoladamente, determinar o início do tratamento inotrópico, sendo necessária a avaliação de sinais de hipoperfusão e de comprometimento da contratilidade (Calabró et al., 2025).</p>
+
+        <p class={p}>Em doses mais elevadas, o aumento da frequência cardíaca pode tornar-se progressivamente mais importante para a elevação do débito cardíaco. Estudos de resposta hemodinâmica demonstraram que, enquanto doses menores podem aumentar o volume sistólico, doses mais elevadas podem produzir aumento adicional do débito cardíaco predominantemente por incremento da frequência cardíaca, sem aumento proporcional do volume sistólico. Esse fenômeno é clinicamente relevante, pois a taquicardia pode aumentar o consumo miocárdico de oxigênio e favorecer o desenvolvimento de arritmias (Morelli et al., 2018).</p>
+
+        <p class={p}>Assim, a dose não deve ser utilizada isoladamente para inferir o efeito farmacodinâmico produzido pela dobutamina. A avaliação deve considerar a resposta individual, incluindo frequência cardíaca, pressão arterial, débito cardíaco, volume sistólico, sinais de perfusão periférica e marcadores de hipoperfusão. A titulação deve buscar o menor nível de exposição capaz de produzir benefício hemodinâmico, evitando a intensificação desnecessária dos efeitos cronotrópicos e vasculares.</p>
+
+        <p class={p}>Em síntese, a dobutamina apresenta uma relação dose–efeito contínua e variável. Doses progressivamente maiores tendem a intensificar a estimulação β-adrenérgica, mas não determinam uma mudança abrupta de um efeito inotrópico para um efeito cronotrópico. Particularmente no choque séptico, a resposta pode ser heterogênea, e o aumento da frequência cardíaca e a vasodilatação podem predominar sobre o aumento da contratilidade. Por esse motivo, a utilização da dobutamina deve ser acompanhada de monitorização hemodinâmica e reavaliação contínua da relação entre efeitos desejados e potenciais efeitos adversos (Oliveira et al., 2024; Calabró et al., 2025).</p>
+
+        <h3 class={h3}>Como saber se a dobutamina está funcionando?</h3>
+
+        <p class={p}>A resposta à dobutamina deve ser avaliada de maneira integrada. Podem ser utilizados:</p>
+
+        <ul class={ul}>
+          <li><strong class="font-semibold text-slate-900">Parâmetros clínicos:</strong> melhora do estado mental, da perfusão periférica, redução do tempo de enchimento capilar, melhora da temperatura das extremidades e do débito urinário;</li>
+          <li><strong class="font-semibold text-slate-900">Parâmetros hemodinâmicos:</strong> aumento do débito cardíaco e do volume sistólico, melhora da pressão arterial quando dependente do débito, redução de pressões de enchimento quando elevadas;</li>
+          <li><strong class="font-semibold text-slate-900">Parâmetros metabólicos:</strong> redução progressiva do lactato quando inicialmente elevado, melhora de marcadores de perfusão.</li>
+        </ul>
+
+        <p class={p}>O mais importante é compreender que a resposta à dobutamina não deve ser avaliada apenas pela frequência cardíaca ou pela pressão arterial. Um paciente cuja frequência cardíaca aumentou de 90 para 130 bpm não necessariamente apresentou melhora da perfusão.</p>
+
+        <h2 class={h2}>Milrinona</h2>
+
+        <p class={p}>A milrinona é um fármaco inodilatador pertencente à classe dos inibidores da fosfodiesterase tipo 3 (PDE-3). Diferentemente das catecolaminas, sua ação não depende da estimulação direta dos receptores β-adrenérgicos. Ao inibir a PDE-3, a milrinona reduz a degradação do adenosina monofosfato cíclico (AMPc), aumentando sua concentração intracelular tanto nos cardiomiócitos quanto na musculatura lisa vascular (Kato et al., 2025).</p>
+
+        <p class={p}>No coração, o aumento do AMPc favorece a entrada e a disponibilidade de cálcio durante a sístole, resultando em aumento da contratilidade miocárdica (efeito inotrópico positivo) e também melhora do relaxamento ventricular (efeito lusitrópico). Nos vasos sanguíneos, o aumento do AMPc promove relaxamento da musculatura lisa, produzindo vasodilatação arterial e venosa, com redução da resistência vascular sistêmica e pulmonar (Kato et al., 2025; Milrinone Lactate, 2026).</p>
+
+        <p class={p}>Dessa forma, a milrinona pode aumentar o débito cardíaco ao mesmo tempo em que reduz a pós-carga, sendo particularmente útil em situações de baixo débito cardíaco associadas à disfunção ventricular, incluindo alguns casos de insuficiência cardíaca aguda, choque cardiogênico e disfunção ventricular direita associada ao aumento da resistência vascular pulmonar. Seu perfil de vasodilatação pulmonar e sistêmica pode ser especialmente interessante quando existe necessidade de melhorar o desempenho do ventrículo direito e reduzir sua pós-carga (Mathew et al., 2021; Kato et al., 2025).</p>
+
+        <p class={p}>Do ponto de vista farmacocinético, a milrinona é administrada por via intravenosa quando utilizada no contexto de terapia intensiva e apresenta distribuição relativamente rápida, com volume de distribuição de aproximadamente 0,38–0,45 L/kg. Sua meia-vida de eliminação é de aproximadamente 2,3–2,4 horas, e a eliminação ocorre predominantemente pelos rins, com grande parte do fármaco sendo recuperada na urina. Por essa razão, a função renal exerce importante influência sobre sua depuração, e a presença de disfunção renal pode prolongar sua exposição e favorecer o acúmulo do medicamento, tornando necessária a adequação da infusão (Milrinone Lactate, 2026; Mathew et al., 2021). Diferentemente dos agonistas β-adrenérgicos, seus efeitos não dependem da integridade ou da responsividade dos receptores adrenérgicos, característica que pode ser vantajosa em pacientes nos quais a resposta β-adrenérgica esteja reduzida (Kato et al., 2025).</p>
+
+        <p class={p}>Na prática clínica, a milrinona deve ser considerada principalmente quando há necessidade de suporte inotrópico associado à redução da resistência vascular, especialmente em pacientes com disfunção ventricular e baixo débito cardíaco. Entretanto, seu efeito vasodilatador pode provocar hipotensão, particularmente em pacientes com reserva vascular reduzida, e a utilização em choque exige monitorização hemodinâmica cuidadosa. Além disso, a dependência da eliminação renal é um aspecto fundamental para sua utilização segura (Milrinone Lactate, 2026; Kato et al., 2025). No choque cardiogênico, o estudo DOREMI não demonstrou diferença significativa entre a milrinona e a dobutamina quanto ao desfecho composto primário ou aos principais desfechos secundários, reforçando que a escolha do inotrópico deve considerar o perfil hemodinâmico individual, a pressão arterial, a função ventricular, a presença de disfunção renal e o contexto clínico (Mathew et al., 2021). Análises posteriores do estudo DOREMI também destacaram a importância da função renal na avaliação do uso da milrinona em pacientes com choque cardiogênico (Mehta et al., 2024).</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo8-fig2-milrinona.webp"
+              width="670"
+              height="552"
+              alt="Esquema do mecanismo de ação da milrinona, inibidor da fosfodiesterase tipo 3 (PDE-3): ao bloquear a PDE-3, reduz a degradação do AMPc, que aumenta e ativa a proteína quinase A (PKA). Efeitos no coração (inotrópico e lusitrópico): aumento da contratilidade, do relaxamento diastólico e do débito cardíaco. Efeitos nos vasos (vasodilatador): redução da resistência vascular sistêmica e da resistência vascular pulmonar."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}><strong class="font-semibold text-slate-700">Figura 2</strong> – Mecanismos de ação da dobutamina e da milrinona. A figura ilustra as vias farmacodinâmicas dos dois fármacos, destacando a inibição da PDE-3 pela milrinona, com seus efeitos sobre o AMPc, a contratilidade miocárdica e o tônus vascular. Fonte: Elaborada pela autora (2026), com auxílio de inteligência artificial (IA).</figcaption>
+        </figure>
+
+        <figure class="my-10">
+          <div class="overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-sm">
+            <table class="w-full min-w-[44rem] text-left text-sm">
+              <caption class="sr-only">Comparação entre dobutamina e milrinona</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="px-5 py-3 font-semibold bg-slate-50 text-slate-700">Característica</th>
+                  <th scope="col" class="px-5 py-3 font-semibold bg-sky-50 text-sky-800">Dobutamina</th>
+                  <th scope="col" class="px-5 py-3 font-semibold bg-teal-50 text-teal-800">Milrinona</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                {comparacao.map((r) => (
+                  <tr class="align-top">
+                    <th scope="row" class="px-5 py-3.5 font-semibold text-slate-900">{r.c}</th>
+                    <td class="px-5 py-3.5 text-slate-600">{r.d}</td>
+                    <td class="px-5 py-3.5 text-slate-600">{r.m}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <figcaption class={figCap}>
+            <strong class="font-semibold text-slate-700">Tabela 1</strong> – Comparação das
+            características farmacodinâmicas e dos efeitos hemodinâmicos da dobutamina e da milrinona.
+            Fonte: Elaborada pela autora (2026), com auxílio de inteligência artificial (IA).
+          </figcaption>
+        </figure>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+              {ref.disp && (
+                <>
+                  {" "}Disponível em:{" "}
+                  <a href={ref.disp} class="text-teal-700 hover:text-teal-800 underline break-all">{ref.disp}</a>. Acesso em: {ref.acesso}.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/7"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/9"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
