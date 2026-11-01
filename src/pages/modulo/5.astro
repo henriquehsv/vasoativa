@@ -1,0 +1,139 @@
+---
+import '../../styles/global.css';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "/modulo/9" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+// Classes reutilizadas
+const p = "text-lg text-slate-700 leading-relaxed mb-5";
+const figWrap = "bg-white p-3 rounded-2xl border border-slate-100 shadow-sm";
+const figCap = "mt-3 text-sm text-slate-500 leading-relaxed";
+
+const titulo = "O que são drogas vasoativas?";
+
+const referencias = [
+  { a: "CECCONI, Maurizio; DE BACKER, Daniel; ANTONELLI, Massimo et al. Consensus on circulatory shock and hemodynamic monitoring. Task force of the European Society of Intensive Care Medicine.", r: "Intensive Care Medicine", d: ", v. 40, n. 12, p. 1795–1815, 2014.", doi: "10.1007/s00134-014-3525-z" },
+  { a: "VINCENT, Jean-Louis; DE BACKER, Daniel. Circulatory shock.", r: "The New England Journal of Medicine", d: ", v. 369, n. 18, p. 1726–1734, 2013.", doi: "10.1056/NEJMra1208943" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="O que são as drogas vasoativas e como atuam sobre o tônus vascular, a contratilidade miocárdica e a frequência cardíaca no paciente em choque." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <article>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
+          {titulo}
+        </h1>
+
+        <p class={p}>As drogas vasoativas constituem um grupo de medicamentos utilizados para modificar a função cardiovascular, interferindo no tônus vascular, na contratilidade miocárdica, na frequência cardíaca e, consequentemente, na distribuição do fluxo sanguíneo aos tecidos. Na prática clínica, esses medicamentos desempenham papel fundamental no manejo de pacientes com instabilidade hemodinâmica, especialmente nos cenários de choque circulatório, insuficiência cardíaca aguda e outras condições críticas.</p>
+
+        <p class={p}>O choque circulatório é caracterizado por uma insuficiência aguda do sistema circulatório em manter a oferta de oxigênio adequada às necessidades metabólicas dos tecidos. Essa condição pode decorrer de diferentes mecanismos, incluindo redução do volume circulante efetivo, falência da bomba cardíaca, vasodilatação patológica ou obstrução ao fluxo sanguíneo. Embora essas alterações possam coexistir, cada mecanismo produz repercussões hemodinâmicas distintas e exige uma abordagem terapêutica individualizada (Cecconi et al., 2014; Vincent; De Backer, 2013).</p>
+
+        <p class={p}>Nesse contexto, as drogas vasoativas não devem ser compreendidas apenas como medicamentos utilizados para elevar a pressão arterial. Seu emprego busca corrigir alterações hemodinâmicas específicas, sustentando a perfusão dos órgãos e contribuindo para a recuperação do equilíbrio circulatório. A seleção do agente deve considerar o mecanismo predominante de disfunção, a resposta ao tratamento inicial, a função cardíaca e os sinais de perfusão tecidual.</p>
+
+        <figure class="my-10">
+          <div class={figWrap}>
+            <img
+              src="/img/modulo5-fig1-efeitos-drogas-vasoativas.webp"
+              width="923"
+              height="923"
+              alt="Infográfico 'Drogas vasoativas: o que fazem?': medicamentos que modificam o tônus vascular e/ou a função cardíaca para apoiar a hemodinâmica. Ao centro, um coração e vasos sanguíneos com a indicação 'perfusão tecidual'. Ao redor, quatro grupos. Vasopressores: vasoconstrição, aumento da resistência vascular sistêmica e da pressão arterial; exemplos: noradrenalina e vasopressina. Inotrópicos: aumento da contratilidade miocárdica, podendo aumentar o débito cardíaco; exemplo: dobutamina. Cronotrópicos: modificam a frequência cardíaca; exemplo: adrenalina, com efeito dependente da dose e do contexto. Vasodilatadores: vasodilatação e redução da pré-carga e/ou da pós-carga; exemplos: nitroglicerina e nitroprussiato. Na base: a escolha depende do mecanismo do choque, da função cardíaca e da perfusão, não apenas da pressão arterial; monitorizar e reavaliar pressão arterial, débito cardíaco e sinais de perfusão."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class={figCap}>
+            <strong class="font-semibold text-slate-700">Figura 1</strong> – Principais efeitos
+            farmacológicos das drogas vasoativas.
+            Fonte: elaboração própria (2026), com auxílio de inteligência artificial.
+          </figcaption>
+        </figure>
+
+      </article>
+
+      <section class="mt-14 pt-8 border-t border-slate-200" aria-labelledby="referencias">
+        <h2 id="referencias" class="text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          Referências
+        </h2>
+        <ul class="space-y-4 text-sm text-slate-600 leading-relaxed">
+          {referencias.map((ref) => (
+            <li class="pl-6 -indent-6">
+              {ref.a} <em>{ref.r}</em>{ref.d}
+              {ref.doi && (
+                <>
+                  {" "}DOI:{" "}
+                  <a href={`https://doi.org/${ref.doi}`} class="text-teal-700 hover:text-teal-800 underline break-all">
+                    https://doi.org/{ref.doi}
+                  </a>.
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav class="mt-12 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/4"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/6"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
