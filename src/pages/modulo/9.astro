@@ -1,0 +1,427 @@
+---
+import '../../styles/global.css';
+import BlocosCaso from '../../components/BlocosCaso.astro';
+import { casos } from '../../data/casos.js';
+
+const titulo = "Casos clínicos";
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "/modulo/9" },
+  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Sobre", href: "#" },
+];
+
+const letras = ["A", "B", "C", "D", "E"];
+const fmt = (s) => s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta
+      name="description"
+      content="Casos clínicos simulados para aplicar o conhecimento sobre choque e drogas vasoativas e treinar a tomada de decisão."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <noscript>
+      <style>
+        [data-step][hidden], [data-feedback][hidden], [data-answer-key][hidden] { display: block !important; }
+      </style>
+    </noscript>
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+        {titulo}
+      </h1>
+      <p class="text-lg text-slate-600 leading-relaxed mb-6">
+        Aplique o que aprendeu nos módulos anteriores. Leia o cenário de cada caso, responda às
+        perguntas e veja o gabarito com a explicação logo após cada resposta.
+      </p>
+
+      <nav aria-label="Casos clínicos" class="flex flex-wrap gap-3">
+        {casos.map((c) => (
+          <a
+            href={`#caso-${c.id}`}
+            class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-teal-300 rounded-full px-4 py-2 text-sm font-semibold text-slate-700 hover:text-teal-700 transition-colors"
+          >
+            Caso {c.id}
+            <span class="text-slate-400 font-normal">· {c.perguntas.length} perguntas</span>
+          </a>
+        ))}
+      </nav>
+
+      <noscript>
+        <p class="mt-6 text-sm text-slate-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+          Sem JavaScript, todas as perguntas e os gabaritos aparecem abertos. Ative o JavaScript para responder de forma interativa.
+        </p>
+      </noscript>
+
+      {casos.map((caso, ci) => (
+        <section id={`caso-${caso.id}`} class="scroll-mt-28 mt-14" aria-labelledby={`caso-${caso.id}-titulo`}>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-sm" aria-hidden="true">
+              {caso.id}
+            </span>
+            <h2 id={`caso-${caso.id}-titulo`} class="text-2xl font-bold text-slate-900 tracking-tight">
+              Caso clínico {caso.id}
+            </h2>
+          </div>
+
+          <!-- CENÁRIO -->
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8">
+            <p class="text-xs font-bold tracking-widest text-teal-700 uppercase mb-3">Cenário</p>
+            <BlocosCaso blocos={caso.intro} />
+          </div>
+
+          <!-- QUIZ -->
+          <div
+            data-quiz
+            data-next-case={ci < casos.length - 1 ? `#caso-${casos[ci + 1].id}` : ''}
+            class="scroll-mt-28 mt-6 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+          >
+            <div data-quiz-head class="px-6 sm:px-8 pt-6">
+              <div class="flex items-center justify-between text-sm font-semibold text-slate-600 mb-2">
+                <span data-progress-label>Pergunta 1 de {caso.perguntas.length}</span>
+                <span data-score-label class="text-teal-700"></span>
+              </div>
+              <div
+                data-progressbar
+                role="progressbar"
+                aria-label={`Progresso do caso ${caso.id}`}
+                aria-valuemin="0"
+                aria-valuemax={caso.perguntas.length}
+                aria-valuenow="0"
+                class="h-2 bg-slate-100 rounded-full overflow-hidden"
+              >
+                <div data-progress-fill class="h-full bg-teal-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+
+            {caso.perguntas.map((q, qi) => (
+              <div
+                data-step
+                data-correct={q.correta}
+                tabindex="-1"
+                hidden={qi > 0}
+                class="px-6 sm:px-8 py-6 focus:outline-none"
+              >
+                {q.antes && q.antes.length > 0 && (
+                  <div class="mb-6 rounded-xl border-l-4 border-teal-600 bg-teal-50 px-5 py-4">
+                    <p class="text-xs font-bold tracking-widest text-teal-700 uppercase mb-2">O caso evolui</p>
+                    <BlocosCaso blocos={q.antes} />
+                  </div>
+                )}
+
+                <div class="flex items-center gap-3 mb-3">
+                  <h3 class="text-sm font-bold tracking-widest text-slate-500 uppercase">Pergunta {qi + 1}</h3>
+                  {q.revisar && (
+                    <span class="text-xs font-semibold text-amber-800 bg-amber-100 rounded-full px-2.5 py-1">Em revisão</span>
+                  )}
+                </div>
+
+                <div class="mb-5 space-y-3">
+                  {q.enunciado.map((par) => (
+                    <p class="text-xl font-semibold text-slate-900 leading-snug" set:html={fmt(par)} />
+                  ))}
+                </div>
+
+                <ul class="space-y-3" role="list">
+                  {q.opcoes.map((op, oi) => (
+                    <li>
+                      <button
+                        type="button"
+                        data-option
+                        data-letter={letras[oi]}
+                        class="w-full flex items-start gap-4 text-left rounded-xl border-2 border-slate-200 bg-white px-4 py-4 hover:border-teal-400 hover:bg-teal-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors"
+                      >
+                        <span data-badge class="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-sm">
+                          {letras[oi]}
+                        </span>
+                        <span class="flex-1 text-base sm:text-lg text-slate-800 leading-snug pt-0.5">{op}</span>
+                        <span data-status hidden class="shrink-0 text-sm font-semibold pt-1"></span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+
+                <div
+                  data-feedback
+                  hidden
+                  tabindex="-1"
+                  class="mt-6 rounded-xl border border-slate-200 bg-slate-50 px-5 py-5 focus:outline-none"
+                >
+                  <p data-feedback-title class="text-lg font-bold text-slate-900"></p>
+                  <p data-answer-key class="mt-1 font-semibold text-slate-900">
+                    Gabarito: Alternativa {q.correta}.
+                  </p>
+                  {q.comentario && q.comentario.length > 0 && (
+                    <div class="mt-3 space-y-3 text-slate-700 leading-relaxed">
+                      {q.comentario.map((par) => <p set:html={fmt(par)} />)}
+                    </div>
+                  )}
+                  {q.revisar && (
+                    <p class="mt-4 text-sm text-amber-900 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+                      <strong class="font-semibold">Nota de revisão:</strong> {q.revisar}
+                    </p>
+                  )}
+                  <div class="mt-5">
+                    <button
+                      type="button"
+                      data-next
+                      class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                    >
+                      Próxima pergunta
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <div data-result hidden tabindex="-1" class="focus:outline-none">
+              <div class="px-6 sm:px-8 py-10 text-center">
+                <p class="text-xs font-bold tracking-widest text-teal-700 uppercase mb-2">Caso concluído</p>
+                <p class="text-5xl font-extrabold text-slate-900 mb-3">
+                  <span data-result-score>0</span><span class="text-slate-400"> / {caso.perguntas.length}</span>
+                </p>
+                <p data-result-msg class="text-slate-600 mb-8 max-w-md mx-auto"></p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    data-restart
+                    class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                  >
+                    Refazer este caso
+                  </button>
+                  {ci < casos.length - 1 && (
+                    <a
+                      href={`#caso-${casos[ci + 1].id}`}
+                      class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition duration-150"
+                    >
+                      Próximo caso
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      <nav class="mt-16 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
+        <a
+          href="/modulo/8"
+          class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150"
+        >
+          Módulo anterior
+        </a>
+        <a
+          href="/modulo/10"
+          class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg shadow-sm hover:shadow transition duration-150"
+        >
+          Próximo módulo
+        </a>
+      </nav>
+    </main>
+
+    <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const CORRECT_OPT = ['border-emerald-500', 'bg-emerald-50'];
+      const WRONG_OPT = ['border-red-500', 'bg-red-50'];
+      const CORRECT_BADGE = ['bg-emerald-600', 'text-white'];
+      const WRONG_BADGE = ['bg-red-600', 'text-white'];
+      const FB_OK = ['border-emerald-200', 'bg-emerald-50'];
+      const FB_BAD = ['border-red-200', 'bg-red-50'];
+
+      function initQuiz(root) {
+        const steps = [...root.querySelectorAll('[data-step]')];
+        const total = steps.length;
+        const head = root.querySelector('[data-quiz-head]');
+        const label = root.querySelector('[data-progress-label]');
+        const scoreLabel = root.querySelector('[data-score-label]');
+        const fill = root.querySelector('[data-progress-fill]');
+        const bar = root.querySelector('[data-progressbar]');
+        const result = root.querySelector('[data-result]');
+
+        let current = 0;
+        let score = 0;
+        let done = 0;
+
+        // Guarda as classes originais para poder refazer o caso.
+        const original = new Map();
+        root.querySelectorAll('[data-option]').forEach((o) => {
+          original.set(o, { opt: o.className, badge: o.querySelector('[data-badge]').className });
+        });
+        steps.forEach((s) => {
+          const fb = s.querySelector('[data-feedback]');
+          original.set(fb, { opt: fb.className });
+        });
+
+        function update() {
+          label.textContent = `Pergunta ${current + 1} de ${total}`;
+          fill.style.width = `${(done / total) * 100}%`;
+          bar.setAttribute('aria-valuenow', String(done));
+          scoreLabel.textContent = done > 0 ? `Acertos: ${score}` : '';
+        }
+
+        function scrollToTop() {
+          root.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        function show(n) {
+          current = n;
+          steps.forEach((s, k) => { s.hidden = k !== n; });
+          result.hidden = true;
+          head.hidden = false;
+          update();
+          scrollToTop();
+          steps[n].focus({ preventScroll: true });
+        }
+
+        function answer(opt) {
+          const step = opt.closest('[data-step]');
+          if (step.dataset.answered) return;
+          step.dataset.answered = 'true';
+
+          const correct = step.dataset.correct;
+          const chosen = opt.dataset.letter;
+          const isRight = chosen === correct;
+
+          step.querySelectorAll('[data-option]').forEach((o) => {
+            const badge = o.querySelector('[data-badge]');
+            const status = o.querySelector('[data-status]');
+            o.setAttribute('aria-disabled', 'true');
+            o.classList.remove('hover:border-teal-400', 'hover:bg-teal-50', 'border-slate-200', 'bg-white');
+            o.classList.add('cursor-default');
+            if (o.dataset.letter === correct) {
+              o.classList.add(...CORRECT_OPT);
+              badge.classList.remove('bg-slate-100', 'text-slate-700');
+              badge.classList.add(...CORRECT_BADGE);
+              status.textContent = 'Resposta correta';
+              status.classList.add('text-emerald-700');
+              status.hidden = false;
+            } else if (o === opt) {
+              o.classList.add(...WRONG_OPT);
+              badge.classList.remove('bg-slate-100', 'text-slate-700');
+              badge.classList.add(...WRONG_BADGE);
+              status.textContent = 'Sua resposta';
+              status.classList.add('text-red-700');
+              status.hidden = false;
+            } else {
+              o.classList.add('border-slate-200', 'bg-white', 'opacity-60');
+            }
+            if (o === opt) o.setAttribute('aria-pressed', 'true');
+          });
+
+          const fb = step.querySelector('[data-feedback]');
+          fb.classList.remove('border-slate-200', 'bg-slate-50');
+          fb.classList.add(...(isRight ? FB_OK : FB_BAD));
+          step.querySelector('[data-feedback-title]').textContent = isRight ? 'Resposta correta!' : 'Resposta incorreta.';
+          step.querySelector('[data-next]').textContent = current === total - 1 ? 'Ver resultado' : 'Próxima pergunta';
+          fb.hidden = false;
+
+          done += 1;
+          if (isRight) score += 1;
+          update();
+          fb.focus({ preventScroll: true });
+          fb.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+        }
+
+        function finish() {
+          steps.forEach((s) => { s.hidden = true; });
+          head.hidden = true;
+          result.querySelector('[data-result-score]').textContent = String(score);
+          const ratio = score / total;
+          result.querySelector('[data-result-msg]').textContent =
+            ratio === 1
+              ? 'Excelente! Você acertou todas as perguntas deste caso.'
+              : ratio >= 0.6
+              ? 'Bom trabalho. Releia as explicações das perguntas que errou para consolidar o raciocínio.'
+              : 'Vale revisar os módulos anteriores e tentar o caso novamente.';
+          result.hidden = false;
+          fill.style.width = '100%';
+          scrollToTop();
+          result.focus({ preventScroll: true });
+        }
+
+        function restart() {
+          steps.forEach((s) => {
+            delete s.dataset.answered;
+            s.querySelectorAll('[data-option]').forEach((o) => {
+              const o0 = original.get(o);
+              o.className = o0.opt;
+              o.querySelector('[data-badge]').className = o0.badge;
+              o.removeAttribute('aria-disabled');
+              o.removeAttribute('aria-pressed');
+              const status = o.querySelector('[data-status]');
+              status.hidden = true;
+              status.textContent = '';
+              status.className = 'shrink-0 text-sm font-semibold pt-1';
+            });
+            const fb = s.querySelector('[data-feedback]');
+            fb.className = original.get(fb).opt;
+            fb.hidden = true;
+          });
+          score = 0;
+          done = 0;
+          show(0);
+        }
+
+        root.addEventListener('click', (e) => {
+          const opt = e.target.closest('[data-option]');
+          if (opt) { answer(opt); return; }
+          if (e.target.closest('[data-next]')) {
+            if (current < total - 1) show(current + 1); else finish();
+            return;
+          }
+          if (e.target.closest('[data-restart]')) restart();
+        });
+
+        update();
+      }
+
+      document.querySelectorAll('[data-quiz]').forEach(initQuiz);
+    </script>
+  </body>
+</html>
