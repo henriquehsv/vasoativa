@@ -72,8 +72,8 @@ const resumo = (caso) => {
       </h1>
       <p class="text-lg text-slate-600 leading-relaxed mb-10">
         Aplique o que aprendeu nos módulos anteriores. Cada caso tem uma página própria: leia o
-        cenário, responda às perguntas na ordem que preferir e veja o gabarito com a explicação
-        logo após cada resposta.
+        cenário, responda às perguntas em sequência e veja o gabarito com a explicação logo após
+        cada resposta.
       </p>
 
       <ul class="space-y-4" role="list">
@@ -92,7 +92,7 @@ const resumo = (caso) => {
                 </h2>
                 <p class="text-sm text-slate-500 leading-relaxed mb-3">{resumo(caso)}</p>
                 <p class="text-xs font-semibold text-teal-700 uppercase tracking-wide">
-                  {caso.perguntas.length} perguntas
+                  {caso.perguntas.length} {caso.perguntas.length === 1 ? 'pergunta' : 'perguntas'}
                 </p>
               </div>
               <span class="shrink-0 self-center text-slate-300 group-hover:text-teal-600 transition-colors text-xl" aria-hidden="true">→</span>
@@ -100,11 +100,6 @@ const resumo = (caso) => {
           </li>
         ))}
       </ul>
-
-      <p class="mt-8 text-sm text-slate-600">
-        Prefere ver todas as perguntas de cada caso de uma vez?{" "}
-        <a href="/modulo/9/opcao-2" class="font-semibold text-teal-700 hover:text-teal-800 hover:underline">Casos clínicos (Opção 2) →</a>
-      </p>
 
       <nav class="mt-16 flex flex-wrap items-center justify-between gap-4" aria-label="Módulos">
         <a
