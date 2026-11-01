@@ -12,16 +12,13 @@ export function getStaticPaths() {
 
 const { caso, anterior, proximo } = Astro.props;
 
-// Se true, a "evolução do caso" (e a pergunta que depende dela) só é liberada depois de
-// responder a pergunta anterior. Isso evita que o texto da evolução revele a resposta anterior.
-// Mude para false para deixar tudo visível desde o início.
-const bloquearEvolucao = true;
+// Uma pergunta por vez: a próxima só é liberada depois de responder a atual.
+// Perguntas já vistas podem ser revisitadas pelos números ou pelo botão "Anterior".
 
 const titulo = `Caso clínico ${caso.id}`;
 const total = caso.perguntas.length;
 const letras = ["A", "B", "C", "D", "E"];
 const fmt = (s) => s.replace(/\*(.+?)\*/g, '<em>$1</em>');
-const bloqueada = (q) => bloquearEvolucao && Boolean(q.antes && q.antes.length > 0);
 
 const navLinks = [
   { name: "Início", href: "/" },
@@ -33,7 +30,11 @@ const navLinks = [
 
 const chipCore = "w-10 h-10 shrink-0 rounded-lg border-2 font-bold flex items-center justify-center text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 const chipIdle = "border-slate-200 bg-white text-slate-700 hover:border-teal-400";
-const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
+const chipLocked = "border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed";
+const chipCurrent = "ring-2 ring-teal-500 ring-offset-2";
+
+const btnSecondary = "bg-white hover:bg-slate-50 text-slate-700 font-semibold px-5 py-3 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
+const btnPrimary = "bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed";
 ---
 
 <!DOCTYPE html>
@@ -51,8 +52,9 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
     />
     <noscript>
       <style>
-        [data-body][hidden], [data-feedback][hidden] { display: block !important; }
-        [data-locked-note] { display: none !important; }
+        [data-question][hidden], [data-feedback][hidden] { display: block !important; }
+        [data-question] + [data-question] { margin-top: 1.5rem; }
+        [data-stepnav], [data-stepbar], #resultado { display: none !important; }
       </style>
     </noscript>
   </head>
@@ -94,27 +96,28 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
       <p class="text-lg text-slate-500 mb-8">{total} perguntas</p>
 
       <!-- CENÁRIO -->
-      <section aria-label="Cenário do caso" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8">
+      <section id="cenario" aria-label="Cenário do caso" class="scroll-mt-24 bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8">
         <p class="text-xs font-bold tracking-widest text-teal-700 uppercase mb-3">Cenário</p>
         <BlocosCaso blocos={caso.intro} />
       </section>
 
       <!-- NAVEGADOR DE PERGUNTAS (fixo ao rolar) -->
-      <div class="sticky top-20 z-40 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 mt-6 bg-slate-50/90 backdrop-blur">
+      <div data-stepbar class="sticky top-20 z-40 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 mt-6 bg-slate-50/90 backdrop-blur">
         <nav aria-label="Perguntas deste caso" class="bg-white border border-slate-100 shadow-sm rounded-2xl px-4 py-3 flex items-center gap-4">
           <span class="hidden sm:inline text-xs font-bold tracking-widest text-slate-500 uppercase shrink-0">Perguntas</span>
           <ol class="flex items-center gap-2 overflow-x-auto py-1 px-1 -mx-1" role="list">
-            {caso.perguntas.map((q, qi) => (
+            {caso.perguntas.map((_, qi) => (
               <li class="shrink-0">
-                <a
-                  href={`#pergunta-${qi + 1}`}
+                <button
+                  type="button"
                   data-chip
-                  data-goto
-                  aria-label={`Pergunta ${qi + 1}: ${bloqueada(q) ? 'bloqueada até responder a pergunta anterior' : 'não respondida'}`}
-                  class={`${chipCore} ${bloqueada(q) ? chipLocked : chipIdle}`}
+                  disabled={qi > 0}
+                  aria-label={`Pergunta ${qi + 1}: ${qi === 0 ? 'não respondida' : 'bloqueada até responder a pergunta anterior'}`}
+                  aria-current={qi === 0 ? 'step' : undefined}
+                  class={`${chipCore} ${qi === 0 ? `${chipIdle} ${chipCurrent}` : chipLocked}`}
                 >
                   {qi + 1}
-                </a>
+                </button>
               </li>
             ))}
           </ol>
@@ -124,18 +127,16 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
 
       <p class="sr-only" role="status" aria-live="polite" data-live></p>
 
-      <!-- PERGUNTAS -->
-      <div class="mt-2 space-y-6">
+      <!-- PERGUNTAS (uma por vez) -->
+      <div class="mt-2">
         {caso.perguntas.map((q, qi) => {
-          const locked = bloqueada(q);
           const ultima = qi === total - 1;
           return (
             <article
               id={`pergunta-${qi + 1}`}
               data-question
               data-correct={q.correta}
-              data-lockable={locked ? 'true' : 'false'}
-              data-locked={locked ? 'true' : 'false'}
+              hidden={qi > 0}
               tabindex="-1"
               aria-labelledby={`pergunta-${qi + 1}-titulo`}
               class="scroll-mt-40 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden focus:outline-none"
@@ -144,24 +145,9 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
                 <h2 id={`pergunta-${qi + 1}-titulo`} class="text-sm font-bold tracking-widest text-slate-500 uppercase">
                   Pergunta {qi + 1} <span class="text-slate-400">de {total}</span>
                 </h2>
-                {q.revisar && (
-                  <span class="text-xs font-semibold text-amber-800 bg-amber-100 rounded-full px-2.5 py-1">Em revisão</span>
-                )}
               </div>
 
-              <div data-locked-note hidden={!locked} class="px-6 sm:px-8 py-6">
-                <div class="flex items-center gap-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-5 py-4 text-slate-600">
-                  <svg aria-hidden="true" viewBox="0 0 20 20" class="w-5 h-5 shrink-0 text-slate-400" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a1 1 0 00-1 1v7a1 1 0 001 1h10a1 1 0 001-1V9a1 1 0 00-1-1h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clip-rule="evenodd" />
-                  </svg>
-                  <p>
-                    Responda a <a href={`#pergunta-${qi}`} data-goto class="font-semibold text-teal-700 hover:underline">Pergunta {qi}</a>
-                    para ver a evolução do caso e liberar esta pergunta.
-                  </p>
-                </div>
-              </div>
-
-              <div data-body hidden={locked} class="px-6 sm:px-8 pt-3 pb-6">
+              <div class="px-6 sm:px-8 pt-3 pb-6">
                 {q.antes && q.antes.length > 0 && (
                   <div class="mb-6 rounded-xl border-l-4 border-teal-600 bg-teal-50 px-5 py-4">
                     <p class="text-xs font-bold tracking-widest text-teal-700 uppercase mb-2">O caso evolui</p>
@@ -207,58 +193,53 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
                       {q.comentario.map((par) => <p set:html={fmt(par)} />)}
                     </div>
                   )}
-                  {q.revisar && (
-                    <p class="mt-4 text-sm text-amber-900 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
-                      <strong class="font-semibold">Nota de revisão:</strong> {q.revisar}
-                    </p>
-                  )}
-                  <div class="mt-5">
-                    <a
-                      href={ultima ? '#resultado' : `#pergunta-${qi + 2}`}
-                      data-goto
-                      class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-                    >
-                      {ultima ? 'Ver resultado' : `Ir para a Pergunta ${qi + 2}`}
-                    </a>
-                  </div>
+                </div>
+              </div>
+
+              <!-- ANTERIOR / PRÓXIMA -->
+              <div data-stepnav class="px-6 sm:px-8 py-4 border-t border-slate-100 bg-slate-50/60 flex items-center gap-3">
+                {qi > 0 && (
+                  <button type="button" data-prev class={btnSecondary}>
+                    ← Anterior
+                  </button>
+                )}
+                <div class="ml-auto flex items-center gap-3">
+                  <span data-next-hint>
+                    <span class="hidden sm:inline text-sm text-slate-500">Responda para continuar</span>
+                  </span>
+                  <button type="button" data-next disabled class={btnPrimary}>
+                    {ultima ? 'Ver resultado →' : 'Próxima →'}
+                  </button>
                 </div>
               </div>
             </article>
           );
         })}
-      </div>
 
-      <!-- RESULTADO -->
-      <section
-        id="resultado"
-        tabindex="-1"
-        aria-labelledby="resultado-titulo"
-        class="scroll-mt-40 mt-6 bg-white rounded-2xl border border-slate-100 shadow-sm px-6 sm:px-8 py-8 text-center focus:outline-none"
-      >
-        <h2 id="resultado-titulo" class="text-sm font-bold tracking-widest text-slate-500 uppercase mb-4">Resultado</h2>
-
-        <p data-summary-status class="text-slate-600">
-          Responda às perguntas para ver o seu resultado.
-        </p>
-
-        <div data-summary-result hidden>
+        <!-- RESULTADO (último passo, depois de responder todas) -->
+        <section
+          id="resultado"
+          hidden
+          tabindex="-1"
+          aria-labelledby="resultado-titulo"
+          class="scroll-mt-40 bg-white rounded-2xl border border-slate-100 shadow-sm px-6 sm:px-8 py-8 text-center focus:outline-none"
+        >
+          <h2 id="resultado-titulo" class="text-sm font-bold tracking-widest text-slate-500 uppercase mb-4">Resultado</h2>
           <p class="text-5xl font-extrabold text-slate-900 mb-3">
             <span data-summary-score>0</span><span class="text-slate-400"> / {total}</span>
           </p>
           <p data-summary-msg class="text-slate-600 max-w-md mx-auto"></p>
-        </div>
 
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            data-restart
-            hidden
-            class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-          >
-            Refazer este caso
-          </button>
-        </div>
-      </section>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <button type="button" data-review class={btnSecondary}>
+              ← Revisar perguntas
+            </button>
+            <button type="button" data-restart class={btnSecondary}>
+              Refazer este caso
+            </button>
+          </div>
+        </section>
+      </div>
 
       <!-- NAVEGAÇÃO ENTRE CASOS -->
       <nav class="mt-10 flex flex-wrap items-center justify-between gap-4" aria-label="Navegação entre casos">
@@ -305,11 +286,9 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
         const total = questions.length;
         const live = root.querySelector('[data-live]');
         const navSummary = root.querySelector('[data-nav-summary]');
-        const sumStatus = root.querySelector('[data-summary-status]');
-        const sumResult = root.querySelector('[data-summary-result]');
+        const resultSec = root.querySelector('#resultado');
         const sumScore = root.querySelector('[data-summary-score]');
         const sumMsg = root.querySelector('[data-summary-msg]');
-        const restartBtn = root.querySelector('[data-restart]');
 
         const CORRECT_OPT = ['border-emerald-500', 'bg-emerald-50'];
         const WRONG_OPT = ['border-red-500', 'bg-red-50'];
@@ -323,7 +302,7 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
           idle: 'border-slate-200 bg-white text-slate-700 hover:border-teal-400',
           correct: 'border-emerald-500 bg-emerald-50 text-emerald-800',
           wrong: 'border-red-500 bg-red-50 text-red-800',
-          locked: 'border-slate-200 bg-slate-100 text-slate-400',
+          locked: 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed',
         };
         const CHIP_TEXT = {
           idle: 'não respondida',
@@ -335,7 +314,10 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
         const results = new Array(total).fill(null);
         let score = 0;
         let done = 0;
-        let active = -1;
+        let current = 0; // 0..total-1 = pergunta; total = resultado
+
+        // Perguntas liberadas: todas as respondidas + a primeira não respondida.
+        const reached = () => Math.min(done, total - 1);
 
         // Guarda as classes originais para poder refazer o caso.
         const original = new Map();
@@ -348,61 +330,61 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
         });
 
         function renderChip(i) {
-          const state = questions[i].dataset.locked === 'true' ? 'locked' : results[i] || 'idle';
+          const state = i > reached() ? 'locked' : results[i] || 'idle';
           const chip = chips[i];
-          chip.className = `${CHIP_CORE} ${CHIP[state]}${i === active ? ' ring-2 ring-teal-500 ring-offset-2' : ''}`;
+          chip.disabled = state === 'locked';
+          chip.className = `${CHIP_CORE} ${CHIP[state]}${i === current ? ' ring-2 ring-teal-500 ring-offset-2' : ''}`;
           chip.setAttribute('aria-label', `Pergunta ${i + 1}: ${CHIP_TEXT[state]}`);
-          if (i === active) chip.setAttribute('aria-current', 'true');
+          if (i === current) chip.setAttribute('aria-current', 'step');
           else chip.removeAttribute('aria-current');
+        }
+
+        function renderStepNav(i) {
+          const q = questions[i];
+          const answered = Boolean(q.dataset.answered);
+          q.querySelector('[data-next]').disabled = !answered;
+          q.querySelector('[data-next-hint]').hidden = answered;
         }
 
         function renderSummary() {
           navSummary.textContent = `${done} de ${total}`;
-          restartBtn.hidden = done === 0;
-          if (done === total) {
-            sumStatus.hidden = true;
-            sumResult.hidden = false;
-            sumScore.textContent = String(score);
-            const ratio = score / total;
-            sumMsg.textContent =
-              ratio === 1
-                ? 'Excelente! Você acertou todas as perguntas deste caso.'
-                : ratio >= 0.6
-                ? 'Bom trabalho. Releia as explicações das perguntas que errou para consolidar o raciocínio.'
-                : 'Vale revisar os módulos anteriores e tentar o caso novamente.';
-          } else {
-            sumResult.hidden = true;
-            sumStatus.hidden = false;
-            sumStatus.textContent =
-              done === 0
-                ? 'Responda às perguntas para ver o seu resultado.'
-                : `Você respondeu ${done} de ${total} perguntas. Responda às demais para ver o resultado.`;
-          }
+          sumScore.textContent = String(score);
+          const ratio = score / total;
+          sumMsg.textContent =
+            ratio === 1
+              ? 'Excelente! Você acertou todas as perguntas deste caso.'
+              : ratio >= 0.6
+              ? 'Bom trabalho. Releia as explicações das perguntas que errou para consolidar o raciocínio.'
+              : 'Vale revisar os módulos anteriores e tentar o caso novamente.';
         }
 
         function renderAll() {
-          questions.forEach((_, i) => renderChip(i));
+          questions.forEach((_, i) => {
+            renderChip(i);
+            renderStepNav(i);
+          });
           renderSummary();
         }
 
-        function unlock(i) {
-          const q = questions[i];
-          if (!q || q.dataset.locked !== 'true') return;
-          q.dataset.locked = 'false';
-          q.querySelector('[data-locked-note]').hidden = true;
-          q.querySelector('[data-body]').hidden = false;
-          live.textContent = `Pergunta ${i + 1} liberada.`;
-        }
+        function show(step, { focus = true, scroll = true } = {}) {
+          if (step === total && done < total) return;
+          if (step < total && step > reached()) return;
+          current = step;
+          questions.forEach((q, i) => { q.hidden = i !== step; });
+          resultSec.hidden = step !== total;
+          renderAll();
 
-        function goTo(target) {
-          target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-          target.focus({ preventScroll: true });
+          const target = step === total ? resultSec : questions[step];
           history.replaceState(null, '', `#${target.id}`);
+          if (step < total) chips[step].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          if (scroll) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+          if (focus) target.focus({ preventScroll: true });
+          live.textContent = step === total ? 'Resultado do caso.' : `Pergunta ${step + 1} de ${total}.`;
         }
 
         function answer(opt) {
           const q = opt.closest('[data-question]');
-          if (q.dataset.answered || q.dataset.locked === 'true') return;
+          if (q.dataset.answered) return;
           q.dataset.answered = 'true';
 
           const i = questions.indexOf(q);
@@ -444,8 +426,10 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
           results[i] = isRight ? 'correct' : 'wrong';
           done += 1;
           if (isRight) score += 1;
-          unlock(i + 1);
           renderAll();
+          live.textContent = i === total - 1
+            ? 'Caso concluído. Use "Ver resultado" para ver a sua pontuação.'
+            : `Pergunta ${i + 2} liberada.`;
 
           fb.focus({ preventScroll: true });
           fb.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
@@ -468,56 +452,27 @@ const chipLocked = "border-slate-200 bg-slate-100 text-slate-400";
             const fb = q.querySelector('[data-feedback]');
             fb.className = original.get(fb).opt;
             fb.hidden = true;
-            if (q.dataset.lockable === 'true') {
-              q.dataset.locked = 'true';
-              q.querySelector('[data-locked-note]').hidden = false;
-              q.querySelector('[data-body]').hidden = true;
-            }
             results[i] = null;
           });
           score = 0;
           done = 0;
-          renderAll();
-          window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+          show(0);
         }
-
-        // Pergunta em foco na rolagem: destaca o número correspondente no navegador.
-        let ticking = false;
-        function onScroll() {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => {
-            ticking = false;
-            let idx = -1;
-            questions.forEach((q, i) => {
-              if (q.getBoundingClientRect().top <= 190) idx = i;
-            });
-            if (idx !== active) {
-              active = idx;
-              questions.forEach((_, i) => renderChip(i));
-              if (idx >= 0) chips[idx].scrollIntoView({ block: 'nearest', inline: 'nearest' });
-            }
-          });
-        }
-        window.addEventListener('scroll', onScroll, { passive: true });
 
         root.addEventListener('click', (e) => {
-          const go = e.target.closest('[data-goto]');
-          if (go) {
-            const target = document.querySelector(go.getAttribute('href'));
-            if (target) {
-              e.preventDefault();
-              goTo(target);
-            }
-            return;
-          }
+          const chip = e.target.closest('[data-chip]');
+          if (chip) { show(chips.indexOf(chip)); return; }
+          if (e.target.closest('[data-prev]')) { show(current - 1); return; }
+          if (e.target.closest('[data-next]')) { show(current + 1); return; }
           const opt = e.target.closest('[data-option]');
           if (opt) { answer(opt); return; }
+          if (e.target.closest('[data-review]')) { show(total - 1); return; }
           if (e.target.closest('[data-restart]')) restart();
         });
 
-        renderAll();
-        onScroll();
+        // Começa sempre na pergunta 1 (o progresso não é salvo entre visitas).
+        show(0, { focus: false, scroll: false });
+        if (location.hash) history.replaceState(null, '', location.pathname);
       }
     </script>
   </body>

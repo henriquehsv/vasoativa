@@ -4,7 +4,6 @@
 //  - Cada caso tem `intro` (cenário inicial) e `perguntas`.
 //  - `antes` (opcional) é o trecho "O caso evolui" exibido antes da pergunta.
 //  - `correta` é a letra do gabarito (A–D). `comentario` é a explicação exibida após responder.
-//  - `revisar` (opcional) mostra uma nota "Em revisão" na pergunta. Apague o campo depois de resolver.
 //  - Blocos aceitos em `intro`/`antes`: p, dados, ul, img. Use *texto* para itálico.
 
 export const casos = [
@@ -59,7 +58,6 @@ export const casos = [
         ],
         correta: 'B',
         comentario: [`O paciente apresenta choque anafilático.`],
-        revisar: `O gabarito (B, "quente e úmido", perfusão preservada) contradiz o enunciado e o caso, que descrevem hipoperfusão (extremidades frias, TEC 5 s). O enunciado também menciona congestão, que o caso não descreve, e o comentário não justifica a alternativa.`,
       },
     ],
   },
@@ -124,7 +122,6 @@ export const casos = [
           `A abordagem habitual no choque séptico inclui reposição inicial com cristaloides e introdução de vasopressores quando a hipotensão persiste. Entretanto, a diretriz *Surviving Sepsis Campaign 2026* reconhece que, diante de instabilidade hemodinâmica grave, pode ser apropriado iniciar o vasopressor concomitantemente à expansão volêmica, sem aguardar o término da infusão.`,
           `Nesse cenário, a noradrenalina deve ser iniciada prontamente, enquanto a equipe reavalia a resposta aos fluidos e os sinais de perfusão. Quando necessário, pode-se utilizar um acesso venoso periférico apropriado para não atrasar o tratamento à espera de acesso central. A expansão volêmica deve ser individualizada, evitando a administração indiscriminada de fluidos.`,
         ],
-        revisar: `O gabarito (B, acesso central) contradiz o comentário, que defende o acesso periférico para não atrasar o tratamento (alternativa D).`,
       },
       {
         enunciado: [`Qual é a meta inicial usual de pressão arterial média (PAM) durante o uso de vasopressores?`],
@@ -158,7 +155,6 @@ export const casos = [
         ],
         correta: 'C',
         comentario: [`A vasopressina atua nos receptores V1a, promovendo vasoconstrição por uma via diferente da adrenérgica. É uma opção recomendada quando há necessidade crescente de noradrenalina.`],
-        revisar: `O gabarito (C, adrenalina) contradiz o comentário, que descreve a vasopressina (alternativa B). Além disso, o monitor mostra PAM 38 mmHg, incompatível com "melhora parcial da pressão arterial".`,
       },
       {
         enunciado: [`Qual é o principal mecanismo de ação vascular da vasopressina?`],
@@ -192,7 +188,6 @@ export const casos = [
         ],
         correta: 'B',
         comentario: [`O paciente apresenta evidências de choque misto, com componentes distributivo e cardiogênico. A sepse provoca vasodilatação e alterações da regulação vascular, enquanto a disfunção miocárdica reduz a capacidade de bombeamento do coração. Nesse contexto, a redução do débito cardíaco pode contribuir para a hipoperfusão persistente, mesmo quando a PAM já está próxima da meta inicial.`],
-        revisar: `Conferir os valores de lactato: 4,6 mmol/L na UTI e "4,2 para 5,2" no dia seguinte, sem menção à queda intermediária.`,
       },
     ],
   },
