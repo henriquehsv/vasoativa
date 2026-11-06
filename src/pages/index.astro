@@ -9,7 +9,7 @@ const navLinks = [
   { name: "Início", href: "#" },
   { name: "Conteúdo", href: "#conteudo" },
   { name: "Casos Clínicos", href: "/modulo/9" },
-  { name: "Cálculo de dose", href: "/calculadora" },
+  { name: "Cálculo de Dose", href: "/calculadora" },
 ];
 
 const modules = [
@@ -60,6 +60,12 @@ const practicalModules = [
     id: 9,
     title: "Casos clínicos",
     description: "Casos reais simulados para aplicar o conhecimento e tomar decisões.",
+  },
+  {
+    id: 10,
+    title: "Cálculo de dose",
+    description: "Calculadora de doses de drogas vasoativas a partir do peso e da vazão da bomba de infusão.",
+    href: "/calculadora",
   },
 ];
 ---
@@ -175,11 +181,11 @@ const practicalModules = [
         ))}
       </div>
 
-      <!-- BOTTOM WIDE MODULE (Item 9) -->
-      <div class="grid grid-cols-1 gap-5">
+      <!-- BOTTOM WIDE MODULES (Items 9 & 10) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         {practicalModules.map((mod) => (
           <a
-            href={`/modulo/${mod.id}`}
+            href={mod.href ?? `/modulo/${mod.id}`}
             class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex items-start gap-5"
           >
             <span class="w-12 h-12 shrink-0 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-base group-hover:bg-teal-600 transition-colors">
