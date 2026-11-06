@@ -1,0 +1,206 @@
+---
+import '../styles/global.css';
+import { farmacos } from '../data/farmacos.js';
+
+const navLinks = [
+  { name: "Início", href: "/" },
+  { name: "Conteúdo", href: "/#conteudo" },
+  { name: "Casos Clínicos", href: "/modulo/9" },
+  { name: "Cálculo de dose", href: "/calculadora" },
+  { name: "Algoritmo de Decisão", href: "#" },
+];
+
+// Classes reutilizadas
+const card = "bg-white rounded-2xl border border-slate-100 shadow-sm";
+const h2 = "text-2xl font-bold text-slate-900 tracking-tight mb-4";
+const passo = "block text-xs font-bold tracking-widest text-teal-700 uppercase mb-1";
+const campo = "w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-base text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:outline-2 focus:outline-teal-600 focus:outline-offset-0";
+const formula = "bg-white border border-slate-100 border-l-4 border-l-teal-600 rounded-r-2xl shadow-sm px-5 py-4 my-4 text-base sm:text-lg font-semibold text-slate-900 overflow-x-auto";
+
+const titulo = "Calculadora de drogas vasoativas";
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{titulo} - VASOATIVA</title>
+    <meta name="description" content="Calcule a dose de noradrenalina, vasopressina, dobutamina, nitroprussiato e nitroglicerina a partir do peso do paciente e da vazão da bomba de infusão." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-slate-50 font-['Inter',sans-serif] text-slate-800 antialiased min-h-screen">
+    <!-- NAVIGATION -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-bold tracking-tight text-slate-900">
+            VASO<span class="text-teal-600">ATIVA</span>
+          </span>
+          <span class="hidden sm:inline-block text-xs font-semibold tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full uppercase ml-2">
+            Educação em Saúde
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          {navLinks.map((link) => (
+            <a href={link.href} class="hover:text-teal-600 transition-colors py-2 border-b-2 border-transparent hover:border-teal-600">
+              {link.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <a
+        href="/#conteudo"
+        class="inline-block text-sm font-semibold text-teal-700 hover:text-teal-800 hover:underline focus-visible:outline-2 focus-visible:outline-teal-600 focus-visible:outline-offset-4 mb-6"
+      >
+        ← Todos os módulos
+      </a>
+
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+        {titulo}
+      </h1>
+
+      <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl px-5 py-4 mb-10 text-base leading-relaxed">
+        <strong class="font-semibold">Atenção:</strong> ferramenta de apoio ao aprendizado. Confira
+        sempre a diluição, o peso e a vazão, e refaça o cálculo manualmente em caso de dúvida.
+      </div>
+
+      <noscript>
+        <p class="bg-teal-50 text-teal-900 rounded-2xl px-5 py-4 mb-10">
+          Ative o JavaScript do navegador para que a dose seja calculada automaticamente.
+        </p>
+      </noscript>
+
+      <!-- Passo 1: peso -->
+      <section class={`${card} p-5 sm:p-6 mb-8`} aria-labelledby="passo1">
+        <h2 id="passo1" class="text-xl font-bold text-slate-900 tracking-tight mb-4">
+          <span class={passo}>Passo 1</span>
+          Peso do paciente
+        </h2>
+        <div class="flex flex-wrap items-end gap-4">
+          <div class="w-full max-w-48">
+            <label for="peso" class="block text-sm font-semibold text-slate-700 mb-1.5">Peso (kg)</label>
+            <input id="peso" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 70" class={campo} />
+          </div>
+          <button
+            id="limpar"
+            type="button"
+            class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-5 py-2.5 rounded-lg border border-slate-200 hover:border-slate-300 transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+          >
+            Limpar tudo
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-slate-500">
+          Um único peso vale para todas as linhas. Vasopressina e nitroglicerina não dependem do peso.
+        </p>
+      </section>
+
+      <!-- Passo 2: vazões -->
+      <section aria-labelledby="passo2">
+        <h2 id="passo2" class="text-xl font-bold text-slate-900 tracking-tight mb-4">
+          <span class={passo}>Passo 2</span>
+          Escolha a diluição e digite a vazão
+        </h2>
+
+        <table class="block min-[700px]:table w-full text-left text-sm min-[700px]:bg-white min-[700px]:rounded-2xl min-[700px]:border min-[700px]:border-slate-100 min-[700px]:shadow-sm min-[700px]:overflow-hidden">
+          <caption class="sr-only">Dose atual de cada diluição conforme a vazão e o peso informados</caption>
+          <thead class="hidden min-[700px]:table-header-group bg-teal-50 text-teal-800">
+            <tr>
+              <th scope="col" class="px-5 py-3 font-semibold">Medicação (diluição)</th>
+              <th scope="col" class="px-5 py-3 font-semibold w-48">Vazão atual (mL/h)</th>
+              <th scope="col" class="px-5 py-3 font-semibold w-64">Dose atual</th>
+            </tr>
+          </thead>
+          <tbody class="block min-[700px]:table-row-group space-y-4 min-[700px]:space-y-0 min-[700px]:divide-y min-[700px]:divide-slate-100">
+            {farmacos.map((f, i) => (
+              <tr data-linha={i} class={`block min-[700px]:table-row ${card} min-[700px]:bg-transparent min-[700px]:rounded-none min-[700px]:border-0 min-[700px]:shadow-none p-5 min-[700px]:p-0 align-middle`}>
+                <th scope="row" class="block min-[700px]:table-cell min-[700px]:px-5 min-[700px]:py-4 font-semibold text-slate-900 leading-snug mb-3 min-[700px]:mb-0">
+                  {f.nome}
+                </th>
+                <td class="block min-[700px]:table-cell min-[700px]:px-5 min-[700px]:py-4">
+                  <label for={`vazao-${i}`} class="block text-sm font-semibold text-slate-700 mb-1.5 min-[700px]:sr-only">
+                    Vazão atual (mL/h)<span class="sr-only"> – {f.nome}</span>
+                  </label>
+                  <input
+                    id={`vazao-${i}`}
+                    data-vazao
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    placeholder="mL/h"
+                    class={campo}
+                  />
+                </td>
+                <td class="block min-[700px]:table-cell min-[700px]:px-5 min-[700px]:py-4 mt-3 min-[700px]:mt-0">
+                  <output data-resultado for={`vazao-${i} peso`} aria-live="polite" class="block min-h-6 text-base font-semibold text-teal-700"></output>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Como é feito o cálculo -->
+      <section class="mt-14 pt-8 border-t border-slate-200 max-w-3xl" aria-labelledby="como">
+        <h2 id="como" class={h2}>Como é feito o cálculo</h2>
+        <p class="text-lg text-slate-700 leading-relaxed mb-2">Para as drogas calculadas por quilo de peso:</p>
+        <div class={formula}>
+          dose (mcg/kg/min) = vazão (mL/h) × concentração (mcg/mL) ÷ 60 ÷ peso (kg)
+        </div>
+        <p class="text-lg text-slate-700 leading-relaxed mb-2 mt-6">Para as drogas sem ajuste pelo peso (vasopressina e nitroglicerina):</p>
+        <div class={formula}>
+          dose (mcg/min ou UI/min) = vazão (mL/h) × concentração (por mL) ÷ 60
+        </div>
+        <p class="text-lg text-slate-700 leading-relaxed mt-6">
+          A divisão por 60 converte a vazão de mL por hora para mL por minuto. A concentração é a
+          quantidade total do fármaco dividida pelo volume final da solução — por exemplo,
+          noradrenalina 16 mg em 250 mL = 64 mcg/mL.
+        </p>
+        <div class="bg-teal-50 text-teal-900 rounded-2xl px-5 py-4 mt-6 text-base leading-relaxed">
+          <strong class="font-semibold">Noradrenalina:</strong> as concentrações usam norepinefrina
+          base, ou seja, 4 mg por ampola de 4 mL (1 mg/mL).
+        </div>
+      </section>
+    </main>
+
+    <script>
+      import { farmacos, textoDose } from '../data/farmacos.js';
+
+      const peso = document.getElementById('peso') as HTMLInputElement;
+      const linhas = [...document.querySelectorAll<HTMLTableRowElement>('[data-linha]')];
+
+      // Recalcula uma linha (ou todas, quando muda o peso)
+      function atualizar(tr: HTMLTableRowElement) {
+        const f = farmacos[Number(tr.dataset.linha)];
+        const vazao = tr.querySelector<HTMLInputElement>('[data-vazao]')!.value;
+        tr.querySelector('[data-resultado]')!.textContent = textoDose(f, vazao, peso.value);
+      }
+      const atualizarTodas = () => linhas.forEach(atualizar);
+
+      peso.addEventListener('input', atualizarTodas);
+      linhas.forEach((tr) => {
+        tr.querySelector('[data-vazao]')!.addEventListener('input', () => atualizar(tr));
+      });
+
+      document.getElementById('limpar')!.addEventListener('click', () => {
+        peso.value = '';
+        linhas.forEach((tr) => { tr.querySelector<HTMLInputElement>('[data-vazao]')!.value = ''; });
+        atualizarTodas();
+        peso.focus();
+      });
+
+      // Valores mantidos pelo navegador ao voltar à página
+      atualizarTodas();
+    </script>
+  </body>
+</html>
