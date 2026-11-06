@@ -1,5 +1,6 @@
 ---
 import '../../styles/global.css';
+import AudioModulo from '../../components/AudioModulo.astro';
 
 const navLinks = [
   { name: "Início", href: "/" },
@@ -89,6 +90,8 @@ const referencias = [
         <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
           {titulo}
         </h1>
+
+        <AudioModulo modulo={3} />
 
         <p class={p}>A manutenção da perfusão tecidual adequada depende da interação dinâmica entre o sistema cardiovascular e as demandas metabólicas do organismo. Em situações de choque circulatório, alterações em um ou mais componentes da função cardiovascular podem comprometer a oferta de oxigênio aos tecidos, resultando em hipoperfusão e disfunção orgânica. Nesse contexto, a compreensão dos determinantes do débito cardíaco — frequência cardíaca, pré-carga, pós-carga e contratilidade — constitui a base fisiológica para a utilização racional das drogas vasoativas (Magder, 2024; Persichini et al., 2022).</p>
 

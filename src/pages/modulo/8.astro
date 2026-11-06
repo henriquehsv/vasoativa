@@ -1,5 +1,6 @@
 ---
 import '../../styles/global.css';
+import AudioModulo from '../../components/AudioModulo.astro';
 
 const navLinks = [
   { name: "Início", href: "/" },
@@ -107,6 +108,8 @@ const referencias = [
         <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
           {titulo}
         </h1>
+
+        <AudioModulo modulo={8} />
 
         <h2 class={h2}>Dobutamina</h2>
 

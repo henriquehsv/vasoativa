@@ -1,5 +1,6 @@
 ---
 import '../../styles/global.css';
+import AudioModulo from '../../components/AudioModulo.astro';
 
 const navLinks = [
   { name: "Início", href: "/" },
@@ -72,6 +73,8 @@ const referencias = [
         <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
           {titulo}
         </h1>
+
+        <AudioModulo modulo={5} />
 
         <p class={p}>As drogas vasoativas constituem um grupo de medicamentos utilizados para modificar a função cardiovascular, interferindo no tônus vascular, na contratilidade miocárdica, na frequência cardíaca e, consequentemente, na distribuição do fluxo sanguíneo aos tecidos. Na prática clínica, esses medicamentos desempenham papel fundamental no manejo de pacientes com instabilidade hemodinâmica, especialmente nos cenários de choque circulatório, insuficiência cardíaca aguda e outras condições críticas (Brunton; Knollmann, 2023).</p>
 
