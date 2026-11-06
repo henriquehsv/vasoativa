@@ -10,7 +10,6 @@ const navLinks = [
   { name: "Conteúdo", href: "#conteudo" },
   { name: "Casos Clínicos", href: "/modulo/9" },
   { name: "Cálculo de dose", href: "/calculadora" },
-  { name: "Algoritmo de Decisão", href: "#" },
 ];
 
 const modules = [
@@ -61,11 +60,6 @@ const practicalModules = [
     id: 9,
     title: "Casos clínicos",
     description: "Casos reais simulados para aplicar o conhecimento e tomar decisões.",
-  },
-  {
-    id: 10,
-    title: "Algoritmo de decisão",
-    description: "Fluxogramas práticos para escolha da droga certa na situação certa.",
   },
 ];
 ---
@@ -181,8 +175,8 @@ const practicalModules = [
         ))}
       </div>
 
-      <!-- BOTTOM WIDE MODULES (Items 9 & 10) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- BOTTOM WIDE MODULE (Item 9) -->
+      <div class="grid grid-cols-1 gap-5">
         {practicalModules.map((mod) => (
           <a
             href={`/modulo/${mod.id}`}
