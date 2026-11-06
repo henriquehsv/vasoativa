@@ -1,0 +1,32 @@
+---
+// Player do áudio do módulo (Google Drive). Não renderiza nada se o módulo não tiver áudio.
+import { audios } from '../data/audios.js';
+
+const { modulo } = Astro.props;
+const audio = audios[modulo];
+---
+
+{audio?.drive && (
+  <section aria-label="Áudio do módulo" class="mb-10 bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-5">
+    <div class="flex items-center justify-between gap-3 mb-3">
+      <p class="text-xs font-bold tracking-widest text-teal-700 uppercase">Ouça este módulo</p>
+      {audio.duracao && <p class="text-sm text-slate-500">{audio.duracao}</p>}
+    </div>
+    <iframe
+      src={`https://drive.google.com/file/d/${audio.drive}/preview`}
+      title={`Áudio do módulo ${modulo}`}
+      loading="lazy"
+      allow="autoplay"
+      class="w-full h-24 rounded-lg border-0 bg-slate-50"
+    ></iframe>
+    <p class="mt-2 text-xs text-slate-500">
+      O player não carregou?{" "}
+      <a
+        href={`https://drive.google.com/file/d/${audio.drive}/view`}
+        target="_blank"
+        rel="noopener"
+        class="font-semibold text-teal-700 hover:underline"
+      >Abrir o áudio no Google Drive</a>.
+    </p>
+  </section>
+)}

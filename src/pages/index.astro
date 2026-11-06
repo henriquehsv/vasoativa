@@ -9,8 +9,7 @@ const navLinks = [
   { name: "Início", href: "#" },
   { name: "Conteúdo", href: "#conteudo" },
   { name: "Casos Clínicos", href: "/modulo/9" },
-  { name: "Cálculo de dose", href: "/calculadora" },
-  { name: "Algoritmo de Decisão", href: "#" },
+  { name: "Cálculo de Dose", href: "/calculadora" },
 ];
 
 const modules = [
@@ -26,7 +25,7 @@ const modules = [
   },
   {
     id: 3,
-    title: "Fisiologia cardiovascular aplicada",
+    title: "Fisiologia cardiovascular aplicada ao choque",
     description: "Fundamentos da fisiologia para entender a resposta hemodinâmica.",
   },
   {
@@ -42,7 +41,7 @@ const modules = [
   {
     id: 6,
     title: "Vasopressores",
-    description: "Noradrenalina e vasopressina: receptores, doses, uso clínico e efeitos adversos.",
+    description: "Noradrenalina, vasopressina e adrenalina: receptores, doses, uso clínico e efeitos adversos.",
   },
   {
     id: 7,
@@ -64,8 +63,9 @@ const practicalModules = [
   },
   {
     id: 10,
-    title: "Algoritmo de decisão",
-    description: "Fluxogramas práticos para escolha da droga certa na situação certa.",
+    title: "Cálculo de dose",
+    description: "Calculadora de doses de drogas vasoativas a partir do peso e da vazão da bomba de infusão.",
+    href: "/calculadora",
   },
 ];
 ---
@@ -185,7 +185,7 @@ const practicalModules = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         {practicalModules.map((mod) => (
           <a
-            href={`/modulo/${mod.id}`}
+            href={mod.href ?? `/modulo/${mod.id}`}
             class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-200 flex items-start gap-5"
           >
             <span class="w-12 h-12 shrink-0 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-base group-hover:bg-teal-600 transition-colors">
