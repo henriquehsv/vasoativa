@@ -24,15 +24,15 @@ const td = "px-5 py-4";
 const sinais = [
   { sistema: "Neurológico", achados: "Rebaixamento do nível de consciência, agitação, confusão" },
   { sistema: "Cardiovascular", achados: "Hipotensão, taquicardia, extremidades frias" },
-  { sistema: "Renal", achados: "Oligúria (< 0,5 ml/kg/h)" },
+  { sistema: "Renal", achados: "Oligúria (< 0,5 mL/kg/h)" },
   { sistema: "Cutâneo", achados: "Pele fria, sudorese, tempo de enchimento capilar prolongado" },
   { sistema: "Metabólico", achados: "Hiperlactatemia, acidose metabólica" },
 ];
 
 const classificacaoSI = [
-  { valor: "< 0,6", leitura: "Sem evidência de choque pelos parâmetros do índice", cor: "bg-emerald-50 text-emerald-800" },
-  { valor: "0,6–1,0", leitura: "Possível comprometimento hemodinâmico", cor: "bg-amber-50 text-amber-800" },
-  { valor: "1,0–1,4", leitura: "Maior probabilidade de instabilidade circulatória", cor: "bg-orange-50 text-orange-800" },
+  { valor: "< 0,7", leitura: "Sem evidência de choque pelos parâmetros do índice", cor: "bg-emerald-50 text-emerald-800" },
+  { valor: "0,7 a < 1,0", leitura: "Possível comprometimento hemodinâmico", cor: "bg-amber-50 text-amber-800" },
+  { valor: "1,0 a < 1,4", leitura: "Maior probabilidade de instabilidade circulatória", cor: "bg-orange-50 text-orange-800" },
   { valor: "≥ 1,4", leitura: "Comprometimento hemodinâmico grave", cor: "bg-red-50 text-red-800" },
 ];
 
@@ -46,21 +46,21 @@ const mottling = [
 ];
 
 const referencias = [
-  { a: "AIT-OUFELLA, H. et al. The skin mottling score is associated with survival in septic shock.", r: "Intensive Care Medicine", d: ", v. 37, n. 5, p. 801-807, 2011." },
-  { a: "AIT-OUFELLA, H.; BOURCIER, S.; ALVES, M.; GALBOIS, A.; BAUDEL, J. L.; MARGETIS, D. et al. Alteration of skin perfusion in mottling area during septic shock.", r: "Annals of Intensive Care", d: ", v. 3, n. 1, p. 31, 2013.", doi: "10.1186/2110-5820-3-31" },
-  { a: "ALSAGAFF, Mochamad Yusuf et al. Shock index in the emergency department as a predictor for mortality in COVID-19 patients: a systematic review and meta-analysis.", r: "Heliyon", d: ", v. 9, n. 8, e18553, 2023.", doi: "10.1016/j.heliyon.2023.e18553" },
-  { a: "ANDROMEDA-SHOCK-2 INVESTIGATORS. Personalized hemodynamic resuscitation targeting capillary refill time in early septic shock: the ANDROMEDA-SHOCK-2 randomized clinical trial.", r: "JAMA", d: ", Chicago, v. 334, n. 22, p. 1988-1999, 2025." },
-  { a: "CARSETTI, Andrea et al. Shock index as predictor of massive transfusion and mortality in patients with trauma: a systematic review and meta-analysis.", r: "Critical Care", d: ", v. 27, art. 85, 2023.", doi: "10.1186/s13054-023-04386-w" },
-  { a: "DARMON, Michael; SCHMIDT, Gregory A. What is new and different in the 2021 Surviving Sepsis Campaign guidelines.", r: "Medizinische Klinik Intensivmedizin und Notfallmedizin", d: ", Berlin, v. 118, p. 447-455, 2023." },
-  { a: "DE BACKER, D.; HERNÁNDEZ, G. Monitoring the microcirculation in sepsis.", r: "Current Opinion in Critical Care", d: ", v. 25, n. 3, p. 267-272, 2019." },
-  { a: "DIAZTAGLE FERNÁNDEZ, Juan José et al. Assessment of the shock index in septic shock: a systematic review.", r: "Medicina Intensiva", d: ", v. 48, n. 11, p. e10-e19, 2024.", doi: "10.1016/j.medine.2024.07.006" },
-  { a: "DOURAUD, A. et al. Peripheral perfusion monitoring in critically ill patients: current evidence and future perspectives.", r: "Annals of Intensive Care", d: ", v. 14, n. 1, 2024." },
-  { a: "EVANS, Laura et al. Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021.", r: "Critical Care Medicine", d: ", Philadelphia, v. 49, n. 11, p. e1063-e1143, 2021." },
-  { a: "GALBOIS, Arnaud; BIGÉ, Naïke; PICHEREAU, Claire; BOËLLE, Pierre-Yves; BAUDEL, Jean-Luc; BOURCIER, Simon; MAURY, Eric; GUIDET, Bertrand; AIT-OUFELLA, Hafid. Exploration of skin perfusion in cirrhotic patients with septic shock.", r: "Journal of Hepatology", d: ", Amsterdam, v. 62, n. 3, p. 549-555, mar. 2015.", doi: "10.1016/j.jhep.2014.10.012" },
-  { a: "HERNÁNDEZ, Glenn et al. Effect of a resuscitation strategy targeting peripheral perfusion status versus serum lactate levels on 28-day mortality among patients with septic shock: the ANDROMEDA-SHOCK randomized clinical trial.", r: "JAMA", d: ", Chicago, v. 321, n. 7, p. 654-664, 2019." },
-  { a: "LIMA, M. R. et al. Diastolic shock index: a novel prognostic parameter unveiling insights into vasodilatory cardiogenic shock.", r: "European Heart Journal", d: ", v. 45, supl. 1, 2024.", doi: "10.1093/eurheartj/ehae666.1734" },
-  { a: "VANG, Malene; ØSTBERG, Maria; STEINMETZ, Jacob; RASMUSSEN, Lars S. Shock index as a predictor for mortality in trauma patients: a systematic review and meta-analysis.", r: "European Journal of Trauma and Emergency Surgery", d: ", v. 48, n. 4, p. 2559-2566, 2022.", doi: "10.1007/s00068-022-01932-z" },
-  { a: "YOON, Seo Hee; SHIN, Sang-Jun; KIM, Heeyeon; ROH, Yun Ho. Shock index and shock index, pediatric age-adjusted as predictors of mortality in pediatric patients with trauma: a systematic review and meta-analysis.", r: "PLOS ONE", d: ", v. 19, 2024.", doi: "10.1371/journal.pone.0307367" },
+  { a: "AIT-OUFELLA, H. et al. Mottling score predicts survival in septic shock.", r: "Intensive Care Medicine", d: ", v. 37, n. 5, p. 801–807, 2011.", doi: "10.1007/s00134-011-2163-y" },
+  { a: "AIT-OUFELLA, H. et al. Alteration of skin perfusion in mottling area during septic shock.", r: "Annals of Intensive Care", d: ", v. 3, n. 1, art. 31, 2013.", doi: "10.1186/2110-5820-3-31" },
+  { a: "ALSAGAFF, M. Y. et al. Shock index in the emergency department as a predictor for mortality in COVID-19 patients: a systematic review and meta-analysis.", r: "Heliyon", d: ", v. 9, n. 8, art. e18553, 2023.", doi: "10.1016/j.heliyon.2023.e18553" },
+  { a: "ANDROMEDA-SHOCK-2 INVESTIGATORS. Personalized hemodynamic resuscitation targeting capillary refill time in early septic shock: the ANDROMEDA-SHOCK-2 randomized clinical trial.", r: "JAMA", d: ", v. 334, n. 22, p. 1988–1999, 2025.", doi: "10.1001/jama.2025.20402" },
+  { a: "CARSETTI, A. et al. Shock index as predictor of massive transfusion and mortality in patients with trauma: a systematic review and meta-analysis.", r: "Critical Care", d: ", v. 27, n. 1, art. 85, 2023.", doi: "10.1186/s13054-023-04386-w" },
+  { a: "DE BACKER, D. Is microcirculatory assessment ready for regular use in clinical practice?", r: "Current Opinion in Critical Care", d: ", v. 25, n. 3, p. 280–284, 2019.", doi: "10.1097/MCC.0000000000000605" },
+  { a: "DIAZTAGLE FERNÁNDEZ, J. J. et al. Assessment of the shock index in septic shock: a systematic review.", r: "Medicina Intensiva", d: ", v. 48, n. 11, p. e10–e19, 2024.", doi: "10.1016/j.medine.2024.07.006" },
+  { a: "EVANS, L. et al. Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021.", r: "Critical Care Medicine", d: ", v. 49, n. 11, p. e1063–e1143, 2021." },
+  { a: "GALBOIS, A. et al. Exploration of skin perfusion in cirrhotic patients with septic shock.", r: "Journal of Hepatology", d: ", v. 62, n. 3, p. 549–555, 2015.", doi: "10.1016/j.jhep.2014.10.012" },
+  { a: "HERNÁNDEZ, G. et al. Effect of a resuscitation strategy targeting peripheral perfusion status versus serum lactate levels on 28-day mortality among patients with septic shock: the ANDROMEDA-SHOCK randomized clinical trial.", r: "JAMA", d: ", v. 321, n. 7, p. 654–664, 2019." },
+  { a: "JOG, S. A. et al. Mottling in septic shock: ethnicity and skin colour matter.", r: "Indian Journal of Critical Care Medicine", d: ", v. 27, n. 12, p. 902–909, 2023." },
+  { a: "PAIVA, M. et al. Diastolic shock index: a novel prognostic parameter unveiling insights into vasodilatory cardiogenic shock.", r: "European Heart Journal", d: ", v. 45, supl. 1, 2024.", doi: "10.1093/eurheartj/ehae666.1734" },
+  { a: "PRESCOTT, H. C.; OSTERMANN, M. What is new and different in the 2021 Surviving Sepsis Campaign guidelines.", r: "Medizinische Klinik Intensivmedizin und Notfallmedizin", d: ", v. 118, p. 447–455, 2023.", doi: "10.1007/s00063-023-01028-5" },
+  { a: "VANG, M. et al. Shock index as a predictor for mortality in trauma patients: a systematic review and meta-analysis.", r: "European Journal of Trauma and Emergency Surgery", d: ", v. 48, n. 4, p. 2559–2566, 2022.", doi: "10.1007/s00068-022-01932-z" },
+  { a: "YOON, S. H. et al. Shock index and shock index, pediatric age-adjusted as predictors of mortality in pediatric patients with trauma: a systematic review and meta-analysis.", r: "PLOS ONE", d: ", v. 19, n. 7, art. e0307367, 2024.", doi: "10.1371/journal.pone.0307367" },
 ];
 ---
 
@@ -128,7 +128,7 @@ const referencias = [
 
         <div class={tabWrap}>
           <table class="w-full min-w-[30rem] text-left text-sm">
-            <caption class="sr-only">Achados sugestivos de choque, por sistema</caption>
+            <caption class="sr-only">Quadro 1 – Achados clínicos e laboratoriais sugestivos de choque, por sistema</caption>
             <thead class="bg-teal-50 text-teal-800">
               <tr>
                 <th scope="col" class={th}>Sistema</th>
@@ -145,22 +145,26 @@ const referencias = [
             </tbody>
           </table>
         </div>
+        <p class={`${figCap} -mt-5 mb-8`}>
+          <strong class="font-semibold text-slate-700">Quadro 1</strong> – Achados clínicos e
+          laboratoriais sugestivos de choque, por sistema.
+        </p>
 
         <h2 class={h2}>Índice de choque</h2>
 
         <p class={p}>
           A identificação precoce do choque é um dos principais desafios. Nesse contexto,
-          ferramentas simples, rápidas e disponíveis à beira-leito podem auxiliar na identificação
+          ferramentas simples, rápidas e disponíveis à beira do leito podem auxiliar na identificação
           de pacientes com maior risco de instabilidade circulatória.
         </p>
 
         <p class={p}>
-          O Índice de Choque (<em>Shock Index</em> – SI) é uma delas, um instrumento clínico
-          simples que relaciona a frequência cardíaca (FC) à pressão arterial sistólica (PAS). Seu
-          objetivo é integrar dois parâmetros fisiológicos facilmente obtidos, permitindo uma
-          avaliação mais dinâmica do estado cardiovascular do que a análise isolada de cada
-          variável. O SI tem sido estudado em diferentes cenários, incluindo trauma, hemorragia,
-          sepse, atendimento pré-hospitalar e emergência (Carsetti et al., 2023; Diaztagle
+          Uma delas é o Índice de Choque (<em>Shock Index</em> – SI), instrumento clínico simples
+          que relaciona a frequência cardíaca (FC) à pressão arterial sistólica (PAS). Seu objetivo
+          é integrar dois parâmetros fisiológicos facilmente obtidos, permitindo uma avaliação mais
+          dinâmica do estado cardiovascular do que a análise isolada de cada variável. O SI tem sido
+          estudado em diferentes cenários, incluindo trauma, hemorragia, sepse, atendimento
+          pré-hospitalar e emergência (Alsagaff et al., 2023; Carsetti et al., 2023; Diaztagle
           Fernández et al., 2024).
         </p>
 
@@ -196,6 +200,9 @@ const referencias = [
           entretanto, evitar a interpretação rígida de um único ponto de corte. O valor do SI deve
           ser contextualizado de acordo com idade, condições clínicas, medicamentos em uso,
           presença de arritmias, temperatura, dor, ansiedade e características do tipo de choque.
+          Em crianças, o índice também foi avaliado em versão ajustada para a idade (SIPA), e uma
+          metanálise em trauma pediátrico recomendou cautela no uso desses índices, em razão de
+          limitações de sensibilidade e especificidade (Yoon et al., 2024).
         </p>
 
         <p class={p}>
@@ -205,7 +212,7 @@ const referencias = [
 
         <div class={tabWrap}>
           <table class="w-full min-w-[28rem] text-left text-sm">
-            <caption class="sr-only">Classificação tradicional do índice de choque</caption>
+            <caption class="sr-only">Quadro 2 – Classificação didática do índice de choque</caption>
             <thead class="bg-teal-50 text-teal-800">
               <tr>
                 <th scope="col" class={th}>Índice de choque</th>
@@ -224,6 +231,10 @@ const referencias = [
             </tbody>
           </table>
         </div>
+        <p class={`${figCap} -mt-5 mb-8`}>
+          <strong class="font-semibold text-slate-700">Quadro 2</strong> – Classificação didática
+          do índice de choque.
+        </p>
 
         <p class={p}>
           Essa classificação deve ser utilizada como referência didática, e não como um sistema
@@ -265,9 +276,13 @@ const referencias = [
           transfusão maciça e mortalidade. Para transfusão maciça, o SI apresentou área sob a curva
           (AUC) de 0,85, sensibilidade de 68% e especificidade de 84%. Entretanto, para
           mortalidade, seu desempenho foi consideravelmente inferior, com AUC de aproximadamente
-          0,55. Os autores concluíram que o SI pode auxiliar na identificação de pacientes com
-          maior risco de necessidade de transfusão, mas não deve ser utilizado isoladamente para
-          predizer mortalidade (Carsetti et al., 2023).
+          0,55. Os autores concluíram que o SI pode ter papel limitado como ferramenta única para
+          prever transfusão maciça e não é acurado para predizer mortalidade, embora possa ajudar a
+          identificar pacientes com baixo risco de morte (Carsetti et al., 2023). Outra revisão
+          sistemática com metanálise, em adultos com trauma, observou que um SI inicial igual ou
+          superior a 1 se associou a risco cerca de quatro vezes maior de mortalidade hospitalar,
+          embora com evidência de baixa qualidade (Vang et al., 2022). Um risco maior no grupo não
+          significa, porém, boa capacidade de prever o desfecho de cada paciente.
         </p>
 
         <p class={p}>
@@ -336,7 +351,9 @@ const referencias = [
           2024 sobre choque séptico incluiu o DSI entre as variantes avaliadas do índice de choque,
           reforçando o interesse crescente em medidas que possam fornecer informações adicionais
           sobre o componente vasomotor da instabilidade circulatória (Diaztagle Fernández et al.,
-          2024).
+          2024). No choque cardiogênico, um resumo apresentado em congresso sugeriu que o DSI na
+          admissão pode ajudar a identificar pacientes com componente vasoplégico e maior risco de
+          mortalidade (Paiva et al., 2024).
         </p>
 
         <h2 class={h2}>Limitações do índice de choque</h2>
@@ -364,6 +381,8 @@ const referencias = [
           volume intravascular, resistência vascular sistêmica, perfusão microcirculatória ou
           oferta de oxigênio aos tecidos.
         </p>
+
+        <p class={p}>Portanto:</p>
 
         <div class="bg-teal-50 border-l-4 border-teal-600 rounded-r-2xl px-5 py-4 my-8">
           <p class="font-semibold text-teal-900 text-lg leading-relaxed">
@@ -404,7 +423,7 @@ const referencias = [
           está necessariamente relacionada à hipóxia tecidual, podendo ocorrer em situações como
           disfunção hepática, uso de catecolaminas e alterações metabólicas diversas. Dessa forma,
           recomenda-se que sua interpretação seja realizada de forma integrada aos demais
-          parâmetros clínicos e hemodinâmicos (Darmon; Schmidt, 2023; Evans et al., 2021).
+          parâmetros clínicos e hemodinâmicos (Prescott; Ostermann, 2023; Evans et al., 2021).
         </p>
 
         <h3 class={h3}>ANDROMEDA-SHOCK e ANDROMEDA-SHOCK-2</h3>
@@ -416,10 +435,9 @@ const referencias = [
           séricos de lactato em pacientes com choque séptico. Embora o estudo não tenha
           demonstrado diferença estatisticamente significativa na mortalidade em 28 dias,
           observou-se tendência à redução da mortalidade e menor grau de disfunção orgânica no
-          grupo guiado pela perfusão periférica. Os autores concluíram que o tempo de enchimento
-          capilar constitui um marcador simples, acessível e responsivo para monitorização da
-          ressuscitação hemodinâmica, reforçando o conceito de que a avaliação da perfusão
-          periférica pode representar um alvo terapêutico relevante (Hernández et al., 2019).
+          grupo guiado pela perfusão periférica. Esses achados reforçam o conceito de que o tempo de
+          enchimento capilar é um marcador simples e acessível, e de que a perfusão periférica pode
+          representar um alvo terapêutico relevante (Hernández et al., 2019).
         </p>
 
         <p class={p}>
@@ -448,42 +466,40 @@ const referencias = [
         <h2 class={h2}>Escala de mottling</h2>
 
         <p class={p}>
-          Outra forma de avaliação da perfusão tecidual pelo exame físico é a escala <em>mottling</em>.
+          Outra forma de avaliação da perfusão tecidual pelo exame físico é a escala de <em>mottling</em>.
           O <em>mottling</em> corresponde a uma alteração cutânea caracterizada por manchas
           irregulares de coloração violácea ou marmorizada, geralmente observadas na região dos
           joelhos e membros inferiores, resultantes de alterações da microcirculação e da perfusão
           periférica. Sua presença tem sido associada à gravidade do choque circulatório e à pior
           evolução clínica, especialmente em pacientes com choque séptico (Ait-Oufella et al.,
-          2011; De Backer; Hernández, 2019).
+          2011).
         </p>
 
         <p class={p}>
           Com o objetivo de padronizar sua avaliação clínica, Ait-Oufella et al. (2011)
           desenvolveram o <em>Mottling Score</em>, um sistema de classificação que varia de 0 a 5
-          de acordo com a extensão da marmorização cutânea ao redor do joelho. Estudos
-          subsequentes demonstraram que escores mais elevados estão associados a maior
-          mortalidade e maior gravidade da disfunção orgânica, independentemente de outros
-          marcadores hemodinâmicos (Ait-Oufella et al., 2011; Douraud et al., 2024).
+          de acordo com a extensão da marmorização cutânea ao redor do joelho. Nesse estudo, o escore
+          e sua variação durante a ressuscitação se associaram à sobrevida em 14 dias em pacientes
+          com choque séptico, enquanto pressão arterial média, pressão venosa central e índice
+          cardíaco não apresentaram essa associação.
         </p>
 
         <p class={p}>
           A importância do <em>mottling</em> decorre do fato de representar um marcador clínico da
-          microcirculação. Diferentemente dos parâmetros macrocirculatórios, como pressão arterial
-          e frequência cardíaca, a avaliação da perfusão periférica permite identificar pacientes
-          que permanecem hipoperfundidos mesmo após aparente estabilização hemodinâmica. Essa
-          dissociação entre macrocirculação e microcirculação tem sido amplamente discutida na
-          literatura contemporânea e constitui um dos fundamentos da ressuscitação guiada por
-          perfusão periférica (De Backer; Hernández, 2019).
+          microcirculação, área cuja avaliação direta ainda tem limitações para o uso rotineiro,
+          enquanto substitutos clínicos e biológicos podem ser utilizados à beira do leito (De
+          Backer, 2019). Essa avaliação pode ajudar a identificar pacientes que permanecem
+          hipoperfundidos mesmo após aparente estabilização hemodinâmica, o que é um dos
+          fundamentos da ressuscitação guiada por perfusão periférica (Hernández et al., 2019).
         </p>
 
         <p class={p}>
-          Apesar de seu valor prognóstico, algumas limitações devem ser consideradas. A avaliação
-          do <em>mottling</em> pode apresentar menor acurácia em indivíduos com fototipos cutâneos
-          mais elevados, e sua interpretação pode sofrer influência da experiência do examinador e
-          das condições de iluminação do ambiente. Dessa forma, recomenda-se que o <em>Mottling
-          Score</em> seja utilizado em conjunto com outros parâmetros clínicos e laboratoriais de
-          perfusão tecidual, como o tempo de enchimento capilar e os níveis séricos de lactato
-          (Douraud <em>et al.</em>, 2024).
+          Apesar de seu valor prognóstico, algumas limitações devem ser consideradas. Em um estudo com
+          pacientes de pele morena com choque séptico, a incidência de <em>mottling</em> foi menor
+          do que a descrita em pacientes de pele branca, o que sugere que a etnia e a cor da pele
+          influenciam essa avaliação (Jog et al., 2023). Dessa forma, o <em>Mottling Score</em> deve
+          ser utilizado em conjunto com outros parâmetros de perfusão tecidual, como o tempo de
+          enchimento capilar e os níveis séricos de lactato.
         </p>
 
         <p class={p}>
@@ -495,7 +511,7 @@ const referencias = [
 
         <div class={tabWrap}>
           <table class="w-full min-w-[26rem] text-left text-sm">
-            <caption class="sr-only">Escore de mottling e extensão da marmorização</caption>
+            <caption class="sr-only">Quadro 3 – Escore de mottling</caption>
             <thead class="bg-teal-50 text-teal-800">
               <tr>
                 <th scope="col" class={th}>Escore</th>
@@ -512,29 +528,15 @@ const referencias = [
             </tbody>
           </table>
         </div>
+        <p class={`${figCap} -mt-5 mb-8`}>
+          <strong class="font-semibold text-slate-700">Quadro 3</strong> – Escore de
+          <em>mottling</em>. Fonte: Ait-Oufella et al. (2011).
+        </p>
 
         <figure class="my-10">
           <div class={figWrap}>
             <img
-              src="/img/modulo2-fig1-mottling-fluxo-sanguineo.webp"
-              width="1595"
-              height="964"
-              alt="Três imagens de mapa de fluxo sanguíneo na pele do joelho, nos estágios 0, 3 e 5 do mottling. No estágio 0 há áreas de fluxo intenso (amarelo e vermelho); no estágio 3 o fluxo é fraco e disperso; no estágio 5 quase não há fluxo (azul-escuro). Uma barra de cores indica a intensidade do fluxo, do maior (vermelho) ao menor (preto)."
-              loading="lazy"
-              class="w-full h-auto rounded-lg"
-            />
-          </div>
-          <figcaption class={figCap}>
-            <strong class="font-semibold text-slate-700">Figura 1</strong> – Exemplos de avaliação
-            da perfusão tecidual de acordo com a escala de <em>mottling</em>. Fonte: Adaptado de
-            Ait-Oufella et al. (2013).
-          </figcaption>
-        </figure>
-
-        <figure class="my-10">
-          <div class={figWrap}>
-            <img
-              src="/img/modulo2-fig2-escore-de-mottling.webp"
+              src="/img/modulo2-fig1-escore-de-mottling.webp"
               width="1196"
               height="721"
               alt="Fotografias do joelho e da coxa nos estágios 2, 3 e 5 do mottling, com marmorização violácea cada vez mais extensa. À direita, um esquema da perna com elipses vermelhas numeradas de 1 a 5, indicando a área de marmorização de cada escore."
@@ -543,8 +545,8 @@ const referencias = [
             />
           </div>
           <figcaption class={figCap}>
-            <strong class="font-semibold text-slate-700">Figura 2</strong> – Classificação do
-            Escore de Mottling (0–5). Adaptado de Galbois et al. (2015).
+            <strong class="font-semibold text-slate-700">Figura 1</strong> – Classificação do
+            Escore de Mottling (0–5). Fonte: Adaptado de Galbois et al. (2015).
           </figcaption>
         </figure>
       </article>

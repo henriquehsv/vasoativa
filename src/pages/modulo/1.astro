@@ -13,58 +13,52 @@ const navLinks = [
 const parametros = [
   {
     nome: "Oferta de O₂ (DO₂)",
-    formula: "DO₂ = DC × CaO₂",
-    componentes: "DC × CaO₂",
+    formula: "DO₂ = DC × CaO₂ × 10",
+    componentes: "Débito cardíaco e conteúdo arterial de O₂",
     representa: "Quantidade de oxigênio ofertada aos tecidos por minuto",
   },
   {
     nome: "Débito cardíaco (DC)",
-    formula: "DC = VS × FC",
-    componentes: "Volume sistólico × Frequência cardíaca",
+    formula: "DC = FC × VS",
+    componentes: "Frequência cardíaca e volume sistólico",
     representa: "Volume de sangue bombeado pelo coração por minuto",
   },
   {
     nome: "Conteúdo arterial de O₂ (CaO₂)",
-    formula: "CaO₂ = (Hb × 1,34 × SatO₂) + (0,0031 × PaO₂)",
-    componentes: "Hb + SatO₂ + PaO₂",
-    representa: "Quantidade de O₂ presente no sangue arterial",
+    formula: "CaO₂ = (1,34 × Hb × SaO₂) + (0,0031 × PaO₂)",
+    componentes: "Hemoglobina, saturação arterial de O₂ e pressão parcial arterial de O₂",
+    representa: "Quantidade de oxigênio presente no sangue arterial",
   },
 ];
 
 const referencias = [
   {
-    texto: "CANNON, J. W. et al. The pathophysiology and management of hemorrhagic shock in the polytrauma patient.",
-    revista: "International Journal of Molecular Sciences",
-    resto: ", v. 22, n. 16, p. 1–23, 2021. Disponível em: ",
-    link: "https://doi.org/10.3390/ijms22168746",
-    fim: ". Acesso em: 6 jun. 2026.",
+    texto: "CECCONI, M. et al. Consensus on circulatory shock and hemodynamic monitoring: task force of the European Society of Intensive Care Medicine.",
+    revista: "Intensive Care Medicine",
+    resto: ", v. 40, n. 12, p. 1795–1815, 2014. DOI: ",
+    link: "https://doi.org/10.1007/s00134-014-3525-z",
+    fim: ".",
   },
   {
-    texto: "CROUSER, E. D. et al. Pathophysiology, mechanisms, and managements of tissue hypoxia.",
+    texto: "MALLAT, J. et al. Pathophysiology, mechanisms, and managements of tissue hypoxia.",
     revista: "Anaesthesia Critical Care & Pain Medicine",
-    resto: ", v. 41, n. 4, 2022. Disponível em: ",
+    resto: ", v. 41, n. 4, art. 101087, 2022. DOI: ",
     link: "https://doi.org/10.1016/j.accpm.2022.101087",
-    fim: ". Acesso em: 6 jun. 2026.",
-  },
-  {
-    texto: "EVANS, L. et al. Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021.",
-    revista: "Critical Care Medicine",
-    resto: ", 2021.",
-  },
-  {
-    texto: "LAGHLAM, D. et al. Management of cardiogenic shock: a narrative review.",
-    revista: "Annals of Intensive Care",
-    resto: ", 2024.",
+    fim: ".",
   },
   {
     texto: "OLIVEIRA, M. D. C. et al. Uncomplicated circulatory shock: a narrative review.",
     revista: "Einstein (São Paulo)",
-    resto: ", 2024.",
+    resto: ", v. 22, supl. 1, art. eRW0775, 2024. DOI: ",
+    link: "https://doi.org/10.31744/einstein_journal/2024RW0775",
+    fim: ".",
   },
   {
-    texto: "THIELE, H. et al. Management of cardiogenic shock: state-of-the-art.",
-    revista: "Intensive Care Medicine",
-    resto: ", 2024.",
+    texto: "VINCENT, J.-L.; DE BACKER, D. Circulatory shock.",
+    revista: "The New England Journal of Medicine",
+    resto: ", v. 369, n. 18, p. 1726–1734, 2013. DOI: ",
+    link: "https://doi.org/10.1056/NEJMra1208943",
+    fim: ".",
   },
 ];
 ---
@@ -124,12 +118,22 @@ const referencias = [
         </h1>
 
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          O choque circulatório constitui uma síndrome clínica complexa caracterizada pela
-          incapacidade do sistema cardiovascular em fornecer oxigênio e nutrientes em quantidade
-          suficiente para atender às demandas metabólicas dos tecidos. Essa condição resulta em
-          hipoperfusão tecidual, disfunção celular e, quando não reconhecida e tratada
-          precocemente, pode evoluir para falência múltipla de órgãos e morte (Evans et al., 2021;
-          Oliveira et al., 2024).
+          O choque circulatório é uma forma generalizada e potencialmente fatal de insuficiência
+          circulatória aguda, associada à utilização inadequada de oxigênio pelas células (Cecconi et
+          al., 2014). Quando não é reconhecido e tratado precocemente, pode evoluir para disfunção de
+          múltiplos órgãos e morte.
+        </p>
+
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
+          Choque não é sinônimo de hipotensão
+        </h2>
+
+        <p class="text-lg text-slate-700 leading-relaxed mb-5">
+          Embora tradicionalmente associado à hipotensão arterial, o choque não deve ser definido
+          apenas pela redução da pressão arterial. Alguns pacientes apresentam sinais de hipoperfusão
+          tecidual mesmo com níveis pressóricos aparentemente adequados, especialmente nas fases
+          iniciais (Cecconi et al., 2014). Por isso, o reconhecimento do choque depende também da
+          avaliação da perfusão dos tecidos.
         </p>
 
         <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
@@ -137,70 +141,27 @@ const referencias = [
         </h2>
 
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          A fisiopatologia do choque também pode ser compreendida a partir da relação entre a
-          oferta de oxigênio aos tecidos (DO₂) e o consumo de oxigênio pelas células (VO₂). A DO₂
-          corresponde à quantidade de oxigênio transportada para os tecidos por minuto e depende
-          principalmente do débito cardíaco e do conteúdo arterial de oxigênio, que é influenciado
-          pela concentração de hemoglobina e pela saturação arterial de oxigênio. Em condições
-          fisiológicas, existe um equilíbrio entre oferta e consumo, permitindo o adequado
-          funcionamento celular. Nos estados de choque, entretanto, a redução da DO₂ compromete a
-          disponibilidade de oxigênio para os tecidos, levando inicialmente ao aumento da extração
-          tecidual de oxigênio como mecanismo compensatório. Quando a oferta se torna insuficiente
-          para suprir as demandas metabólicas, ocorre dependência patológica entre DO₂ e VO₂, com
-          instalação de metabolismo anaeróbico, aumento da produção de lactato e progressiva
-          disfunção celular e orgânica (Barretto; Rocha e Silva, 2022; Henriques; Ribeiro; Park,
-          2023).
+          O choque pode ser compreendido a partir da relação entre a oferta de oxigênio aos tecidos
+          (DO₂) e o consumo de oxigênio (VO₂). A oferta corresponde à quantidade de oxigênio
+          transportada aos tecidos por minuto e depende do débito cardíaco e do conteúdo arterial de
+          oxigênio, que é influenciado principalmente pela concentração de hemoglobina e pela
+          saturação arterial de oxigênio. O consumo corresponde à quantidade de oxigênio efetivamente
+          utilizada pelos tecidos.
         </p>
-
-        <figure class="my-10">
-          <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
-            <img
-              src="/img/modulo1-fig1-fisiopatologia-do-choque.webp"
-              width="1300"
-              height="866"
-              alt="Esquema em cinco etapas, da entrega à utilização de oxigênio. Débito cardíaco, hemoglobina e saturação determinam a DO₂, calculada como DC × CaO₂. O oxigênio chega aos tecidos pela microcirculação, onde a VO₂ sustenta o metabolismo aeróbico e a função dos órgãos. Quando a DO₂ cai, aumentam a extração de O₂ e o lactato, surgem disfunção orgânica e, por fim, o choque."
-              loading="lazy"
-              class="w-full h-auto rounded-lg"
-            />
-          </div>
-          <figcaption class="mt-3 text-sm text-slate-500 leading-relaxed">
-            <strong class="font-semibold text-slate-700">Figura 1</strong> – Da entrega à
-            utilização de oxigênio: fisiopatologia do choque. A figura apresenta as fórmulas para o
-            cálculo da oferta de oxigênio (DO₂), do débito cardíaco (DC) e do conteúdo arterial de
-            oxigênio (CaO₂), destacando seus componentes e significado fisiológico. Esses
-            parâmetros auxiliam na compreensão dos determinantes do transporte de oxigênio e na
-            avaliação da perfusão tecidual em pacientes com choque. Fonte: Elaborada pela autora
-            (2026), com auxílio de inteligência artificial (IA).
-          </figcaption>
-        </figure>
 
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          A oferta de oxigênio pode ser expressa pela fórmula DO₂ = Débito Cardíaco × Conteúdo
-          Arterial de Oxigênio (CaO₂), enquanto o consumo de oxigênio corresponde à quantidade
-          efetivamente utilizada pelos tecidos para manutenção das funções metabólicas.
+          Quando a oferta diminui, os tecidos aumentam inicialmente a extração de oxigênio como
+          mecanismo compensatório. Abaixo de um limiar crítico, o consumo passa a depender da oferta,
+          o que favorece o metabolismo anaeróbico, o aumento da produção de lactato e a disfunção
+          celular e orgânica (Mallat et al., 2022). A elevação do lactato, porém, nem sempre decorre
+          de falta de oxigênio, como detalhado no módulo de{" "}
+          <a href="/modulo/3" class="text-teal-700 hover:text-teal-800 underline">Fisiologia cardiovascular aplicada</a>.
         </p>
-
-        <figure class="my-10">
-          <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
-            <img
-              src="/img/modulo1-fig2-progressao-do-choque.webp"
-              width="1470"
-              height="603"
-              alt="Sequência de cinco etapas: redução da DO₂, aumento da extração de O₂, aumento do lactato, disfunção orgânica e choque."
-              loading="lazy"
-              class="w-full h-auto rounded-lg"
-            />
-          </div>
-          <figcaption class="mt-3 text-sm text-slate-500 leading-relaxed">
-            <strong class="font-semibold text-slate-700">Figura 2</strong> – Progressão
-            fisiopatológica do choque decorrente da redução da oferta de oxigênio aos tecidos.
-            Fonte: Elaborada pela autora (2026), com auxílio de inteligência artificial (IA).
-          </figcaption>
-        </figure>
 
         <figure class="my-10">
           <div class="overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-sm">
             <table class="w-full min-w-[40rem] text-left text-sm">
+              <caption class="sr-only">Quadro 1 – Principais parâmetros relacionados à oferta de oxigênio aos tecidos.</caption>
               <thead class="bg-teal-50 text-teal-800">
                 <tr>
                   <th scope="col" class="px-5 py-3 font-semibold">Parâmetro</th>
@@ -222,63 +183,66 @@ const referencias = [
             </table>
           </div>
           <figcaption class="mt-3 text-sm text-slate-500 leading-relaxed">
-            <strong class="font-semibold text-slate-700">Figura 3</strong> – Principais parâmetros
-            hemodinâmicos relacionados à oferta de oxigênio aos tecidos. Fonte: Elaborada pela
-            autora (2026), com auxílio de inteligência artificial (IA).
+            <strong class="font-semibold text-slate-700">Quadro 1</strong> – Principais parâmetros
+            relacionados à oferta de oxigênio aos tecidos. Fonte: elaborado pela autora (2026), com
+            auxílio de inteligência artificial (IA).
           </figcaption>
         </figure>
 
         <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
-          Além da hipotensão
+          Mecanismos compensatórios e progressão
         </h2>
 
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          Embora tradicionalmente associado à hipotensão arterial, o choque não deve ser definido
-          exclusivamente pela redução da pressão arterial sistêmica. Pacientes podem apresentar
-          sinais de hipoperfusão tecidual mesmo na presença de níveis pressóricos aparentemente
-          adequados, especialmente nas fases iniciais da síndrome. Dessa forma, o conceito moderno
-          de choque enfatiza a inadequação entre a oferta e o consumo de oxigênio pelos tecidos,
-          resultando em comprometimento da função celular e orgânica (Oliveira et al., 2024).
+          A perfusão tecidual depende da interação entre débito cardíaco, resistência vascular
+          sistêmica e volume circulante efetivo. Alterações em qualquer um desses componentes podem
+          comprometer a oferta de oxigênio aos tecidos. Inicialmente, mecanismos neuro-hormonais, como
+          a ativação do sistema nervoso simpático e do sistema renina-angiotensina-aldosterona, além
+          da liberação de vasopressina, atuam para preservar a perfusão dos órgãos vitais. Quando
+          esses mecanismos se tornam insuficientes, instala-se a hipoperfusão sistêmica, com
+          progressão para disfunção orgânica (Vincent; De Backer, 2013).
         </p>
 
+        <figure class="my-10">
+          <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
+            <img
+              src="/img/modulo1-fig1-progressao-do-choque.webp"
+              width="1470"
+              height="603"
+              alt="Sequência de cinco etapas: redução da DO₂ (redução da oferta de oxigênio aos tecidos); aumento da extração de O₂ (os tecidos aumentam a utilização do O₂ disponível); aumento do lactato (quando a oferta se torna insuficiente, ocorre metabolismo anaeróbico); disfunção orgânica (persistência da hipóxia tecidual, com alteração da função celular e dos órgãos); e choque (incapacidade de manter perfusão e oxigenação teciduais adequadas, com comprometimento progressivo da função orgânica)."
+              loading="lazy"
+              class="w-full h-auto rounded-lg"
+            />
+          </div>
+          <figcaption class="mt-3 text-sm text-slate-500 leading-relaxed">
+            <strong class="font-semibold text-slate-700">Figura 1</strong> – Progressão
+            fisiopatológica do choque decorrente da redução da oferta de oxigênio aos tecidos.
+            Fonte: elaborada pela autora (2026), com auxílio de inteligência artificial (IA).
+          </figcaption>
+        </figure>
+
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
+          Classificação
+        </h2>
+
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          Do ponto de vista fisiopatológico, a manutenção da perfusão tecidual depende da interação
-          entre débito cardíaco, resistência vascular sistêmica e volume circulante efetivo.
-          Alterações em qualquer um desses componentes podem comprometer a oferta de oxigênio (DO₂)
-          aos tecidos. Inicialmente, mecanismos compensatórios neuro-hormonais, incluindo ativação
-          do sistema nervoso simpático, do sistema renina-angiotensina-aldosterona e da liberação
-          de vasopressina, atuam na tentativa de preservar a perfusão dos órgãos vitais.
-          Entretanto, quando esses mecanismos se tornam insuficientes, instala-se um estado de
-          hipoperfusão sistêmica com progressão para metabolismo anaeróbico, aumento da produção de
-          lactato e disfunção orgânica progressiva (Evans et al., 2021; Oliveira et al., 2024).
+          Os estados de choque costumam ser classificados em quatro grandes categorias: hipovolêmico,
+          cardiogênico, distributivo e obstrutivo (Oliveira et al., 2024). Essas categorias podem
+          coexistir no mesmo paciente. Apesar das diferenças entre elas, todas têm em comum a
+          incapacidade de atender às necessidades metabólicas dos tecidos. Compreender o mecanismo
+          envolvido em cada uma é fundamental para escolher o tratamento, incluindo o uso racional de
+          drogas vasoativas (Vincent; De Backer, 2013).
         </p>
 
         <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
-          Por que reconhecer cedo
+          Relevância clínica
         </h2>
 
         <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          A relevância clínica do choque decorre de sua elevada frequência nos serviços de
-          emergência e unidades de terapia intensiva, bem como de sua associação com altas taxas de
-          morbimortalidade. O reconhecimento precoce dos sinais de hipoperfusão, a identificação da
-          etiologia subjacente e a implementação rápida de medidas terapêuticas direcionadas
-          representam fatores determinantes para a melhora dos desfechos clínicos (Evans et al.,
-          2021; Laghlam et al., 2024).
-        </p>
-
-        <h2 class="text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
-          Quatro categorias de choque
-        </h2>
-
-        <p class="text-lg text-slate-700 leading-relaxed mb-5">
-          Atualmente, os estados de choque são classificados em quatro grandes categorias
-          fisiopatológicas: hipovolêmico, cardiogênico, distributivo e obstrutivo. Apesar das
-          diferenças etiológicas e hemodinâmicas entre esses grupos, todos compartilham como
-          característica central a inadequada perfusão tecidual e a consequente incapacidade de
-          suprir as necessidades metabólicas celulares. A compreensão dos mecanismos envolvidos em
-          cada tipo de choque constitui etapa fundamental para a seleção adequada das estratégias
-          terapêuticas, incluindo a utilização racional de drogas vasoativas (Oliveira et al.,
-          2024; Thiele et al., 2024).
+          O choque é frequente nos serviços de emergência e nas unidades de terapia intensiva e está
+          associado a alta morbimortalidade (Oliveira et al., 2024). O reconhecimento precoce da
+          hipoperfusão, a identificação da causa e o início rápido do tratamento direcionado são
+          fundamentais para melhorar os desfechos clínicos (Vincent; De Backer, 2013).
         </p>
       </article>
 
