@@ -1,17 +1,17 @@
-// Áudios dos módulos, hospedados no Google Drive.
+// Áudios dos módulos, servidos pelo próprio site (pasta public/audio).
+// Uma cópia de cada arquivo também está no Google Drive do projeto.
 //
-// Como preencher:
-//  - No Drive, compartilhe o arquivo como "Qualquer pessoa com o link" (Leitor).
-//  - Copie o link (https://drive.google.com/file/d/ID_DO_ARQUIVO/view?usp=sharing)
-//    e cole aqui só o ID, a parte entre /d/ e /view.
-//  - Módulo sem ID não mostra o player.
+// Como trocar um áudio:
+//  - Comprima para AAC mono 64 kbps (.m4a) e salve em public/audio/.
+//  - Atualize o caminho e a duração abaixo.
+//  - Módulo sem entrada não mostra o player.
 
 export const audios = {
-  1: { drive: '1d54qywUDln9xT02s8kfHb7qawRdlZFE0', duracao: '24 min' }, // O conceito de choque
-  2: { drive: '19WIe7QyOaAdf5QOTk1ghu0IPraehv-vs', duracao: '17 min' }, // Como reconhecer o choque
-  3: { drive: '1mfueuDTjPoD7sa4hAEtaEq_5ifJ0Bc8J', duracao: '21 min' }, // Fisiologia cardiovascular aplicada ao choque
-  4: { drive: '1eIxQs_lAp10cziBpQNWYfJAppM6cOhR4', duracao: '28 min' }, // Tipos de choque
-  5: { drive: '1XBE6jHCL_ECwmpCqb0ZaeBoQam3ZpKvS', duracao: '18 min' }, // O que são drogas vasoativas
-  6: { drive: '1nBrf3iByY_VjGWTsRCj7xgrRYeaKzFz8', duracao: '19 min' }, // Vasopressores
-  8: { drive: '1VOWp_QbPfrrZ6-a5JIBviC3Jc52b-Oec', duracao: '20 min' }, // Inotrópicos
+  1: { arquivo: '/audio/modulo1-o-conceito-de-choque.m4a', duracao: '24 min' },
+  2: { arquivo: '/audio/modulo2-como-reconhecer-o-choque.m4a', duracao: '17 min' },
+  3: { arquivo: '/audio/modulo3-fisiologia-cardiovascular-aplicada-ao-choque.m4a', duracao: '21 min' },
+  4: { arquivo: '/audio/modulo4-os-tipos-de-choque.m4a', duracao: '28 min' },
+  5: { arquivo: '/audio/modulo5-o-que-sao-drogas-vasoativas.m4a', duracao: '18 min' },
+  6: { arquivo: '/audio/modulo6-vasopressores.m4a', duracao: '19 min' },
+  8: { arquivo: '/audio/modulo8-inotropicos.m4a', duracao: '20 min' },
 };
